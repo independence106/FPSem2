@@ -40,7 +40,6 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 	}
 
 	public void tick(DriverRunner driver) {
-		System.out.println(currLev);
 		driver.overworldHandler.start = false;
 		if (levels.get(currLev).isDone) {
 			if (currLev == driver.overworldHandler.latestLev) driver.overworldHandler.latestLev++;

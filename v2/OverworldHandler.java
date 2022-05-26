@@ -94,7 +94,6 @@ public class OverworldHandler extends Handler {
         if (glideLeft == false && glideRight == false) {
             player.xVelo = 0;
         } else if (glideRight && timesTick <= 100) {
-            System.out.println("right");
             player.right();
             
             timesTick++;

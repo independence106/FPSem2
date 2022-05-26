@@ -90,6 +90,7 @@ public class Level {
     }
 
     public void draw(Graphics g) {
+        System.out.println(cam.getY());
         tick();
 		cam.tick(player);
 		Toolkit.getDefaultToolkit().sync(); 
