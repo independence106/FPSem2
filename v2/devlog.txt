@@ -15,7 +15,11 @@
 
 5/22 - Jason: Intro menu finished, coins added
 
-5/23 - 
+5/23 - Jason: I forgot what I did
+5/24 - Jason: Level class and reorganization
+
+5/25 - Jason: Overworld develop and transition between levels and overworld <- 1rst prototype is done
+       -> Next prototype: working jump, transitions, animations, more blocks and more levels
 
 TODO:
 - Change the System Millis To Timer in LogoHandler
