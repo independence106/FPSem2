@@ -7,6 +7,8 @@ import Blocks.Block;
 import Blocks.Coin;
 import Blocks.Dirt;
 import Blocks.Grass;
+import Entity.Enemy;
+import Entity.Kooler;
 import Blocks.ButtonFlag;
 import Settings.MapSettings;
 
@@ -19,7 +21,7 @@ public class TileMap {
 
     public ArrayList<Block> rigidBlocks;
     public ArrayList<Block> nonRigidBlocks;
-    // public ArrayList<MapEntity> entities;
+    public ArrayList<Enemy> enemies;
     // public Location start;
     // public Location end;
 
@@ -28,6 +30,7 @@ public class TileMap {
         this.rawMap = new String[0][0];
         rigidBlocks = new ArrayList<Block>();
         nonRigidBlocks = new ArrayList<Block>();
+        enemies = new ArrayList<Enemy>();
         // this.entities = new ArrayList<>();
         // this.start = null;
         // this.end = null;
@@ -56,6 +59,7 @@ public class TileMap {
         for (int row = 0; row < this.rawMap.length; row++) {
             for (int col = 0; col < this.rawMap[row].length; col++) {
                 Block temp = null;
+                Enemy enemy = null;
                 switch (rawMap[row][col]) {
                     
                     case "G":
@@ -81,6 +85,12 @@ public class TileMap {
                         temp =  new ButtonFlag(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         map[row][col] = temp;
                         rigidBlocks.add(temp);
+                        break;
+                    case "K":
+                        enemy = new Kooler(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        enemies.add(enemy);
+                        break;
+                    
                     default:
                         break;
                         
@@ -111,5 +121,6 @@ public class TileMap {
             }
             
         }
+       
     }
 }

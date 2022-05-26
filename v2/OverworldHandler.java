@@ -91,6 +91,11 @@ public class OverworldHandler extends Handler {
     public void tick(DriverRunner driver) {
         // TODO Auto-generated method stub
         player.tickOverworld();
+        if (player.getLives() <= 0) {
+            // CUT SCENE DEATH ANIMATION
+            System.out.println("DEATH SCREEN ANIMATION");
+            player.setLives(5);
+        }
         if (glideLeft == false && glideRight == false) {
             player.xVelo = 0;
         } else if (glideRight && timesTick <= 100) {

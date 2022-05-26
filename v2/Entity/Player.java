@@ -12,8 +12,8 @@ import Settings.MapSettings;
 
 public class Player extends Entity {
 
-    public int lives;
-    public int coins;
+    public static int lives;
+    public static int coins;
 
     public double xPos;
     public double yPos;
@@ -32,7 +32,7 @@ public class Player extends Entity {
 
     public Player() {
         this.xPos = 400;
-        this.yPos = 00;
+        this.yPos = 600;
         this.height = 80;
         this.width = 40;
         coins = 0;
@@ -103,6 +103,13 @@ public class Player extends Entity {
                level.levMap.setBlock(level.levMap.nonRigidBlocks.get(i).getRow(), level.levMap.nonRigidBlocks.get(i).getCol(), null);
                level.levMap.nonRigidBlocks.remove(i);
            }
+           
+        }
+        for (int i = 0; i < level.levMap.enemies.size(); i++) {
+            if (getRightBounds().intersects(level.levMap.enemies.get(i).getBounds()) || getLeftBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
+                level.setDead();
+                lives--;
+            }
         }
     }
 
@@ -155,6 +162,14 @@ public class Player extends Entity {
 
     public double getY() {
         return yPos;
+    }
+
+    public void setLives(int addlives) {
+        lives = addlives;
+    }
+
+    public int getLives() {
+        return lives;
     }
 
     public void keyPressed(KeyEvent e) {

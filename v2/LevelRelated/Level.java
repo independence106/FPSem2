@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import Entity.Enemy;
 import Entity.Player;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,6 +23,8 @@ public class Level {
     public Image background;
 
     public boolean isDone;
+    public boolean isDead;
+    public boolean isQuit;
     
     public Level(int level) {
         startup(level);
@@ -29,6 +32,8 @@ public class Level {
 
     public void startup(int level) {
         isDone = false;
+        isQuit = false;
+        isDead = false;
         player = new Player();
         levMap = new TileMap();
         cam = new Camera(player.getX(), player.getY());
@@ -89,16 +94,39 @@ public class Level {
         return isDone;
     }
 
+    public void setDead() {
+        isDead = true;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setQuit() {
+        isQuit = true;
+    }
+
+    public boolean isQuit() {
+        return isQuit;
+    }
+
     public void draw(Graphics g) {
         System.out.println(cam.getY());
         tick();
+        
 		cam.tick(player);
 		Toolkit.getDefaultToolkit().sync(); 
 		g.clearRect(0, 0, 800, 600);
 		g.fillRect(0, 0, 800, 600); //background
+        
 		// map.draw(g, this);		
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);
 		if (cam.getY() < 0) g.translate(0, (int) cam.getY());
+        System.out.println(levMap.enemies.size());
+        for (Enemy enemy : levMap.enemies) {
+            enemy.tick(this);
+            enemy.draw(g);
+        }
 		levMap.draw(g);
 		player.draw(g);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);

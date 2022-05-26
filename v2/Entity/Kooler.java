@@ -11,28 +11,25 @@ import LevelRelated.TileMap;
 import Settings.MapSettings;
 
 
-public class Kooler extends Enemy{
+public class Kooler extends Enemy {
     
-    Kooler(){
-    yVelo = 4;
-    xVelo = -4;
-    falling = true;
+    public Kooler(){
+        startup();
     }
 
-    
+    public Kooler(int x, int y){
+        startup();
+        xPos = x;
+        yPos = y;
+    }
 
-    
-    public void tick(Level level) {
-        
-       
-        if (falling) {
-            yVelo = 6;
-        }
-        rigidCollision(level);
-        xPos -= xVelo;
-        yPos += yVelo;
-        rigidCollision(level);
-        nonRigidCollision(level);
+    public void startup() {
+        width = 40;
+        height = 40;
+        yVelo = 4;
+        xVelo = -4;
+        setDirectionRight = true;
+        falling = true;
     }
 
     public void rigidCollision(Level level) {
@@ -40,18 +37,15 @@ public class Kooler extends Enemy{
 
             if (getBottomBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 yVelo = 0;
-               if (level.levMap.rigidBlocks.get(i).getId().equals("button")) {
-                   ((ButtonFlag) level.levMap.rigidBlocks.get(i)).setPressed();
-                    level.setDone();
-               }
-               
             }
             if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                xPos = level.levMap.rigidBlocks.get(i).getX() - width;               
+                xPos = level.levMap.rigidBlocks.get(i).getX() - width;       
+                xVelo *= -1;        
             }
 
             if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize;               
+                xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize; 
+                xVelo *= -1;              
             }
 
             
@@ -62,15 +56,7 @@ public class Kooler extends Enemy{
     }
     //
     public void nonRigidCollision(Level level) { 
-        for (int i = 0; i < level.levMap.nonRigidBlocks.size(); i++) {
-            
-           if (getBounds().intersects(level.levMap.nonRigidBlocks.get(i).getBounds())) {
-               coins++;
-               System.out.println(level.levMap.nonRigidBlocks.get(i).getRow() + " " + level.levMap.nonRigidBlocks.get(i).getCol());
-               level.levMap.setBlock(level.levMap.nonRigidBlocks.get(i).getRow(), level.levMap.nonRigidBlocks.get(i).getCol(), null);
-               level.levMap.nonRigidBlocks.remove(i);
-           }
-        }
+        
     }
 
     public Rectangle getBounds() {
@@ -91,6 +77,34 @@ public class Kooler extends Enemy{
 
     public double getX() {
         return xPos;
+    }
+
+
+
+
+    @Override
+    public void tick(Level level) {
+        // TODO Auto-generated method stub
+       
+        if (falling) {
+            yVelo = 6;
+        }
+        rigidCollision(level);
+        xPos -= xVelo;
+        yPos += yVelo;
+        rigidCollision(level);    
+    }
+
+
+
+
+    @Override
+    public void draw(Graphics g) {
+        
+        // TODO Auto-generated method stub
+        System.out.println("gettomg jer");
+        g.setColor(Color.RED);
+        g.fillRect((int) xPos, (int) yPos, width, height);
     }
 
 
