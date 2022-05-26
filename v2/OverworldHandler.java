@@ -33,15 +33,30 @@ public class OverworldHandler extends Handler {
     public DriverRunner driver; //is this needed?
     public Camera cam;
     
+    public boolean glideLeft;
+    public boolean glideRight;
+    public int timesTick;
+    public int selectedLevel;
+    public boolean start;
+
+    public int latestLev;
+
     public final int DISTANCE_BETWEEN_LEVELS = 300;
 
+    
 
 
     public OverworldHandler(DriverRunner driver) {
         this.driver = driver;
+        timesTick = 0;
+        glideLeft = false;
+        glideRight = false;
         player = new Player(100, 300);
         cam = new Camera(player.getX(), player.getY());
+        selectedLevel = 0;
+        start = false;
         snapCamera(player);
+        latestLev = 0;
         
     }
 
@@ -53,6 +68,7 @@ public class OverworldHandler extends Handler {
     @Override
     public void draw(Graphics g, DriverRunner driver) {
         // TODO Auto-generated method stub
+        tick(driver);
         cam.tick(player);
 		Toolkit.getDefaultToolkit().sync(); 
        
@@ -60,7 +76,12 @@ public class OverworldHandler extends Handler {
 		g.fillRect(0, 0, 800, 600); //background
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);
         for (int i = 0; i < driver.levelHandler.levels.size(); i++) {
+           
             g.drawImage(driver.levelHandler.levels.get(i).getImage(), 100 + i * DISTANCE_BETWEEN_LEVELS, 100, driver);
+            if (latestLev < (i)) {
+                Lock lock = new Lock(100+ i *DISTANCE_BETWEEN_LEVELS, 100);
+                lock.draw(g);
+            }
         }
 		player.draw(g);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
@@ -69,13 +90,50 @@ public class OverworldHandler extends Handler {
     @Override
     public void tick(DriverRunner driver) {
         // TODO Auto-generated method stub
-        
+        player.tickOverworld();
+        if (glideLeft == false && glideRight == false) {
+            player.xVelo = 0;
+        } else if (glideRight && timesTick <= 100) {
+            System.out.println("right");
+            player.right();
+            
+            timesTick++;
+        } else if (glideLeft && timesTick <= 100) {
+            if (player.getX() >= 100) {
+                player.left();
+            } else {
+                player.xVelo = 0;
+                selectedLevel = 0;
+            }
+           
+            timesTick++;
+        } 
+        if (timesTick > 100 || player.getX() < 100) {
+            glideLeft = false;
+            glideRight = false;
+            
+            timesTick = 0;
+        }
+        if (start) {
+            driver.levelHandler.currLev = selectedLevel;
+            driver.gameStack.push(driver.levelHandler);
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
         
+        if(e.getKeyCode()==KeyEvent.VK_D && glideLeft == false) {
+            glideRight = true;
+            selectedLevel++;
+        } else if (e.getKeyCode()==KeyEvent.VK_A && glideRight == false) {
+            glideLeft = true;
+            selectedLevel--;
+        }
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            start = true;
+        }
     }
 
     @Override

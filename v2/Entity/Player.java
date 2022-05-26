@@ -61,6 +61,10 @@ public class Player extends Entity {
         rigidCollision(level);
         nonRigidCollision(level);
     }
+
+    public void tickOverworld() {
+        xPos += xVelo;
+    }
     
     public void rigidCollision(Level level) {
         for (int i = 0; i < level.levMap.rigidBlocks.size(); i++) {

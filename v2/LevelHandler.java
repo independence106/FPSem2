@@ -19,12 +19,10 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 
     public DriverRunner driverRunner; // I don't think this is needed atm
 
-	public int latestLev;
 	public int currLev;
 
     public LevelHandler(DriverRunner driverRunner) {
 		levels = new ArrayList<Level>();
-		latestLev = currLev;
         currLev = 0;
         loadLev();
     }
@@ -42,10 +40,14 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 	}
 
 	public void tick(DriverRunner driver) {
+		System.out.println(currLev);
+		driver.overworldHandler.start = false;
 		if (levels.get(currLev).isDone) {
-			latestLev++;
-			currLev++; // delete this later when world screen thing
+			if (currLev == driver.overworldHandler.latestLev) driver.overworldHandler.latestLev++;
+			levels.set(currLev, new Level(currLev + 1));
+			driver.gameStack.pop();
 		}
+		
 		// empty here will add sutff later
 	}
 
