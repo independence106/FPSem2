@@ -1,42 +1,11 @@
-5/17 - Jason: Basic GUI interface, graphics, designing
-     - group: finalized idea + groupmates
-
-5/18 - Jason: Blocks, started designing block display algo
-              Bound detection and gravity - ish; still bugs so must fix
-
-5/19 - Jason: Smoothed bound detection and collisions, smoothed top scrolling, side scrolling 
-              Started implementing block render
-       Russell: Started Research on jumping and the physics behind it
-
-5/20 - Jason: Block rendering system works, level design can now begin
-       Ariel: Started working on enemies and enemy interaction
-
-5/21 - Jason: Logo Design and implementation, game state, cleaning up code and reorganized
-
-5/22 - Jason: Intro menu finished, coins added
-
-5/23 - Jason: I forgot what I did
-5/24 - Jason: Level class and reorganization
-
-5/25 - Jason: Overworld develop and transition between levels and overworld <- 1rst prototype is done
-       -> Next prototype: working jump, transitions, animations, more blocks and more levels
-       -> fix bugs: overworld too far left and put music in driverrunner
-https://www.youtube.com/watch?v=AaKzpBH65FE - Salaj <- in credits owo
-
-TODO:
-- Change the System Millis To Timer in LogoHandler
-- Add a level progression - moving on btw levels
-- Add intro, menu ect
-
-
-<Team Name>
-<Member 0 Name>
-<Member 1 Name>
-<Member 2 Name>
-pd <pd#>
+Purple Pineapples Vista
+Jason Zhou
+Russell Goychayev
+Ariel Fuchs
+pd 7
 ---------------------
-<Project Summary / Working Title>
-
+The Purple Pineapple
+- 2D platformer with some kewl stuff
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 USAGE:
@@ -91,10 +60,39 @@ tales of wisdom gained...
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/ 
 ==============================================================
 
+5/17 - Jason: Basic GUI interface, graphics, designing
+     - group: finalized idea + groupmates
 
-yyyy-mm-dd
---------------------------------------------------------------
-<Member> :: <Thing member did.>
-<Member> :: <Thing member did.>
-<Member> :: <Thing member did.>
+5/18 - Jason: Blocks, started designing block display algo
+              Bound detection and gravity - ish; still bugs so must fix
+
+5/19 - Jason: Smoothed bound detection and collisions, smoothed top scrolling, side scrolling 
+              Started implementing block render
+       Russell: Started Research on jumping and the physics behind it
+
+5/20 - Jason: Block rendering system works, level design can now begin
+       Ariel: Started working on enemies and enemy interaction
+
+5/21 - Jason: Logo Design and implementation, game state, cleaning up code and reorganized
+
+5/22 - Jason: Intro menu finished, coins added
+
+5/23 - Jason: I forgot what I did
+5/24 - Jason: Level class and reorganization
+
+5/25 - Jason: Overworld develop and transition between levels and overworld <- 1rst prototype is done
+       -> Next prototype: working jump, transitions, animations, more blocks and more levels
+       -> fix bugs: overworld too far left and put music in driverrunner
+       
+5/26 - Jason: music transition between worlds, intro menu handler cleaning
+
+5/27 - Jason: jump working, sprites for player aquired
+
+
+https://www.youtube.com/watch?v=AaKzpBH65FE - Salaj <- in credits owo
+
+TODO:
+- Change the System Millis To Timer in LogoHandler
+- Add a level progression - moving on btw levels
+- Add intro, menu ect
 ==============================================================
