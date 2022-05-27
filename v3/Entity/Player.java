@@ -27,7 +27,9 @@ public class Player extends Entity {
     public boolean falling = true;
     public boolean jumping = false;
 
+    public int jumpTick = 0;
     public double yVelo = 4;
+    public double yAccel = 0;
     public double xVelo = 0;
 
     public Player() {
@@ -53,7 +55,20 @@ public class Player extends Entity {
     public void tick(Level level) {
         
         if (falling) {
-            yVelo = 6;
+            yVelo = 6 + yAccel;
+            yAccel += 0.1;
+            
+        }
+        if (jumping) {
+            yVelo = -6 + yAccel;
+            yAccel += 0.1;
+            jumpTick++;
+        }
+        if (jumpTick >= 50) {
+            jumpTick = 0;
+            jumping = false;
+            falling = true;
+            yAccel = 0;
         }
         rigidCollision(level);
         xPos += xVelo;
@@ -72,6 +87,8 @@ public class Player extends Entity {
 
             if (getBottomBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 yVelo = 0;
+                yPos = level.levMap.rigidBlocks.get(i).getY() - height;   
+                yAccel = 0;
                if (level.levMap.rigidBlocks.get(i).getId().equals("button")) {
                    ((ButtonFlag) level.levMap.rigidBlocks.get(i)).setPressed();
                     level.setDone();
@@ -83,11 +100,12 @@ public class Player extends Entity {
             }
 
             if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+                System.out.println("doing this");
                 xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize;               
             }
             
             if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                yPos = level.levMap.rigidBlocks.get(i).getX() - MapSettings.tileSize;               
+                yPos = level.levMap.rigidBlocks.get(i).getY() - MapSettings.tileSize;               
             }
             //adding a mehtod to detect if hit
             //if(getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) || 
@@ -121,10 +139,9 @@ public class Player extends Entity {
         Graphics o = g.create();
         o.setColor(Color.LIGHT_GRAY);
 	    o.fillRect((int) xPos, (int) yPos, width, height);
-        // o.setColor(Color.RED);
-        // o.fillRect((int) xPos + 1, (int) yPos + height - 4, width - 1, 5);
-        // o.setColor(Color.BLACK);
-        // o.fillRect((int) playerX, (int) playerY + playerHeight, playerWidth, 4);
+        o.setColor(Color.RED);
+        o.fillRect((int) xPos + 1, (int) yPos, 4, height - 4);
+        o.setColor(Color.BLACK);
     }
 
     public void right() {
@@ -137,7 +154,7 @@ public class Player extends Entity {
 
     public void up() {
         jumping = true;
-        yPos -= 100;
+        yPos -= 1;
     }
 
     public void down() {
@@ -181,7 +198,7 @@ public class Player extends Entity {
     }
 
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()==KeyEvent.VK_W) {
+        if(e.getKeyCode()==KeyEvent.VK_W && !jumping) {
             falling = false;
             up();
         }
