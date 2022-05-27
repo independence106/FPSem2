@@ -47,7 +47,7 @@ public class DriverRunner extends JPanel implements Runnable{
 
 	public void startup() {
 		// gameStack.push(levelHandler);
-		// gameStack.push(overworldHandler);
+		gameStack.push(overworldHandler);
 		gameStack.push(logoIntroHandler);
 	}
 	

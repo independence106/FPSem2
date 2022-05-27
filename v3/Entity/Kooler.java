@@ -27,7 +27,7 @@ public class Kooler extends Enemy {
         width = 40;
         height = 40;
         yVelo = 4;
-        xVelo = -4;
+        xVelo = -2;
         setDirectionRight = true;
         falling = true;
     }

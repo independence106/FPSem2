@@ -32,7 +32,7 @@ public class Player extends Entity {
 
     public Player() {
         this.xPos = 400;
-        this.yPos = 0;
+        this.yPos = 80;
         this.height = 80;
         this.width = 40;
         coins = 0;
@@ -66,6 +66,7 @@ public class Player extends Entity {
         xPos += xVelo;
     }
     
+    //prevents player going through blocks
     public void rigidCollision(Level level) {
         for (int i = 0; i < level.levMap.rigidBlocks.size(); i++) {
 
@@ -84,7 +85,10 @@ public class Player extends Entity {
             if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize;               
             }
-
+            
+            if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+                yPos = level.levMap.rigidBlocks.get(i).getX() - MapSettings.tileSize;               
+            }
             //adding a mehtod to detect if hit
             //if(getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) || 
             
@@ -150,6 +154,10 @@ public class Player extends Entity {
 
     public Rectangle getLeftBounds() {
         return new Rectangle((int) xPos + 1, (int) yPos, 4, height - 4);
+    }
+
+    public Rectangle getTopBounds(){
+        return new Rectangle((int) xPos + 1, (int) yPos, width - 1, 5);
     }
 
     public Rectangle getBottomBounds() {
