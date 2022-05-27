@@ -222,10 +222,10 @@ public class IntroMenuHandler extends Handler {
     public void drawMain(Graphics g) {
         // draw background <- insert code here when u find out
         if (selection == States.Play) {
-            g.fillRoundRect(290, 190, 220, 70, 50, 50);
+            g.fillRoundRect(295, 195, 215, 65, 50, 50);
         }
         if (selection == States.Settings) {
-            g.fillRoundRect(290, 390, 220, 70, 50, 50);
+            g.fillRoundRect(295, 385, 215, 65, 50, 50);
         }
         g.setColor(Color.YELLOW);
         g.fillRoundRect(300, 200, 200, 50, 50, 50);
