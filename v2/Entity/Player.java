@@ -32,7 +32,7 @@ public class Player extends Entity {
 
     public Player() {
         this.xPos = 400;
-        this.yPos = 600;
+        this.yPos = 0;
         this.height = 80;
         this.width = 40;
         coins = 0;

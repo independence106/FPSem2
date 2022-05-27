@@ -65,6 +65,10 @@ public class OverworldHandler extends Handler {
 		cam.setY(player.yPos);
 	}
 
+    public void startUp(DriverRunner driver) {
+        driver.levelHandler.levels.set(driver.levelHandler.currLev, new Level(driver.levelHandler.currLev + 1));
+    }
+
     @Override
     public void draw(Graphics g, DriverRunner driver) {
         // TODO Auto-generated method stub
@@ -136,6 +140,7 @@ public class OverworldHandler extends Handler {
             selectedLevel--;
         }
         if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            startUp(driver);
             start = true;
         }
     }

@@ -6,6 +6,8 @@ import javax.imageio.ImageIO;
 
 import Entity.Enemy;
 import Entity.Player;
+import music.MusicThing;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -22,15 +24,20 @@ public class Level {
 
     public Image background;
 
+    public MusicThing music;
+
     public boolean isDone;
     public boolean isDead;
     public boolean isQuit;
+
     
     public Level(int level) {
         startup(level);
     }
 
     public void startup(int level) {
+        
+        
         isDone = false;
         isQuit = false;
         isDead = false;
@@ -43,15 +50,27 @@ public class Level {
             case 1:
                 loadLev("./LevelRelated/Lev1.txt");
                 loadImg("./images/pineapple.png");
+                try {
+                    music = new MusicThing("./music/salaj.mid");
+                } catch (Exception e) {
+                    System.out.println(e + "catch error");
+                }  
                 break;
             case 2:
                 loadLev("./LevelRelated/Lev2.txt");
                 loadImg("./images/pineapple.png");
+                try {
+                    music = new MusicThing("./music/salaj.mid");
+                } catch (Exception e) {
+                    System.out.println(e + "catch error");
+                }  
                 break;
             default:
                 
                 break;
         }
+        music.pause();
+        
     }
     
     public void loadImg(String string) {
@@ -70,7 +89,9 @@ public class Level {
 
     public void snapCamera(Player player) {
 		cam.setX(player.xPos);
-		cam.setY(player.yPos);
+        
+        cam.setY(player.yPos);
+		
 	}
 
     public void loadLev(String filename) {
@@ -88,6 +109,8 @@ public class Level {
 
     public void setDone() {
         isDone = true;
+        music.pause();
+
     }
 
     public boolean isDone() {
@@ -96,14 +119,20 @@ public class Level {
 
     public void setDead() {
         isDead = true;
+        music.pause();
+
     }
 
     public boolean isDead() {
+
         return isDead;
     }
 
     public void setQuit() {
         isQuit = true;
+        
+        music.pause();
+
     }
 
     public boolean isQuit() {
@@ -111,7 +140,9 @@ public class Level {
     }
 
     public void draw(Graphics g) {
+        music.play();
         System.out.println(cam.getY());
+        System.out.println(player.getY());
         tick();
         
 		cam.tick(player);
@@ -122,7 +153,6 @@ public class Level {
 		// map.draw(g, this);		
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);
 		if (cam.getY() < 0) g.translate(0, (int) cam.getY());
-        System.out.println(levMap.enemies.size());
         for (Enemy enemy : levMap.enemies) {
             enemy.tick(this);
             enemy.draw(g);

@@ -43,11 +43,13 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 		driver.overworldHandler.start = false;
 		if (levels.get(currLev).isDone()) {
 			if (currLev == driver.overworldHandler.latestLev) driver.overworldHandler.latestLev++;
-			levels.set(currLev, new Level(currLev + 1));
+
+			
 			driver.gameStack.pop();
+
 		}
 		if (levels.get(currLev).isDead()) {
-			levels.set(currLev, new Level(currLev + 1));
+			// levels.set(currLev, new Level(currLev + 1));
 			driver.gameStack.pop();
 			
 		}
