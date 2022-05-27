@@ -15,7 +15,7 @@ public class Camera {
     public void tick(Player player) { // have the camera follow the player!
         
         x = -player.getX() + MapSettings.GAME_WIDTH/2;
-        if (player.getY() < 600) {
+        if (player.getY() < 500) {
             y = -player.getY() + MapSettings.GAME_HEIGHT/2;
         }
         

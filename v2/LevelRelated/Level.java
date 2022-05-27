@@ -30,6 +30,8 @@ public class Level {
     public boolean isDead;
     public boolean isQuit;
 
+    public boolean startedMusic;
+
     
     public Level(int level) {
         startup(level);
@@ -37,7 +39,7 @@ public class Level {
 
     public void startup(int level) {
         
-        
+        startedMusic = false;
         isDone = false;
         isQuit = false;
         isDead = false;
@@ -100,6 +102,7 @@ public class Level {
 	}
 
     public void tick() {
+        
         player.tick(this);
     }
 
@@ -114,6 +117,7 @@ public class Level {
     }
 
     public boolean isDone() {
+        
         return isDone;
     }
 
@@ -140,11 +144,13 @@ public class Level {
     }
 
     public void draw(Graphics g) {
-        music.play();
-        System.out.println(cam.getY());
-        System.out.println(player.getY());
-        tick();
         
+        
+        tick();
+        if (!startedMusic) {
+            music.play();
+            startedMusic = true;
+        }
 		cam.tick(player);
 		Toolkit.getDefaultToolkit().sync(); 
 		g.clearRect(0, 0, 800, 600);
@@ -167,6 +173,7 @@ public class Level {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		player.keyPressed(e);
+
 	}
 
 	public void keyReleased(KeyEvent e) {

@@ -42,9 +42,8 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 	public void tick(DriverRunner driver) {
 		driver.overworldHandler.start = false;
 		if (levels.get(currLev).isDone()) {
-			if (currLev == driver.overworldHandler.latestLev) driver.overworldHandler.latestLev++;
-
 			
+			if (currLev == driver.overworldHandler.latestLev) driver.overworldHandler.latestLev++;
 			driver.gameStack.pop();
 
 		}

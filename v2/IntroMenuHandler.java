@@ -97,7 +97,7 @@ public class IntroMenuHandler extends Handler {
     private long localTime;
 
     private String part;
-    private boolean isFinishedWithPartOne;
+    private boolean isFinishedWithPartOne = true;
     
     public ArrayList<Pineapple> pineapples;
 
@@ -221,11 +221,15 @@ public class IntroMenuHandler extends Handler {
 
     public void drawMain(Graphics g) {
         // draw background <- insert code here when u find out
-        g.setColor(Color.WHITE);
+        if (selection == States.Play) {
+            g.fillRect(290, 190, 120, 70);
+        }
+        g.setColor(Color.YELLOW);
         g.fillRect(300, 200, 100, 50);
         g.setColor(Color.BLACK);
         g.setFont(new Font("Serif", Font.PLAIN, 25));
-        g.drawString("Play", 320, 350);
+        g.drawString("Play", 320, 225);
+        
         System.out.println(selection);
     }
 

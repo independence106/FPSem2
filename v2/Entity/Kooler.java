@@ -102,7 +102,7 @@ public class Kooler extends Enemy {
     public void draw(Graphics g) {
         
         // TODO Auto-generated method stub
-        System.out.println("gettomg jer");
+
         g.setColor(Color.RED);
         g.fillRect((int) xPos, (int) yPos, width, height);
     }
