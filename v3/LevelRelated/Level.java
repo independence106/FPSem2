@@ -1,11 +1,13 @@
 package LevelRelated;
 
+
+
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import Entity.Enemy;
-import Entity.Player;
+import Handlers.DriverRunner;
 import music.MusicThing;
 
 import java.awt.*;
@@ -155,7 +157,7 @@ public class Level {
         return isQuit;
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, DriverRunner driver) {
         
         
         tick();
@@ -175,7 +177,7 @@ public class Level {
             enemy.draw(g);
         }
 		levMap.draw(g);
-		player.draw(g);
+		player.draw(g, driver);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
 		if (cam.getY() < 0) g.translate(0, (int) -cam.getY());
 		

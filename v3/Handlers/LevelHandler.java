@@ -1,12 +1,12 @@
+package Handlers;
 
+
+import LevelRelated.Level;
 
 /***
  * Handler Class for Levels
  */
 
-import Entity.Player;
-import LevelRelated.Camera;
-import LevelRelated.Level;
 import LevelRelated.TileMap;
 
 import java.awt.*;
@@ -64,7 +64,7 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 
 		
 		tick(driver);
-        levels.get(currLev).draw(g);
+        levels.get(currLev).draw(g, driver);
 		g.drawImage(levels.get(currLev).lives, 15, 20, driver);
         g.setColor(Color.WHITE);
         g.drawString("x",  50, 40);

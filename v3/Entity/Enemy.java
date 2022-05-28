@@ -1,7 +1,8 @@
 package Entity;
 
-import LevelRelated.Level;
 import java.awt.*;
+
+import LevelRelated.Level;
 
 public abstract class Enemy extends Entity{
 

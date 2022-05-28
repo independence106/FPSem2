@@ -1,4 +1,5 @@
-package Entity;
+package LevelRelated;
+
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,15 +7,16 @@ import java.util.ArrayList;
 
 import Blocks.Block;
 import Blocks.ButtonFlag;
-import LevelRelated.Level;
-import LevelRelated.TileMap;
+import Entity.Animation;
+import Entity.Entity;
+import Handlers.DriverRunner;
 import Settings.MapSettings;
 
-public class Player extends Entity {
+public class Player {
 
     public static int lives = 5;
     public static int coins = 0;
-
+    
     public double xPos;
     public double yPos;
     public int height;
@@ -23,6 +25,8 @@ public class Player extends Entity {
     //1 right/up, 0 not moving, -1 left/down
     public int movingX = 0;
     public int movingY = 0;
+
+    public int animationTick = 0;
 
     public boolean falling = true;
     public boolean jumping = false;
@@ -38,7 +42,7 @@ public class Player extends Entity {
         this.yPos = 80;
         this.height = 80;
         this.width = 40;
-
+        Animation.loadImg();
         
     }
 
@@ -48,6 +52,7 @@ public class Player extends Entity {
         this.yPos = y;
         this.height = 80;
         this.width = 40;
+        Animation.loadImg();
 
     }
 
@@ -81,6 +86,7 @@ public class Player extends Entity {
         if (yPos > 800) {
             level.setDead();
         }
+
     }
 
     public void tickOverworld() {
@@ -149,10 +155,10 @@ public class Player extends Entity {
         }
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, DriverRunner driver) {
         Graphics o = g.create();
         o.setColor(Color.LIGHT_GRAY);
-	    o.fillRect((int) xPos, (int) yPos, width, height);
+	    o.drawImage(Animation.getWalk1(), (int) xPos, (int) yPos, driver);
         o.setColor(Color.RED);
         o.fillRect((int) xPos + width - 4, (int) yPos, 4, height - 4);
         o.setColor(Color.BLACK);
@@ -243,4 +249,6 @@ public class Player extends Entity {
             xVelo = 0;
         }
     }
+
+    
 }

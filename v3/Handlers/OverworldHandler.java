@@ -5,10 +5,6 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-import Entity.Player;
-import LevelRelated.Camera;
-import LevelRelated.Level;
-
 import java.awt.*;
 
 // will handle overworld and level selection
@@ -104,7 +100,7 @@ public class OverworldHandler extends Handler {
                 lock.draw(g);
             }
         }
-		player.draw(g);
+		player.draw(g, driver);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
         g.drawImage(lives, 15, 20, driver);
         g.setColor(Color.WHITE);

@@ -1,6 +1,9 @@
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
+import Handlers.DriverRunner;
+import Handlers.Handler;
+
 // course clear stuff after every level
 public class LevelWinHandler extends Handler {
 
