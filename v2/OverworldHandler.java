@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 import Entity.Player;
 import LevelRelated.Camera;
@@ -39,6 +42,8 @@ public class OverworldHandler extends Handler {
     public int selectedLevel;
     public boolean start;
 
+    public Image lives;
+
     public int latestLev;
 
     public final int DISTANCE_BETWEEN_LEVELS = 300;
@@ -57,6 +62,7 @@ public class OverworldHandler extends Handler {
         start = false;
         snapCamera(player);
         latestLev = 0;
+        loadImg();
         
     }
 
@@ -69,15 +75,33 @@ public class OverworldHandler extends Handler {
         driver.levelHandler.levels.set(driver.levelHandler.currLev, new Level(driver.levelHandler.currLev + 1));
     }
 
+    public void loadImg() {
+        try {
+            lives = ImageIO.read(new File("./images/pineapple.png"));
+
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        lives = lives.getScaledInstance(30, 30, lives.SCALE_DEFAULT);
+        
+
+    }
+
     @Override
     public void draw(Graphics g, DriverRunner driver) {
         // TODO Auto-generated method stub
         tick(driver);
         cam.tick(player);
-		Toolkit.getDefaultToolkit().sync(); 
+		Toolkit.getDefaultToolkit().sync();
+        
+        g.setColor(Color.WHITE);
        
         g.clearRect(0, 0, 800, 600);
 		g.fillRect(0, 0, 800, 600); //background
+        g.drawImage(lives, 15, 20, driver);
+        g.setColor(Color.WHITE);
+        g.drawString("x",  50, 40);
+        g.drawString(Integer.toString(player.getLives()),  60, 40);
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);
         for (int i = 0; i < driver.levelHandler.levels.size(); i++) {
            
@@ -89,6 +113,7 @@ public class OverworldHandler extends Handler {
         }
 		player.draw(g);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
+        
     }
 
     @Override

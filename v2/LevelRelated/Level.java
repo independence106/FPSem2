@@ -123,6 +123,7 @@ public class Level {
 
     public void setDead() {
         isDead = true;
+        player.setLives(player.getLives() - 1);
         music.pause();
 
     }

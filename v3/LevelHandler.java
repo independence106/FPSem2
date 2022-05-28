@@ -49,15 +49,26 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 		}
 		if (levels.get(currLev).isDead()) {
 			// levels.set(currLev, new Level(currLev + 1));
+			driver.overworldHandler.player.setLives(driver.overworldHandler.player.getLives() - 1);
+
 			driver.gameStack.pop();
+			
 			
 		}
 		// empty here will add sutff later
 	}
 
     public void draw(Graphics g, DriverRunner driver) {
+		g.clearRect(0, 0, 800, 600);
+		g.fillRect(0, 0, 800, 600);
+
+		
 		tick(driver);
         levels.get(currLev).draw(g);
+		g.drawImage(levels.get(currLev).lives, 15, 20, driver);
+        g.setColor(Color.WHITE);
+        g.drawString("x",  50, 40);
+        g.drawString(Integer.toString(levels.get(currLev).player.getLives()),  60, 40);
 	}
 
 	@Override

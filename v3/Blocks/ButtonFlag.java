@@ -35,7 +35,21 @@ public class ButtonFlag extends Block {
         return (!pressed) ? new Rectangle(Xpos + 2, Ypos + (MapSettings.tileSize / 2), MapSettings.tileSize - 4, MapSettings.tileSize / 2) : 
                 new Rectangle(Xpos, Ypos+(MapSettings.tileSize), MapSettings.tileSize, 2);
     }
+ 
 
+    public Rectangle getLeftBounds() {
+        return new Rectangle(Xpos, Ypos, 4, MapSettings.tileSize);
+    }
+
+    public Rectangle getRightBounds() {
+        return new Rectangle(Xpos + MapSettings.tileSize - 4, Ypos, 4, MapSettings.tileSize);
+    }
+
+ 
+
+    public Rectangle getBottomBounds() {
+        return new Rectangle(Xpos, Ypos + MapSettings.tileSize - 4, MapSettings.tileSize, 4);
+    }
     @Override
     public String getId() {
         // TODO Auto-generated method stub

@@ -23,6 +23,8 @@ public class Level {
     public static ArrayList<Integer> scores; //add quicksort to sort levels
 
     public Image background;
+    public Image coins;
+    public Image lives;
 
     public MusicThing music;
 
@@ -31,6 +33,7 @@ public class Level {
     public boolean isQuit;
 
     public boolean startedMusic;
+    
 
     
     public Level(int level) {
@@ -82,7 +85,15 @@ public class Level {
         } catch (Exception e) {
             //TODO: handle exception
         }
+        try {
+            lives = ImageIO.read(new File("./images/pineapple.png"));
+
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        lives = lives.getScaledInstance(30, 30, lives.SCALE_DEFAULT);
         background = background.getScaledInstance(100, 100, background.SCALE_DEFAULT);
+
     }
 
     public Image getImage() {
@@ -112,6 +123,7 @@ public class Level {
 
     public void setDone() {
         isDone = true;
+
         music.pause();
 
     }
@@ -153,8 +165,7 @@ public class Level {
         }
 		cam.tick(player);
 		Toolkit.getDefaultToolkit().sync(); 
-		g.clearRect(0, 0, 800, 600);
-		g.fillRect(0, 0, 800, 600); //background
+		 //background
         
 		// map.draw(g, this);		
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);

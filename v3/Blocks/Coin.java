@@ -26,6 +26,22 @@ public class Coin extends Block {
     }
     
 
+    public Rectangle getLeftBounds() {
+        return new Rectangle(Xpos, Ypos, 4, MapSettings.tileSize);
+    }
+
+    public Rectangle getRightBounds() {
+        return new Rectangle(Xpos + MapSettings.tileSize - 4, Ypos, 4, MapSettings.tileSize);
+    }
+
+    public Rectangle getTopBounds() {
+        return new Rectangle(Xpos, Ypos, MapSettings.tileSize, 4);
+    }
+
+    public Rectangle getBottomBounds() {
+        return new Rectangle(Xpos, Ypos + MapSettings.tileSize - 4, MapSettings.tileSize, 4);
+    }
+
     public String getId() {
         return "coin";
     }

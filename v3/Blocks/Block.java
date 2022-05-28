@@ -48,6 +48,10 @@ public abstract class Block {
     }
 
     public abstract Rectangle getBounds();
+    public abstract Rectangle getLeftBounds();
+    public abstract Rectangle getRightBounds();
+    public abstract Rectangle getTopBounds();
+    public abstract Rectangle getBottomBounds();
         
     public String getId() {
         return "block";
