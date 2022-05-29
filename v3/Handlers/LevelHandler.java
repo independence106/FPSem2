@@ -47,7 +47,12 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 			
 			if (currLev == driver.overworldHandler.latestLev) driver.overworldHandler.latestLev++;
 			driver.gameStack.pop();
-
+			try {
+				Thread.sleep(100);
+			} catch (Exception e) {
+				//TODO: handle exception
+			}
+			driver.gameStack.push(driver.courseClearHandler);
 		}
 		if (levels.get(currLev).isDead()) {
 			// levels.set(currLev, new Level(currLev + 1));
@@ -81,6 +86,10 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
         g.setColor(Color.WHITE);
         g.drawString("x",  50, 40);
         g.drawString(Integer.toString(levels.get(currLev).player.getLives()),  60, 40);
+		g.drawImage(levels.get(currLev).lives, 15, 20, driver);
+        g.setColor(Color.WHITE);
+        g.drawString("x",  50, 40);
+        g.drawString(Integer.toString(Player.getCoins()),  60, 40);
 	}
 
 	@Override

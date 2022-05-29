@@ -5,8 +5,6 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SoundEffect implements Runnable{
 
@@ -36,12 +34,17 @@ public class SoundEffect implements Runnable{
 	}
 
 	public void setCoin() {
-		this.path = "./music/test.mid";
+		this.path = "./music/jump.wav";
 		load();
 	}
 
 	public void setJump() {
 		this.path = "./music/jump.wav";
+		load();
+	}
+
+	public void setCourseClear() {
+		this.path = "./music/courseclear.mid";
 		load();
 	}
 

@@ -25,6 +25,9 @@ public class DriverRunner extends JPanel implements Runnable{
 	public OverworldHandler overworldHandler;
 	public DeathScreenHandler deathScreenHandler;
 	public IntroHandler introHandler;
+	public CreditsHandler creditsHandler;
+	public CourseClearHandler courseClearHandler;
+	public MenuHandler menuHandler;
 
 	public int imag2x;
 	public int imag2y;
@@ -39,6 +42,9 @@ public class DriverRunner extends JPanel implements Runnable{
 		overworldHandler = new OverworldHandler(this);
 		deathScreenHandler = new DeathScreenHandler();
 		introHandler = new IntroHandler();
+		creditsHandler = new CreditsHandler();
+		courseClearHandler = new CourseClearHandler();
+		menuHandler = new MenuHandler();
 
 		gameStack = new Stack<Handler>();
 		// map.loadImg("map.png");

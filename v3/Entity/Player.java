@@ -130,6 +130,9 @@ public class Player {
 
     public void tickOverworld() {
         xPos += xVelo;
+        if (moving) {
+            animationTick++;
+        }
     }
     
     //prevents player going through blocks
@@ -179,6 +182,14 @@ public class Player {
                System.out.println(level.levMap.nonRigidBlocks.get(i).getRow() + " " + level.levMap.nonRigidBlocks.get(i).getCol());
                level.levMap.setBlock(level.levMap.nonRigidBlocks.get(i).getRow(), level.levMap.nonRigidBlocks.get(i).getCol(), null);
                level.levMap.nonRigidBlocks.remove(i);
+               try {
+                sound.setCoin();
+                soundEffect.start();
+                soundEffect = new Thread(sound);
+
+            } catch (Exception a) {
+                //TODO: handle exception
+            }
            }
            
         }
@@ -298,6 +309,9 @@ public class Player {
         return lives;
     }
 
+    public static int getCoins() {
+        return coins;
+    }
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_W && canJump) {
             try {

@@ -8,6 +8,7 @@ import java.util.Currency;
 import javax.imageio.ImageIO;
 
 import Entity.Player;
+import Entity.Player.Direction;
 import LevelRelated.Camera;
 import LevelRelated.Level;
 import music.MusicThing;
@@ -17,6 +18,8 @@ import java.awt.*;
 // will handle overworld and level selection
 
 public class OverworldHandler extends Handler {
+
+
     
     public class Lock {
 
@@ -47,9 +50,12 @@ public class OverworldHandler extends Handler {
     public int selectedLevel;
     public boolean start;
     public boolean doneWalking;
+    public boolean smoothing;
 
     public int latestLev;
+    public static final int finalLev = 10;
     public Image lives;
+
 
     public final int DISTANCE_BETWEEN_LEVELS = 300;
 
@@ -58,10 +64,16 @@ public class OverworldHandler extends Handler {
 
     public OverworldHandler(DriverRunner driver) {
         try {
-            music = new MusicThing("./music/test.mid");
+            Thread.sleep(100);
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        try {
+            music = new MusicThing("./music/overworld.mid");
         } catch (Exception e) {
             System.out.println(e + "catch error");
         }  
+        music.pause();
         this.driver = driver;
         timesTick = 0;
         glideLeft = false;
@@ -73,8 +85,9 @@ public class OverworldHandler extends Handler {
         snapCamera(player);
         latestLev = 0;
         loadImg();
-        doneWalking = true;
         
+        doneWalking = true;
+        smoothing = false;
     }
 
     public void snapCamera(Player player) {
@@ -101,6 +114,21 @@ public class OverworldHandler extends Handler {
     @Override
     public void draw(Graphics g, DriverRunner driver) {
         // TODO Auto-generated method stub
+        System.out.println(latestLev);
+        if (!smoothing) {
+            try {
+                Thread.sleep(50);
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+            smoothing = true;
+        }
+        try {
+            music.play();
+
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
         tick(driver);
         cam.tick(player);
 		Toolkit.getDefaultToolkit().sync(); 
@@ -135,6 +163,9 @@ public class OverworldHandler extends Handler {
     public void tick(DriverRunner driver) {
         // TODO Auto-generated method stub
         player.tickOverworld();
+        if (latestLev >= finalLev) {
+            driver.gameStack.push(driver.creditsHandler);
+        }
         if (player.getLives() <= 0) {
             // CUT SCENE DEATH ANIMATION
             player.setLives(5);            
@@ -142,11 +173,19 @@ public class OverworldHandler extends Handler {
         if (glideLeft == false && glideRight == false) {
             player.xVelo = 0;
         } else if (glideRight && timesTick <= 75) {
+            player.moving = true;
+            if (!player.direction.contains(Direction.RIGHT)) {
+                player.direction.add(Direction.RIGHT);
+            }
             player.right();
             
             timesTick++;
         } else if (glideLeft && timesTick <= 75) {
             if (player.getX() >= 100) {
+                player.moving = true;
+                if (!player.direction.contains(Direction.LEFT)) {
+                player.direction.add(Direction.LEFT);
+                }
                 player.left();
             } else {
                 player.xVelo = 0;
@@ -156,6 +195,9 @@ public class OverworldHandler extends Handler {
             timesTick++;
         } 
         if (timesTick > 75 || player.getX() < 100) {
+            player.direction.remove(Direction.LEFT);
+            player.direction.remove(Direction.RIGHT);
+            player.moving = false;
             glideLeft = false;
             glideRight = false;
             doneWalking = true;
@@ -163,6 +205,12 @@ public class OverworldHandler extends Handler {
         }
         if (start) {
             driver.levelHandler.currLev = selectedLevel;
+            music.pause();
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
             driver.gameStack.push(driver.levelHandler);
         }
     }
@@ -183,6 +231,7 @@ public class OverworldHandler extends Handler {
         if (e.getKeyCode()==KeyEvent.VK_ENTER && doneWalking) {
           
             startUp(driver);
+            smoothing = false;
             start = true;
             
         }
