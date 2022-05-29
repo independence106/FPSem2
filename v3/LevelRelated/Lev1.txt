@@ -5,10 +5,10 @@ DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 
 
 DDDDDDDDDDDD
-
-                DDDD
-                       DDDD
-B
+                 C     C
+                DDDD   D K D 
+          F             DDDDD
+B                 D    K     C  C     DD
 D    K    DDDDDDDDDDDDDDDDDDDDDDDDDDDD
 DDDDDDDDDD
 

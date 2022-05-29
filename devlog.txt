@@ -51,13 +51,13 @@ tales of wisdom gained...
 
 
 
- ______   ______   __   __   __       ______   _______     
-/_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\    
-\:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__  
- \:\ \ \ \\:\/___/\\:\ \\ \ \\:\ \    \:\ \ \ \\:\ /____/\ 
-  \:\ \ \ \\::___\/_\:\_/.:\ \\:\ \____\:\ \ \ \\:\\_  _\/ 
-   \:\/.:| |\:\____/\\ ..::/ / \:\/___/\\:\_\ \ \\:\_\ \ \ 
-    \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/ 
+ ______   ______   __   __   __       ______   _______
+/_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\
+\:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__
+ \:\ \ \ \\:\/___/\\:\ \\ \ \\:\ \    \:\ \ \ \\:\ /____/\
+  \:\ \ \ \\::___\/_\:\_/.:\ \\:\ \____\:\ \ \ \\:\\_  _\/
+   \:\/.:| |\:\____/\\ ..::/ / \:\/___/\\:\_\ \ \\:\_\ \ \
+    \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 
 5/17 - Jason: Basic GUI interface, graphics, designing
@@ -66,7 +66,7 @@ tales of wisdom gained...
 5/18 - Jason: Blocks, started designing block display algo
               Bound detection and gravity - ish; still bugs so must fix
 
-5/19 - Jason: Smoothed bound detection and collisions, smoothed top scrolling, side scrolling 
+5/19 - Jason: Smoothed bound detection and collisions, smoothed top scrolling, side scrolling
               Started implementing block render
        Russell: Started Research on jumping and the physics behind it
 
@@ -77,19 +77,20 @@ tales of wisdom gained...
 
 5/22 - Jason: Intro menu finished, coins added
 
-5/23 - Jason: I forgot what I did
 5/24 - Jason: Level class and reorganization
+     - Ariel: Finished first enemy class
 
 5/25 - Jason: Overworld develop and transition between levels and overworld <- 1rst prototype is done
        -> Next prototype: working jump, transitions, animations, more blocks and more levels
        -> fix bugs: overworld too far left and put music in driverrunner
-       
+       Ariel: Fixed collisions on blocks.
+
 5/26 - Jason: music transition between worlds, intro menu handler cleaning
 
 5/27 - Jason: jump working, sprites for player aquired
 
 5/28 - Jason: Sprite animation working, course clear screen, death animation, uhh sound effects, intro strucutre, credit structure, smoothing movement
-
+     - Ariel: Made flying enemy. Designed first level.
 
 https://www.youtube.com/watch?v=AaKzpBH65FE - Salaj <- in credits owo
 
