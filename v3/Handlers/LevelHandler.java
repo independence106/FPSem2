@@ -13,11 +13,13 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import Entity.Player;
+
 public class LevelHandler extends Handler { // Graphics to handle events during a level
 
 	public ArrayList<Level> levels;
 
-    public DriverRunner driverRunner; // I don't think this is needed atm
+    public DriverRunner driver;
 
 	public int currLev;
 
@@ -30,7 +32,7 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 	public void loadLev() {
 		levels.add(new Level(1)); 
 		levels.add(new Level(2));
-		// levels.add(new Level(3));
+		levels.add(new Level(3));
 		// levels.add(new Level(4));
 		// levels.add(new Level(5));
 		// levels.add(new Level(6));
@@ -52,6 +54,15 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 			driver.overworldHandler.player.setLives(driver.overworldHandler.player.getLives() - 1);
 
 			driver.gameStack.pop();
+			if (Player.getLives() <= 0) {
+				try {
+					Thread.sleep(100);
+				} catch (Exception e) {
+					//TODO: handle exception
+				}
+				driver.gameStack.push(driver.deathScreenHandler);
+			}
+			
 			
 			
 		}
@@ -59,6 +70,7 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 	}
 
     public void draw(Graphics g, DriverRunner driver) {
+		g.setColor(Color.WHITE);
 		g.clearRect(0, 0, 800, 600);
 		g.fillRect(0, 0, 800, 600);
 

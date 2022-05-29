@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import Entity.Enemy;
+import Entity.Player;
 import Handlers.DriverRunner;
 import music.MusicThing;
 
@@ -65,6 +66,15 @@ public class Level {
                 break;
             case 2:
                 loadLev("./LevelRelated/Lev2.txt");
+                loadImg("./images/pineapple.png");
+                try {
+                    music = new MusicThing("./music/salaj.mid");
+                } catch (Exception e) {
+                    System.out.println(e + "catch error");
+                }  
+                break;
+            case 3: 
+                loadLev("./LevelRelated/Lev3.txt");
                 loadImg("./images/pineapple.png");
                 try {
                     music = new MusicThing("./music/salaj.mid");

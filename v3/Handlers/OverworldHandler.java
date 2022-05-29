@@ -1,9 +1,16 @@
+package Handlers;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.Currency;
 
 import javax.imageio.ImageIO;
+
+import Entity.Player;
+import LevelRelated.Camera;
+import LevelRelated.Level;
+import music.MusicThing;
 
 import java.awt.*;
 
@@ -31,12 +38,15 @@ public class OverworldHandler extends Handler {
     public Player player;
     public DriverRunner driver; //is this needed?
     public Camera cam;
+
+    public MusicThing music;
     
     public boolean glideLeft;
     public boolean glideRight;
     public int timesTick;
     public int selectedLevel;
     public boolean start;
+    public boolean doneWalking;
 
     public int latestLev;
     public Image lives;
@@ -47,17 +57,23 @@ public class OverworldHandler extends Handler {
 
 
     public OverworldHandler(DriverRunner driver) {
+        try {
+            music = new MusicThing("./music/test.mid");
+        } catch (Exception e) {
+            System.out.println(e + "catch error");
+        }  
         this.driver = driver;
         timesTick = 0;
         glideLeft = false;
         glideRight = false;
-        player = new Player(100, 300);
+        player = new Player(127, 300);
         cam = new Camera(player.getX(), player.getY());
         selectedLevel = 0;
         start = false;
         snapCamera(player);
         latestLev = 0;
         loadImg();
+        doneWalking = true;
         
     }
 
@@ -88,7 +104,7 @@ public class OverworldHandler extends Handler {
         tick(driver);
         cam.tick(player);
 		Toolkit.getDefaultToolkit().sync(); 
-       
+        g.setColor(Color.WHITE);
         g.clearRect(0, 0, 800, 600);
 		g.fillRect(0, 0, 800, 600); //background
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);
@@ -99,6 +115,13 @@ public class OverworldHandler extends Handler {
                 Lock lock = new Lock(100+ i *DISTANCE_BETWEEN_LEVELS, 100);
                 lock.draw(g);
             }
+            if (latestLev < i) {
+                g.setColor(Color.BLUE);
+            } else {
+                g.setColor(Color.RED);
+            }
+            
+            g.fillRoundRect(125 + i * DISTANCE_BETWEEN_LEVELS, 300, 50, 25, 50, 25);
         }
 		player.draw(g, driver);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
@@ -114,16 +137,15 @@ public class OverworldHandler extends Handler {
         player.tickOverworld();
         if (player.getLives() <= 0) {
             // CUT SCENE DEATH ANIMATION
-            System.out.println("DEATH SCREEN ANIMATION");
-            player.setLives(5);
+            player.setLives(5);            
         }
         if (glideLeft == false && glideRight == false) {
             player.xVelo = 0;
-        } else if (glideRight && timesTick <= 100) {
+        } else if (glideRight && timesTick <= 75) {
             player.right();
             
             timesTick++;
-        } else if (glideLeft && timesTick <= 100) {
+        } else if (glideLeft && timesTick <= 75) {
             if (player.getX() >= 100) {
                 player.left();
             } else {
@@ -133,10 +155,10 @@ public class OverworldHandler extends Handler {
            
             timesTick++;
         } 
-        if (timesTick > 100 || player.getX() < 100) {
+        if (timesTick > 75 || player.getX() < 100) {
             glideLeft = false;
             glideRight = false;
-            
+            doneWalking = true;
             timesTick = 0;
         }
         if (start) {
@@ -149,16 +171,20 @@ public class OverworldHandler extends Handler {
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
         
-        if(e.getKeyCode()==KeyEvent.VK_D && glideLeft == false) {
+        if(e.getKeyCode()==KeyEvent.VK_D && glideLeft == false && player.xPos < (120 + (latestLev) * DISTANCE_BETWEEN_LEVELS)) {
             glideRight = true;
+            doneWalking = false;
             selectedLevel++;
-        } else if (e.getKeyCode()==KeyEvent.VK_A && glideRight == false) {
+        } else if (e.getKeyCode()==KeyEvent.VK_A && glideRight == false  && player.xPos >= 430) {
             glideLeft = true;
+            doneWalking = false;
             selectedLevel--;
         }
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER && doneWalking) {
+          
             startUp(driver);
             start = true;
+            
         }
     }
 

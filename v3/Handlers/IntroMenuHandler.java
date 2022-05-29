@@ -292,6 +292,7 @@ public class IntroMenuHandler extends Handler {
 
                 music.pause();
                 driver.gameStack.pop();
+                driver.gameStack.push(driver.introHandler);
             }
         }
         

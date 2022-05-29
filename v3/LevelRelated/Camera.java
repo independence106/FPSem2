@@ -1,5 +1,7 @@
+package LevelRelated;
 
 
+import Entity.Player;
 import Settings.MapSettings;
 
 public class Camera {

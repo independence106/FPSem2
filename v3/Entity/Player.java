@@ -1,21 +1,36 @@
-package LevelRelated;
+package Entity;
 
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import Blocks.Block;
 import Blocks.ButtonFlag;
-import Entity.Animation;
-import Entity.Entity;
 import Handlers.DriverRunner;
+import LevelRelated.Level;
 import Settings.MapSettings;
+import music.SoundEffect;
 
 public class Player {
 
+    public enum State {
+        BABY,
+        NORMAL,
+        POWERUP
+    }
+
+    public enum Direction {
+        LEFT,
+        RIGHT
+    }
+
+    public final static int HAND_TO_WALL = 7;
+
     public static int lives = 5;
     public static int coins = 0;
+    public static State state; 
     
     public double xPos;
     public double yPos;
@@ -37,23 +52,40 @@ public class Player {
     public double yAccel = 0;
     public double xVelo = 0;
 
+    public ArrayList<Direction> direction;
+    public boolean moving;
+    
+    public Thread soundEffect;
+    public SoundEffect sound;
+
+
+
     public Player() {
+        
         this.xPos = 400;
         this.yPos = 80;
-        this.height = 80;
-        this.width = 40;
+        startUp();
         Animation.loadImg();
         
     }
 
     public Player(int x, int y) {
-        
         this.xPos = x;
         this.yPos = y;
-        this.height = 80;
-        this.width = 40;
-        Animation.loadImg();
+        startUp();
 
+    }
+
+    public void startUp() {
+        state = State.BABY;
+        this.height = 40;
+        this.width = 40;
+        moving = false;
+        Animation.loadImg();
+        direction = new ArrayList<Direction>();
+        direction.add(Direction.RIGHT);
+        sound = new SoundEffect();
+        soundEffect = new Thread(sound);
     }
 
     
@@ -86,8 +118,15 @@ public class Player {
         if (yPos > 800) {
             level.setDead();
         }
+        if (moving) {
+            animationTick++;
+        }
+        
 
     }
+
+
+    
 
     public void tickOverworld() {
         xPos += xVelo;
@@ -109,12 +148,12 @@ public class Player {
                
             }
             if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getLeftBounds())) {
-                xPos = level.levMap.rigidBlocks.get(i).getX() - width;               
+                xPos = level.levMap.rigidBlocks.get(i).getX() - width + HAND_TO_WALL;               
             }
 
             if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getRightBounds())) {
-                System.out.println("doing this");
-                xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize;               
+           
+                xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize - HAND_TO_WALL;               
             }
             
             if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
@@ -144,25 +183,57 @@ public class Player {
            
         }
         for (int i = 0; i < level.levMap.enemies.size(); i++) {
-            if (getRightBounds().intersects(level.levMap.enemies.get(i).getBounds()) || getLeftBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
-                level.setDead();
-
-            }
             if (getBottomBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
                 level.levMap.enemies.remove(i);
                 System.out.println("DEAD");
-            }
+            } else if (getRightBounds().intersects(level.levMap.enemies.get(i).getBounds()) || getLeftBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
+                level.setDead();
+
+            }  
         }
+    }
+
+    public void drawBaby(Graphics g, DriverRunner driver) {
+        g.drawImage(getPlayerImageUsed(), (int) xPos, (int) yPos, driver);
     }
 
     public void draw(Graphics g, DriverRunner driver) {
         Graphics o = g.create();
         o.setColor(Color.LIGHT_GRAY);
-	    o.drawImage(Animation.getWalk1(), (int) xPos, (int) yPos, driver);
+        drawBaby(o, driver);
         o.setColor(Color.RED);
-        o.fillRect((int) xPos + width - 4, (int) yPos, 4, height - 4);
+        o.drawRect((int) xPos + HAND_TO_WALL, (int) yPos, width - 2 * HAND_TO_WALL, height);
+        
         o.setColor(Color.BLACK);
-        o.drawRect((int) xPos + 4, (int) yPos + height - 4, width - 8, 5);
+        o.drawRect((int)xPos + width - 4 - HAND_TO_WALL, (int) yPos, 4, height);
+        o.drawRect((int)xPos + HAND_TO_WALL + 1, (int) yPos, 4, height - 4);
+    }
+    
+    public Image getPlayerImageUsed() {
+        if (direction.size() > 0) {
+            if (direction.get(0) == Direction.LEFT) {
+                if (animationTick < 5) {
+                    return Animation.getLeftWalk1();
+                } 
+                
+                if (animationTick > 10) {
+                    animationTick = 0;
+                    
+                }
+                return Animation.getLeftWalk2();
+            } else {
+                if (animationTick < 5) {
+                    return Animation.getRightWalk1();
+                } 
+                
+                if (animationTick > 10) {
+                    animationTick = 0;
+                    
+                }
+                return Animation.getRightWalk2();
+            }
+        }
+        return Animation.getNormalBaby();
     }
 
     public void right() {
@@ -183,23 +254,32 @@ public class Player {
     }
 
     public Rectangle getBounds() {
+        if (state == State.BABY) {
+            return new Rectangle((int) xPos + HAND_TO_WALL, (int) yPos, width - 2 * HAND_TO_WALL, height);
+        }
         return new Rectangle((int) xPos, (int) yPos, width, height);
     }
 
     public Rectangle getRightBounds() {
+        if (state == State.BABY) {
+            return new Rectangle((int)xPos + width - 4 - HAND_TO_WALL, (int) yPos, 4, height);
+        }
         return new Rectangle((int) xPos + width - 4, (int) yPos, 4, height - 4);
     }
 
     public Rectangle getLeftBounds() {
+        if (state == State.BABY) {
+            return new Rectangle((int)xPos + HAND_TO_WALL + 1, (int) yPos, 4, height - 4);
+        }
         return new Rectangle((int) xPos + 1, (int) yPos, 4, height - 4);
     }
 
     public Rectangle getTopBounds(){
-        return new Rectangle((int) xPos + 1, (int) yPos, width - 1, 5);
+        return new Rectangle((int) xPos + 1 + HAND_TO_WALL, (int) yPos, width - 1 - 2 * HAND_TO_WALL, 5);
     }
 
     public Rectangle getBottomBounds() {
-        return new Rectangle((int) xPos + 4, (int) yPos + height - 4, width - 8, 5); //4 is arbitrary
+        return new Rectangle((int) xPos + 4 + HAND_TO_WALL, (int) yPos + height - 4, width - 8 - 2*HAND_TO_WALL, 5); //4 is arbitrary
     }
 
     public double getX() {
@@ -214,12 +294,21 @@ public class Player {
         lives = addlives;
     }
 
-    public int getLives() {
+    public static int getLives() {
         return lives;
     }
 
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_W && canJump) {
+            try {
+                sound.setJump();
+                soundEffect.start();
+                soundEffect = new Thread(sound);
+
+            } catch (Exception a) {
+                //TODO: handle exception
+            }
+
             falling = true;
             canJump = false; 
             up();
@@ -228,9 +317,18 @@ public class Player {
             movingY = -1;
         }
         if(e.getKeyCode()==KeyEvent.VK_A) {
+            moving = true;
+            if (!direction.contains(Direction.LEFT)) {
+                direction.add(Direction.LEFT);
+            }
+            
             left();
         }
         if(e.getKeyCode()==KeyEvent.VK_D) {
+            moving = true;
+            if (!direction.contains(Direction.RIGHT)) {
+                direction.add(Direction.RIGHT);
+            }
             right();
         }
     }
@@ -243,9 +341,13 @@ public class Player {
             movingY = 0;
         }
         if(e.getKeyCode()==KeyEvent.VK_A) {
+            moving = false;
+            direction.remove(Direction.LEFT);
             xVelo = 0;
         }
         if(e.getKeyCode()==KeyEvent.VK_D) {
+            moving = false;
+            direction.remove(Direction.RIGHT);
             xVelo = 0;
         }
     }

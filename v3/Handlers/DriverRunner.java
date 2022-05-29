@@ -14,18 +14,20 @@ public class DriverRunner extends JPanel implements Runnable{
 
 	static final Dimension SCREEN_SIZE = new Dimension(MapSettings.GAME_WIDTH, MapSettings.GAME_HEIGHT);
 	
-    BackGroundDrawer map = new BackGroundDrawer();
-	Stack<Handler> gameStack;
-	Thread gameThread;
+    public BackGroundDrawer map = new BackGroundDrawer();
+	public Stack<Handler> gameStack;
+	public Thread gameThread;
 	
-	Graphics graphics;
+	public Graphics graphics;
 
-	LevelHandler levelHandler;
-	IntroMenuHandler logoIntroHandler;
-	OverworldHandler overworldHandler;
+	public LevelHandler levelHandler;
+	public IntroMenuHandler logoIntroHandler;
+	public OverworldHandler overworldHandler;
+	public DeathScreenHandler deathScreenHandler;
+	public IntroHandler introHandler;
 
-	int imag2x;
-	int imag2y;
+	public int imag2x;
+	public int imag2y;
 	
 	public DriverRunner() {
 		this.setFocusable(true);
@@ -35,6 +37,8 @@ public class DriverRunner extends JPanel implements Runnable{
 		levelHandler = new LevelHandler(this);
 		logoIntroHandler = new IntroMenuHandler();
 		overworldHandler = new OverworldHandler(this);
+		deathScreenHandler = new DeathScreenHandler();
+		introHandler = new IntroHandler();
 
 		gameStack = new Stack<Handler>();
 		// map.loadImg("map.png");
@@ -49,7 +53,7 @@ public class DriverRunner extends JPanel implements Runnable{
 	public void startup() {
 		// gameStack.push(levelHandler);
 		gameStack.push(overworldHandler);
-		// gameStack.push(logoIntroHandler);
+		gameStack.push(logoIntroHandler);
 	}
 	
 	public void paint(Graphics g) {
