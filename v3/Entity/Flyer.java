@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import Blocks.Block;
 import Blocks.ButtonFlag;
+import Handlers.DriverRunner;
 import LevelRelated.Level;
 import LevelRelated.TileMap;
 import Settings.MapSettings;
@@ -90,12 +91,13 @@ public class Flyer extends Enemy {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, DriverRunner driver) {
 
         // TODO Auto-generated method stub
 
         g.setColor(Color.ORANGE);
         g.fillRect((int) xPos, (int) yPos, width, height);
     }
+
 
 }

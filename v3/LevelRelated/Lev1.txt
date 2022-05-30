@@ -5,19 +5,11 @@ DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 
 
 DDDDDDDDDDDD
-<<<<<<< HEAD
 
                 DDDD              P                       b
                 DDDD
 B                                  S                                                 D
 D    K    DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-=======
-                 C     C
-                DDDD   D K D 
-          F             DDDDD
-B                 D    K     C  C     DD
-D    K    DDDDDDDDDDDDDDDDDDDDDDDDDDDD
->>>>>>> 20e56b323dfdb564356ea510233e6ffa13171e83
 DDDDDDDDDD
 
 DDDDDD 

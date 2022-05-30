@@ -57,11 +57,7 @@ public class OverworldHandler extends Handler {
     public static final int finalLev = 3;
     public Image lives;
 
-
     public final int DISTANCE_BETWEEN_LEVELS = 300;
-
-    
-
 
     public OverworldHandler(DriverRunner driver) {
         try {
@@ -107,8 +103,6 @@ public class OverworldHandler extends Handler {
             //TODO: handle exception
         }
         lives = lives.getScaledInstance(30, 30, lives.SCALE_DEFAULT);
-        
-
     }
 
     @Override
@@ -176,10 +170,6 @@ public class OverworldHandler extends Handler {
         }
         // TODO Auto-generated method stub
         player.tickOverworld();
-        if (latestLev >= finalLev) {
-            music.pause();
-            driver.gameStack.push(driver.outroHandler);
-        }
         if (Player.getLives() <= 0) {
             // CUT SCENE DEATH ANIMATION
             player.setLives(5);            
