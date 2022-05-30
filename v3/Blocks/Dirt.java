@@ -1,15 +1,17 @@
 package Blocks;
 
 import java.awt.*;
+
+import Handlers.DriverRunner;
 import Settings.*;
 
 public class Dirt extends Block {
 
     public Dirt(int X, int Y) {
-        super(X, Y);
+        super(X, Y, "N");
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, DriverRunner driver) {
         g.setColor(new Color(153, 102, 0)); // brown
         
         g.fillRect(Xpos, Ypos, MapSettings.tileSize, MapSettings.tileSize);

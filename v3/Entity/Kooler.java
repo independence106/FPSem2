@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Blocks.Block;
 import Blocks.ButtonFlag;
+import Handlers.DriverRunner;
 import LevelRelated.Level;
 import LevelRelated.TileMap;
 import Settings.MapSettings;
@@ -59,6 +60,11 @@ public class Kooler extends Enemy {
         
     }
 
+
+    public void flipDir() {
+        xVelo *= -1;
+    }
+
     public Rectangle getBounds() {
         return new Rectangle((int) xPos, (int) yPos, width, height);
     }
@@ -99,7 +105,7 @@ public class Kooler extends Enemy {
 
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, DriverRunner driver) {
         
         // TODO Auto-generated method stub
 

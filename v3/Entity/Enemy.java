@@ -11,7 +11,18 @@ public abstract class Enemy extends Entity{
     
     public abstract void tick(Level level);
 
-    public abstract Rectangle getBounds();
+    public void rigidCollision(Level level) {
+       
+    }
+    //
+    public void nonRigidCollision(Level level) { 
+        
+    }
+
+
+    public void flipDir() {
+        xVelo *= -1;
+    }
     
 }
 

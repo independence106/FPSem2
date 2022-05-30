@@ -1,6 +1,8 @@
 package Blocks;
 
 import java.awt.*;
+
+import Handlers.DriverRunner;
 import Settings.*;
 
 
@@ -8,9 +10,9 @@ import Settings.*;
 public class Lava extends Block{
     
     public Lava(int X, int Y) {
-        super(X, Y);
+        super(X, Y, "N");
     }
-    public void draw(Graphics g) {
+    public void draw(Graphics g, DriverRunner driver) {
         g.setColor(new Color(153, 102, 0)); // 
         
         g.fillRect(Xpos, Ypos, MapSettings.tileSize, MapSettings.tileSize);

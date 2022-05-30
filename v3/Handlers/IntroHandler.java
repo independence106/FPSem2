@@ -49,6 +49,7 @@ public class IntroHandler extends Handler {
         currentTicks++;
         if (currentTicks > TICKS_TOTAL || skip) {
             driver.gameStack.pop();
+            driver.gameStack.push(driver.overworldHandler);
         }
     }
 

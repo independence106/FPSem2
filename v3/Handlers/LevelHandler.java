@@ -52,6 +52,7 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 			} catch (Exception e) {
 				//TODO: handle exception
 			}
+			driver.overworldHandler.smoothing = false;
 			driver.gameStack.push(driver.courseClearHandler);
 		}
 		if (levels.get(currLev).isDead()) {
@@ -83,13 +84,14 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 		tick(driver);
         levels.get(currLev).draw(g, driver);
 		g.drawImage(levels.get(currLev).lives, 15, 20, driver);
-        g.setColor(Color.WHITE);
+		g.setFont(new Font("Serif", Font.BOLD, 25));
+        g.setColor(Color.YELLOW); 
         g.drawString("x",  50, 40);
         g.drawString(Integer.toString(levels.get(currLev).player.getLives()),  60, 40);
-		g.drawImage(levels.get(currLev).lives, 15, 20, driver);
-        g.setColor(Color.WHITE);
-        g.drawString("x",  50, 40);
-        g.drawString(Integer.toString(Player.getCoins()),  60, 40);
+		g.drawImage(levels.get(currLev).lives, 15, 60, driver);
+        g.setColor(Color.YELLOW);
+        g.drawString("x",  50, 60);
+        g.drawString(Integer.toString(Player.getCoins()),  60, 60);
 	}
 
 	@Override

@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import Entity.Enemy;
+import Entity.Entity;
 import Entity.Player;
+import Entity.Player.State;
 import Handlers.DriverRunner;
 import music.MusicThing;
 
@@ -34,8 +36,10 @@ public class Level {
     public boolean isDone;
     public boolean isDead;
     public boolean isQuit;
+    public boolean goMenu;
 
     public boolean startedMusic;
+    public boolean resumeMusic;
     
 
     
@@ -45,14 +49,14 @@ public class Level {
 
     public void startup(int level) {
         
-        startedMusic = false;
+        startedMusic = true;
         isDone = false;
         isQuit = false;
         isDead = false;
-        player = new Player();
+        goMenu = false;
+        resumeMusic = false;
         levMap = new TileMap();
-        cam = new Camera(player.getX(), player.getY());
-        snapCamera(player);
+
         
         switch (level) {
             case 1:
@@ -87,6 +91,13 @@ public class Level {
                 break;
         }
         music.pause();
+        player = new Player(levMap.startX, levMap.startY);
+        cam = new Camera(player.getX(), player.getY());
+        snapCamera(player);
+        player.width = Player.state.width;
+        player.width = Player.state.height;
+        
+
         
     }
     
@@ -124,8 +135,26 @@ public class Level {
 		levMap.load();
 	}
 
-    public void tick() {
-        
+    public void tick(DriverRunner driver) {
+        player.setStateBug(Player.state);
+         if (goMenu) {
+            goMenu = false;
+            music.pause();
+            
+            driver.gameStack.push(driver.menuHandler);
+        }
+        if (startedMusic) {
+            music.play();
+            startedMusic = false;
+        }
+        try {
+            if (resumeMusic) {
+                music.play();
+                resumeMusic = false;
+            }
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
         player.tick(this);
     }
 
@@ -170,23 +199,28 @@ public class Level {
     public void draw(Graphics g, DriverRunner driver) {
         
         
-        tick();
-        if (!startedMusic) {
-            music.play();
-            startedMusic = true;
-        }
+        tick(driver);
+        
+        
 		cam.tick(player);
 		Toolkit.getDefaultToolkit().sync(); 
 		 //background
-        
 		// map.draw(g, this);		
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);
 		if (cam.getY() < 0) g.translate(0, (int) cam.getY());
+        
+        for (Entity entity : levMap.entities) {
+            entity.tick(this);
+            entity.draw(g, driver);
+            if (entity.yPos > 800) {
+                levMap.enemies.remove(entity);
+            }
+        }
         for (Enemy enemy : levMap.enemies) {
             enemy.tick(this);
-            enemy.draw(g);
+            enemy.draw(g, driver);
         }
-		levMap.draw(g);
+		levMap.draw(g, driver);
 		player.draw(g, driver);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
 		if (cam.getY() < 0) g.translate(0, (int) -cam.getY());
@@ -196,7 +230,9 @@ public class Level {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		player.keyPressed(e);
-        
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            goMenu = true;
+        }
 	}
 
 	public void keyReleased(KeyEvent e) {

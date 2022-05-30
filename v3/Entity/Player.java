@@ -8,6 +8,8 @@ import java.util.Stack;
 
 import Blocks.Block;
 import Blocks.ButtonFlag;
+import Blocks.Powerup;
+import Blocks.Powerup.Phase;
 import Handlers.DriverRunner;
 import LevelRelated.Level;
 import Settings.MapSettings;
@@ -16,9 +18,17 @@ import music.SoundEffect;
 public class Player {
 
     public enum State {
-        BABY,
-        NORMAL,
-        POWERUP
+        BABY(40, 40),
+        NORMAL(40, 80),
+        POWERUP(40, 80);
+
+        public final int width;
+        public final int height;
+
+        private State(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
     }
 
     public enum Direction {
@@ -30,12 +40,13 @@ public class Player {
 
     public static int lives = 5;
     public static int coins = 0;
-    public static State state; 
+    public static State state = Player.getState(); 
     
     public double xPos;
     public double yPos;
     public int height;
     public int width;
+    public int jumpHeight;
 
     //1 right/up, 0 not moving, -1 left/down
     public int movingX = 0;
@@ -52,6 +63,10 @@ public class Player {
     public double yAccel = 0;
     public double xVelo = 0;
 
+    public final int INVINCIBILITY_TICKS = 10;
+    public int currInvincTicks;
+    public boolean canTakeDamge;
+
     public ArrayList<Direction> direction;
     public boolean moving;
     
@@ -64,9 +79,7 @@ public class Player {
         
         this.xPos = 400;
         this.yPos = 80;
-        startUp();
-        Animation.loadImg();
-        
+        startUp();        
     }
 
     public Player(int x, int y) {
@@ -76,16 +89,26 @@ public class Player {
 
     }
 
+    public Player(int x, int y, State setState) {
+        state = setState;
+        this.xPos = x;
+        this.yPos = y;
+        startUp();
+
+    }
+
     public void startUp() {
-        state = State.BABY;
-        this.height = 40;
-        this.width = 40;
+        canTakeDamge = true;
+        currInvincTicks = 0;
+        this.height = state.height;
+        this.width = state.width;
         moving = false;
         Animation.loadImg();
         direction = new ArrayList<Direction>();
         direction.add(Direction.RIGHT);
         sound = new SoundEffect();
         soundEffect = new Thread(sound);
+        jumpHeight = 50;
     }
 
     
@@ -104,7 +127,7 @@ public class Player {
             yAccel += 0.1;
             jumpTick++;
         }
-        if (jumpTick >= 50) {
+        if (jumpTick >= jumpHeight) {
             jumpTick = 0;
             jumping = false;
             falling = true;
@@ -121,7 +144,12 @@ public class Player {
         if (moving) {
             animationTick++;
         }
-        
+        if (!canTakeDamge) {
+            currInvincTicks++;
+        }
+        if (currInvincTicks > INVINCIBILITY_TICKS) {
+            canTakeDamge = true;
+        }
 
     }
 
@@ -135,19 +163,29 @@ public class Player {
         }
     }
     
+    public void setJumpHeight(int ticks) {
+
+    }
+
     //prevents player going through blocks
     public void rigidCollision(Level level) {
         for (int i = 0; i < level.levMap.rigidBlocks.size(); i++) {
 
             if (getBottomBounds().intersects(level.levMap.rigidBlocks.get(i).getTopBounds())) {
-                yVelo = 0;
-                yPos = level.levMap.rigidBlocks.get(i).getY() - height;   
-                yAccel = 0;
-                canJump = true;
-               if (level.levMap.rigidBlocks.get(i).getId().equals("button")) {
-                   ((ButtonFlag) level.levMap.rigidBlocks.get(i)).setPressed();
-                    level.setDone();
-               }
+                
+                if (level.levMap.rigidBlocks.get(i).getId().equals("button")) {
+                    ((ButtonFlag) level.levMap.rigidBlocks.get(i)).setPressed();
+                        level.setDone();
+                        
+                } else {
+                    yPos = level.levMap.rigidBlocks.get(i).getY() - height;  
+                    yVelo = 0;
+
+                    yAccel = 0;
+                    canJump = true;
+
+                }
+
                
             }
             if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getLeftBounds())) {
@@ -163,7 +201,23 @@ public class Player {
                 yPos = level.levMap.rigidBlocks.get(i).getY() + MapSettings.tileSize;   
                 jumping = false;
                 jumpTick = 50;
-                falling = true;            
+                falling = true;    
+                if (level.levMap.rigidBlocks.get(i).getId().equals("powerup"))   {
+                    
+                    if (((Powerup) level.levMap.rigidBlocks.get(i)).getPhase() == Phase.NOHIT) {
+                        try {
+                            sound.setCourseClear();
+                            soundEffect.start();
+                            soundEffect = new Thread(sound);
+            
+                        } catch (Exception a) {
+                            //TODO: handle exception
+                        }
+                        level.levMap.entities.add(new RENAMEPowerUp(level.levMap.rigidBlocks.get(i).getX(), level.levMap.rigidBlocks.get(i).getY() - MapSettings.tileSize));
+                    }
+                    ((Powerup) level.levMap.rigidBlocks.get(i)).setHit();
+                    
+                }     
             }
             //adding a mehtod to detect if hit
             //if(getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) || 
@@ -179,7 +233,6 @@ public class Player {
             
            if (getBounds().intersects(level.levMap.nonRigidBlocks.get(i).getBounds())) {
                coins++;
-               System.out.println(level.levMap.nonRigidBlocks.get(i).getRow() + " " + level.levMap.nonRigidBlocks.get(i).getCol());
                level.levMap.setBlock(level.levMap.nonRigidBlocks.get(i).getRow(), level.levMap.nonRigidBlocks.get(i).getCol(), null);
                level.levMap.nonRigidBlocks.remove(i);
                try {
@@ -196,55 +249,144 @@ public class Player {
         for (int i = 0; i < level.levMap.enemies.size(); i++) {
             if (getBottomBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
                 level.levMap.enemies.remove(i);
+                falling = true;
+                canJump = false; 
+                yVelo = 3;
+
+                yAccel = 0;
+                setJumpHeight(2);
+                up();
                 System.out.println("DEAD");
             } else if (getRightBounds().intersects(level.levMap.enemies.get(i).getBounds()) || getLeftBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
-                level.setDead();
+                if (canTakeDamge) {
+                    if (state != State.BABY) {
+                        updateState(State.BABY);
+                        level.levMap.enemies.get(i).flipDir();
+                        canTakeDamge = false;
+                    } else {
+                        // level.setDead();
+    
+                    }
+                }
+                
 
+            }  
+        }
+        for (int i = 0; i < level.levMap.entities.size(); i++) {
+            if (getBounds().intersects(level.levMap.entities.get(i).getBounds())) {
+                if (level.levMap.entities.get(i).getId().equals("fireball")) {
+                    if (canTakeDamge) {
+                        if (state != State.BABY) {
+                            updateState(State.BABY);
+                            level.levMap.entities.remove(i);
+                            canTakeDamge = false;
+                        } else {
+                            // level.setDead();
+        
+                        }
+                    }
+                } else {
+                    updateState(State.NORMAL); 
+                    level.levMap.entities.remove(i);
+                }
+               
             }  
         }
     }
 
-    public void drawBaby(Graphics g, DriverRunner driver) {
+    public void updateState(State newState) {
+        
+        state = newState;
+        this.width = state.width;
+        this.height = state.height;
+        if (newState == State.BABY) {
+            this.yPos += 40;
+        } else {
+            this.yPos -= 40;
+
+        }
+        
+    }
+
+    public void setStateBug(State newState) {
+        state = newState;
+        this.width = state.width;
+        this.height = state.height;
+    }
+
+    public static State getState() {
+        return state;
+    }
+
+    public void drawWithAnimation(Graphics g, DriverRunner driver) {
         g.drawImage(getPlayerImageUsed(), (int) xPos, (int) yPos, driver);
     }
 
     public void draw(Graphics g, DriverRunner driver) {
         Graphics o = g.create();
         o.setColor(Color.LIGHT_GRAY);
-        drawBaby(o, driver);
+        drawWithAnimation(g, driver);
         o.setColor(Color.RED);
         o.drawRect((int) xPos + HAND_TO_WALL, (int) yPos, width - 2 * HAND_TO_WALL, height);
         
-        o.setColor(Color.BLACK);
-        o.drawRect((int)xPos + width - 4 - HAND_TO_WALL, (int) yPos, 4, height);
-        o.drawRect((int)xPos + HAND_TO_WALL + 1, (int) yPos, 4, height - 4);
+        // o.setColor(Color.BLACK);
+        // o.drawRect((int)xPos + width - 4 - HAND_TO_WALL, (int) yPos, 4, height);
+        // o.drawRect((int)xPos + HAND_TO_WALL + 1, (int) yPos, 4, height - 4);
     }
     
     public Image getPlayerImageUsed() {
-        if (direction.size() > 0) {
-            if (direction.get(0) == Direction.LEFT) {
-                if (animationTick < 5) {
-                    return Animation.getLeftWalk1();
-                } 
-                
-                if (animationTick > 10) {
-                    animationTick = 0;
+        if (state == State.BABY) {
+            if (direction.size() > 0) {
+                if (direction.get(0) == Direction.LEFT) {
+                    if (animationTick < 5) {
+                        return Animation.getLeftWalk1();
+                    } 
                     
-                }
-                return Animation.getLeftWalk2();
-            } else {
-                if (animationTick < 5) {
-                    return Animation.getRightWalk1();
-                } 
-                
-                if (animationTick > 10) {
-                    animationTick = 0;
+                    if (animationTick > 10) {
+                        animationTick = 0;
+                        
+                    }
+                    return Animation.getLeftWalk2();
+                } else {
+                    if (animationTick < 5) {
+                        return Animation.getRightWalk1();
+                    } 
                     
+                    if (animationTick > 10) {
+                        animationTick = 0;
+                        
+                    }
+                    return Animation.getRightWalk2();
                 }
-                return Animation.getRightWalk2();
             }
+            return Animation.getNormalBaby();
+        } else {
+            if (direction.size() > 0) {
+                if (direction.get(0) == Direction.LEFT) {
+                    if (animationTick < 5) {
+                        return Animation.getLeftWalkAdult1();
+                    } 
+                    
+                    if (animationTick > 10) {
+                        animationTick = 0;
+                        
+                    }
+                    return Animation.getLeftWalkAdult2();
+                } else {
+                    if (animationTick < 5) {
+                        return Animation.getRightWalkAdult1();
+                    } 
+                    
+                    if (animationTick > 10) {
+                        animationTick = 0;
+                        
+                    }
+                    return Animation.getRightWalkAdult2();
+                }
+            }
+            return Animation.getNormalAdult();
         }
-        return Animation.getNormalBaby();
+        
     }
 
     public void right() {
@@ -265,32 +407,26 @@ public class Player {
     }
 
     public Rectangle getBounds() {
-        if (state == State.BABY) {
-            return new Rectangle((int) xPos + HAND_TO_WALL, (int) yPos, width - 2 * HAND_TO_WALL, height);
-        }
-        return new Rectangle((int) xPos, (int) yPos, width, height);
+        
+        return new Rectangle((int) xPos + HAND_TO_WALL, (int) yPos, state.width - 2 * HAND_TO_WALL, state.height);
     }
 
     public Rectangle getRightBounds() {
-        if (state == State.BABY) {
-            return new Rectangle((int)xPos + width - 4 - HAND_TO_WALL, (int) yPos, 4, height);
-        }
-        return new Rectangle((int) xPos + width - 4, (int) yPos, 4, height - 4);
+        
+        return new Rectangle((int)xPos + state.width - 4 - HAND_TO_WALL, (int) yPos, 4, state.height);
     }
 
     public Rectangle getLeftBounds() {
-        if (state == State.BABY) {
-            return new Rectangle((int)xPos + HAND_TO_WALL + 1, (int) yPos, 4, height - 4);
-        }
-        return new Rectangle((int) xPos + 1, (int) yPos, 4, height - 4);
+        
+        return new Rectangle((int)xPos + HAND_TO_WALL + 1, (int) yPos, 4, state.height - 4);
     }
 
     public Rectangle getTopBounds(){
-        return new Rectangle((int) xPos + 1 + HAND_TO_WALL, (int) yPos, width - 1 - 2 * HAND_TO_WALL, 5);
+        return new Rectangle((int) xPos + 1 + HAND_TO_WALL, (int) yPos, state.width - 1 - 2 * HAND_TO_WALL, 5);
     }
 
     public Rectangle getBottomBounds() {
-        return new Rectangle((int) xPos + 4 + HAND_TO_WALL, (int) yPos + height - 4, width - 8 - 2*HAND_TO_WALL, 5); //4 is arbitrary
+        return new Rectangle((int) xPos + 4 + HAND_TO_WALL, (int) yPos + state.height - 4, state.width - 8 - 2*HAND_TO_WALL, 5); //4 is arbitrary
     }
 
     public double getX() {
@@ -325,6 +461,7 @@ public class Player {
 
             falling = true;
             canJump = false; 
+            setJumpHeight(50);
             up();
         }
         if(e.getKeyCode()==KeyEvent.VK_S) {

@@ -48,6 +48,11 @@ public class SoundEffect implements Runnable{
 		load();
 	}
 
+	public void setCredits() {
+		this.path = "./music/credits.wav";
+		load();
+	}
+
 	
 
 	@Override

@@ -11,8 +11,14 @@ public class Animation {
     public static Image babyPineappleRight2;
     public static Image babyPineappleNoMove;
 
-    public Animation() {
+    public static Image normalPineappleLeft1;
+    public static Image normalPineappleLeft2;
+    public static Image normalPineappleRight1;
+    public static Image normalPineappleRight2;
+    public static Image normalPineappleNoMove;
 
+    public Animation() {
+        loadImg();
     }
 
     public static void loadImg() {
@@ -46,6 +52,36 @@ public class Animation {
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
+        try {
+			normalPineappleLeft1 = ImageIO.read(new File("./images/walkLeftAdult1.png"));
+
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+        try {
+			normalPineappleLeft2 = ImageIO.read(new File("./images/walkLeftAdult2.png"));
+
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+        try {
+			normalPineappleRight1 = ImageIO.read(new File("./images/walkRightAdult1.png"));
+
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+        try {
+			normalPineappleRight2 = ImageIO.read(new File("./images/walkRightAdult2.png"));
+
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+        try {
+			normalPineappleNoMove = ImageIO.read(new File("./images/normalAdult.png"));
+
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
 		
 		
     }
@@ -68,5 +104,24 @@ public class Animation {
 
     public static Image getNormalBaby() {
         return babyPineappleNoMove;
+    }
+    public static Image getLeftWalkAdult1() {
+        return normalPineappleLeft1;
+    }
+
+    public static Image getLeftWalkAdult2() {
+        return normalPineappleLeft2;
+    }
+
+    public static Image getRightWalkAdult1() {
+        return normalPineappleRight1;
+    }
+
+    public static Image getRightWalkAdult2() {
+        return normalPineappleRight2;
+    }
+
+    public static Image getNormalAdult() {
+        return normalPineappleNoMove;
     }
 }

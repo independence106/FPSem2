@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import Handlers.DriverRunner;
 import Settings.MapSettings;
 
 public class ButtonFlag extends Block {
@@ -11,12 +12,12 @@ public class ButtonFlag extends Block {
     public boolean pressed;
 
     public ButtonFlag(int X, int Y) {
-        super(X, Y);
+        super(X, Y, "N");
         pressed = false;
     }
 
     
-    public void draw(Graphics g) {
+    public void draw(Graphics g, DriverRunner driver) {
         // TODO Auto-generated method stub\
         g.setColor(Color.RED);
         if (!pressed) {
@@ -64,10 +65,6 @@ public class ButtonFlag extends Block {
         pressed = true;
         return true;
     }
-
-
-    
-
     
     
 }

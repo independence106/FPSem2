@@ -3,15 +3,16 @@ package Blocks;
 import java.awt.*;
 import java.util.Map;
 
+import Handlers.DriverRunner;
 import Settings.*;
 
 public class Grass extends Block {
 
     public Grass(int X, int Y) {
-        super(X, Y);
+        super(X, Y, "N");
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, DriverRunner driver) {
         g.setColor(Color.GREEN);
         
         g.fillRect(Xpos, Ypos, MapSettings.tileSize, MapSettings.tileSize);

@@ -11,6 +11,7 @@ import music.SoundEffect;
 public class CourseClearHandler extends Handler {
 
     public Image clearImage;
+    public Image clearBackGround;
 
 
     public static final int TICKS_TOTAL = 500;
@@ -36,8 +37,14 @@ public class CourseClearHandler extends Handler {
         } catch (Exception e) {
             //TODO: handle exception
         }
-        clearImage = clearImage.getScaledInstance(100, 100, clearImage.SCALE_DEFAULT);
-        
+        clearImage = clearImage.getScaledInstance(200, 200, clearImage.SCALE_DEFAULT);
+        try {
+            clearBackGround = ImageIO.read(new File("./images/clear.png"));
+
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        clearBackGround = clearBackGround.getScaledInstance(800, 800, clearBackGround.SCALE_DEFAULT);
 
     }
 
@@ -58,7 +65,8 @@ public class CourseClearHandler extends Handler {
         
         tick(driver);
         g.clearRect(0, 0, 800, 600);
-        g.drawImage(clearImage, 350, 250, driver);
+        g.drawImage(clearBackGround, 50, -100, driver);
+        g.drawImage(clearImage, 300, 350, driver);
     }
 
     @Override

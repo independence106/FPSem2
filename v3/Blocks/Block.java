@@ -1,6 +1,11 @@
 package Blocks;
 
 import java.awt.*;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
+import Handlers.DriverRunner;
 
 public abstract class Block {
 
@@ -10,18 +15,35 @@ public abstract class Block {
     protected int Xpos;
     protected int Ypos;
 
+    protected Image image;
+
     public Block() {
 
     }
     
-    public Block(int X, int Y) {
+    public Block(int X, int Y, String sting) {
         Xpos = X;
         Ypos = Y;
         row = -1;
         col = -1;
+        loadImg(sting);
+        
     }
 
-    public abstract void draw(Graphics g);
+    public void loadImg(String string) {
+        if (!(string == "N")) {
+            try {
+                image = ImageIO.read(new File(string));
+    
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+           
+        }
+       
+    }
+
+    public abstract void draw(Graphics g, DriverRunner driver);
 
     public int getX() {
         return Xpos;

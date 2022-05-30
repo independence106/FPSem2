@@ -28,6 +28,7 @@ public class DriverRunner extends JPanel implements Runnable{
 	public CreditsHandler creditsHandler;
 	public CourseClearHandler courseClearHandler;
 	public MenuHandler menuHandler;
+	public OutroHandler outroHandler;
 
 	public int imag2x;
 	public int imag2y;
@@ -37,14 +38,16 @@ public class DriverRunner extends JPanel implements Runnable{
 		this.addKeyListener(new AL());
 		this.setPreferredSize(SCREEN_SIZE);
 
+		overworldHandler = new OverworldHandler(this);
 		levelHandler = new LevelHandler(this);
 		logoIntroHandler = new IntroMenuHandler();
-		overworldHandler = new OverworldHandler(this);
+		
 		deathScreenHandler = new DeathScreenHandler();
 		introHandler = new IntroHandler();
 		creditsHandler = new CreditsHandler();
 		courseClearHandler = new CourseClearHandler();
 		menuHandler = new MenuHandler();
+		outroHandler = new OutroHandler();
 
 		gameStack = new Stack<Handler>();
 		// map.loadImg("map.png");
@@ -58,8 +61,9 @@ public class DriverRunner extends JPanel implements Runnable{
 
 	public void startup() {
 		// gameStack.push(levelHandler);
-		gameStack.push(overworldHandler);
+		// gameStack.push(overworldHandler);
 		gameStack.push(logoIntroHandler);
+		// gameStack.push(creditsHandler);
 	}
 	
 	public void paint(Graphics g) {

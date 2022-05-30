@@ -7,8 +7,13 @@ import Blocks.Block;
 import Blocks.Coin;
 import Blocks.Dirt;
 import Blocks.Grass;
+import Blocks.Lava;
+import Blocks.Powerup;
+import Entity.Boss;
 import Entity.Enemy;
+import Entity.Entity;
 import Entity.Kooler;
+import Handlers.DriverRunner;
 import Blocks.ButtonFlag;
 import Settings.MapSettings;
 
@@ -22,6 +27,10 @@ public class TileMap {
     public ArrayList<Block> rigidBlocks;
     public ArrayList<Block> nonRigidBlocks;
     public ArrayList<Enemy> enemies;
+    public ArrayList<Entity> entities;
+
+    public int startX;
+    public int startY;
     // public Location start;
     // public Location end;
 
@@ -31,6 +40,9 @@ public class TileMap {
         rigidBlocks = new ArrayList<Block>();
         nonRigidBlocks = new ArrayList<Block>();
         enemies = new ArrayList<Enemy>();
+        entities = new ArrayList<Entity>();
+        startX = 0;
+        startY = 0;
         // this.entities = new ArrayList<>();
         // this.start = null;
         // this.end = null;
@@ -81,14 +93,33 @@ public class TileMap {
                         map[row][col] = temp;
                         nonRigidBlocks.add(temp);
                         break;
+                    case "L":
+                        temp =  new Lava(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        map[row][col] = temp;
+                        rigidBlocks.add(temp);
+                        break;
+                    case "P":
+                        temp =  new Powerup(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        map[row][col] = temp;
+                        rigidBlocks.add(temp);
+                        break;
                     case "B":
                         temp =  new ButtonFlag(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         map[row][col] = temp;
                         rigidBlocks.add(temp);
                         break;
+                    case "b":
+                        enemy =  new Boss(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        enemies.add(enemy);
+                        break;
                     case "K":
                         enemy = new Kooler(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         enemies.add(enemy);
+                        break;
+
+                    case "S":
+                        startX = col * MapSettings.tileSize;
+                        startY = row * MapSettings.tileSize;
                         break;
                     
                     default:
@@ -110,13 +141,13 @@ public class TileMap {
         map[row][col] = block;
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, DriverRunner driver) {
         for (int row = 0; row < this.map.length; row++) {
             for (int col = 0; col < this.map[row].length; col++) {
                 if (map[row][col] == null) {
                     continue;
                 }
-                map[row][col].draw(g);
+                map[row][col].draw(g, driver);
             
             }
             

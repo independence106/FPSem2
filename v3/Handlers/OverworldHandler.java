@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import Entity.Player;
 import Entity.Player.Direction;
+import Entity.Player.State;
 import LevelRelated.Camera;
 import LevelRelated.Level;
 import music.MusicThing;
@@ -53,7 +54,7 @@ public class OverworldHandler extends Handler {
     public boolean smoothing;
 
     public int latestLev;
-    public static final int finalLev = 10;
+    public static final int finalLev = 3;
     public Image lives;
 
 
@@ -78,14 +79,13 @@ public class OverworldHandler extends Handler {
         timesTick = 0;
         glideLeft = false;
         glideRight = false;
-        player = new Player(127, 300);
+        player = new Player(127, 200, State.BABY);
         cam = new Camera(player.getX(), player.getY());
         selectedLevel = 0;
         start = false;
         snapCamera(player);
         latestLev = 0;
         loadImg();
-        
         doneWalking = true;
         smoothing = false;
     }
@@ -114,10 +114,9 @@ public class OverworldHandler extends Handler {
     @Override
     public void draw(Graphics g, DriverRunner driver) {
         // TODO Auto-generated method stub
-        System.out.println(latestLev);
         if (!smoothing) {
             try {
-                Thread.sleep(50);
+                Thread.sleep(1000);
             } catch (Exception e) {
                 //TODO: handle exception
             }
@@ -129,6 +128,7 @@ public class OverworldHandler extends Handler {
         } catch (Exception e) {
             //TODO: handle exception
         }
+        
         tick(driver);
         cam.tick(player);
 		Toolkit.getDefaultToolkit().sync(); 
@@ -137,7 +137,12 @@ public class OverworldHandler extends Handler {
 		g.fillRect(0, 0, 800, 600); //background
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);
         for (int i = 0; i < driver.levelHandler.levels.size(); i++) {
-           
+            g.setColor(Color.ORANGE);
+
+            if (latestLev > i && latestLev != 0) {
+                g.fillRect(127 + (i)* DISTANCE_BETWEEN_LEVELS, 300, DISTANCE_BETWEEN_LEVELS, 20);
+            }
+            
             g.drawImage(driver.levelHandler.levels.get(i).getImage(), 100 + i * DISTANCE_BETWEEN_LEVELS, 100, driver);
             if (latestLev < (i)) {
                 Lock lock = new Lock(100+ i *DISTANCE_BETWEEN_LEVELS, 100);
@@ -153,20 +158,29 @@ public class OverworldHandler extends Handler {
         }
 		player.draw(g, driver);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
+        g.setColor(Color.GRAY);
+        g.setFont(new Font("Serif", Font.PLAIN, 25));
+        g.drawString("LEVEL " + Integer.toString(selectedLevel + 1), 350, 40);
         g.drawImage(lives, 15, 20, driver);
         g.setColor(Color.WHITE);
         g.drawString("x",  50, 40);
-        g.drawString(Integer.toString(player.getLives()),  60, 40);
+        g.drawString(Integer.toString(Player.getLives()),  60, 40);
     }
 
     @Override
     public void tick(DriverRunner driver) {
+        if (Player.getState() != State.BABY) {
+            player.yPos = 220;
+        } else {
+            player.yPos = 270;
+        }
         // TODO Auto-generated method stub
         player.tickOverworld();
         if (latestLev >= finalLev) {
-            driver.gameStack.push(driver.creditsHandler);
+            music.pause();
+            driver.gameStack.push(driver.outroHandler);
         }
-        if (player.getLives() <= 0) {
+        if (Player.getLives() <= 0) {
             // CUT SCENE DEATH ANIMATION
             player.setLives(5);            
         }
@@ -219,11 +233,11 @@ public class OverworldHandler extends Handler {
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
         
-        if(e.getKeyCode()==KeyEvent.VK_D && glideLeft == false && player.xPos < (120 + (latestLev) * DISTANCE_BETWEEN_LEVELS)) {
+        if(e.getKeyCode()==KeyEvent.VK_D && glideLeft == false && glideRight == false && player.xPos < (120 + (latestLev) * DISTANCE_BETWEEN_LEVELS)) {
             glideRight = true;
             doneWalking = false;
             selectedLevel++;
-        } else if (e.getKeyCode()==KeyEvent.VK_A && glideRight == false  && player.xPos >= 430) {
+        } else if (e.getKeyCode()==KeyEvent.VK_A && glideRight == false && glideLeft == false  && player.xPos >= 430) {
             glideLeft = true;
             doneWalking = false;
             selectedLevel--;

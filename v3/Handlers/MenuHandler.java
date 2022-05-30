@@ -1,6 +1,7 @@
 package Handlers;
 
 import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class MenuHandler extends Handler {
@@ -15,6 +16,16 @@ public class MenuHandler extends Handler {
     public void draw(Graphics g, DriverRunner driver) {
         // TODO Auto-generated method stub
         tick(driver);
+        Graphics2D g2d = (Graphics2D) g;
+        // g2d.clearRect(0, 0, 800, 600);
+
+        // TODO Auto-generated method stub
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, 800, 600);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        
     }
 
     @Override
@@ -22,6 +33,8 @@ public class MenuHandler extends Handler {
         // TODO Auto-generated method stub
         if (quit) {
             quit = false;
+            
+            driver.levelHandler.levels.get(driver.levelHandler.currLev).resumeMusic = true;
             driver.gameStack.pop();
         }
     }
