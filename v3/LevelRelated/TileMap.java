@@ -1,4 +1,5 @@
 package LevelRelated;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,11 +15,11 @@ import Entity.Enemy;
 import Entity.Entity;
 import Entity.Kooler;
 import Handlers.DriverRunner;
+import Entity.*;
 import Blocks.ButtonFlag;
 import Settings.MapSettings;
 
 import java.awt.*;
-
 
 public class TileMap {
     public String[][] rawMap;
@@ -48,7 +49,6 @@ public class TileMap {
         // this.end = null;
     }
 
-    
     public void loadFile(String filename) {
         try {
             Scanner sc = new Scanner(new File(filename));
@@ -73,21 +73,21 @@ public class TileMap {
                 Block temp = null;
                 Enemy enemy = null;
                 switch (rawMap[row][col]) {
-                    
+
                     case "G":
-                        temp =  new Grass(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        temp = new Grass(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         map[row][col] = temp;
                         rigidBlocks.add(temp);
-                        
+
                         break;
                     case "D":
-                        temp =  new Dirt(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        temp = new Dirt(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         map[row][col] = temp;
                         rigidBlocks.add(temp);
                         break;
 
                     case "C":
-                        temp =  new Coin(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        temp = new Coin(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         temp.setCol(col);
                         temp.setRow(row);
                         map[row][col] = temp;
@@ -104,7 +104,7 @@ public class TileMap {
                         rigidBlocks.add(temp);
                         break;
                     case "B":
-                        temp =  new ButtonFlag(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        temp = new ButtonFlag(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         map[row][col] = temp;
                         rigidBlocks.add(temp);
                         break;
@@ -122,16 +122,19 @@ public class TileMap {
                         startY = row * MapSettings.tileSize;
                         break;
                     
+                    case "F":
+                        enemy = new Flyer(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        enemies.add(enemy);
+
                     default:
                         break;
-                        
+
                 }
             }
-            
+
         }
         return true;
     }
-
 
     public Block getBlock(int row, int col) {
         return this.map[row][col];
@@ -150,8 +153,8 @@ public class TileMap {
                 map[row][col].draw(g, driver);
             
             }
-            
+
         }
-       
+
     }
 }
