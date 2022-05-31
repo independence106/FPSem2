@@ -48,7 +48,7 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 			if (currLev == driver.overworldHandler.latestLev) driver.overworldHandler.latestLev++;
 			
 			driver.gameStack.pop();
-			if (driver.overworldHandler.latestLev > OverworldHandler.finalLev) {
+			if (driver.overworldHandler.latestLev >= OverworldHandler.finalLev) {
 				driver.gameStack.push(driver.outroHandler);
 
 			}
