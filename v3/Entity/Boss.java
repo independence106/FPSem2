@@ -32,8 +32,8 @@ public class Boss extends Enemy {
 
     public void startup() {
         alive = true;
-        width = 100;
-        height = 100;
+        width = 80;
+        height = 80;
         yVelo = 4;
         xVelo = -1;
         setDirectionRight = true;

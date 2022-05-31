@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
+import javax.swing.plaf.ColorUIResource;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -108,6 +109,7 @@ public class IntroMenuHandler extends Handler {
     
 
     Image logoImg;
+    public Image background;
 
     public float fade = 0f;
 
@@ -155,6 +157,13 @@ public class IntroMenuHandler extends Handler {
 			//TODO: handle exception
 		}
 		logoImg = logoImg.getScaledInstance(640, 480, logoImg.SCALE_DEFAULT);
+        try {
+			background = ImageIO.read(new File("./images/introMenu.png"));
+
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+		background = background.getScaledInstance(800, 800, background.SCALE_DEFAULT);
 	}
 
     public void tick(DriverRunner driver) {
@@ -220,27 +229,29 @@ public class IntroMenuHandler extends Handler {
         g.clearRect(0, 0, 800, 600);
     }
 
-    public void drawMain(Graphics g) {
+    public void drawMain(Graphics g, DriverRunner driver) {
         // draw background <- insert code here when u find out
+        g.drawImage(background, 0, -100, driver);
         g.setColor(Color.ORANGE);
+
         if (selection == States.Play) {
 
-            g.fillRoundRect(295, 195, 210, 60, 50, 50);
+            g.fillRoundRect(295, 355, 210, 60, 50, 50);
         }
         if (selection == States.Settings) {
-            g.fillRoundRect(295, 395, 210, 60, 50, 50);
+            g.fillRoundRect(295, 475, 210, 60, 50, 50);
         }
         g.setColor(Color.YELLOW);
-        g.fillRoundRect(300, 200, 200, 50, 50, 50);
+        g.fillRoundRect(300, 360, 200, 50, 50, 50);
         g.setColor(new Color(30,144,255));
         g.setFont(new Font("Serif", Font.PLAIN, 25));
-        g.drawString("Play", 370, 230);
+        g.drawString("Play", 370, 390);
 
         g.setColor(Color.YELLOW);
-        g.fillRoundRect(300, 400, 200, 50, 50, 50);
+        g.fillRoundRect(300, 480, 200, 50, 50, 50);
         g.setColor(new Color(30,144,255));
         g.setFont(new Font("Serif", Font.PLAIN, 25));
-        g.drawString("Settings", 350, 430);
+        g.drawString("Settings", 350, 510);
         
         System.out.println(selection);
     }
@@ -277,6 +288,7 @@ public class IntroMenuHandler extends Handler {
     }
     
     public void draw(Graphics g, DriverRunner driver) {
+        
         if (!isFinishedWithPartOne) {
             drawLogo(g, driver);
         } else {
@@ -285,7 +297,7 @@ public class IntroMenuHandler extends Handler {
                 p.draw(g, driver);
             }
             if (state.peek() == States.Main) {
-                drawMain(g);
+                drawMain(g, driver);
             } else if (state.peek() == States.Settings) {
                 drawSettings(g);
             } else if (state.peek() == States.Play) {

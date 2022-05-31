@@ -24,7 +24,8 @@ public class MenuHandler extends Handler {
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, 800, 600);
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-
+        g2d.setFont(new Font("Sans Serif", Font.PLAIN, 25));
+        g2d.drawString("Paused", 350, 280);
         
     }
 

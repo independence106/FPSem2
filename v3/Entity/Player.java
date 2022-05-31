@@ -36,6 +36,7 @@ public class Player {
         RIGHT
     }
 
+    // helpful
     public final static int HAND_TO_WALL = 7;
 
     public static int lives = 5;
@@ -57,6 +58,7 @@ public class Player {
     public boolean falling = true;
     public boolean jumping = false;
     public boolean canJump = false;
+    public boolean groundPound = false;
 
     public int jumpTick = 0;
     public double yVelo = 4;
@@ -115,19 +117,28 @@ public class Player {
     public void tick(Level level) {
         rigidCollision(level);
         if (falling && !jumping) {
-            yVelo = 1 + yAccel;
-            if (!(yAccel > 4)) {
+            if (groundPound) {
+                yVelo = 5;
+            } else {
+                yVelo = 1 + yAccel;
+                if (!(yAccel > 4)) {
                 yAccel += 0.15;
+            }
             }
             
             
+            
         }
-        if (jumping) {
-            yVelo = -6 + yAccel;
+        if (jumping && jumpHeight == 50) {
+            yVelo = -5.5 + yAccel;
+            yAccel += 0.1;
+            jumpTick++;
+        } else if (jumping) {
+            yVelo = -3 + yAccel;
             yAccel += 0.1;
             jumpTick++;
         }
-        if (jumpTick >= jumpHeight) {
+        if (jumpTick >= jumpHeight || groundPound) {
             jumpTick = 0;
             jumping = false;
             falling = true;
@@ -164,7 +175,7 @@ public class Player {
     }
     
     public void setJumpHeight(int ticks) {
-
+        jumpHeight = ticks;
     }
 
     //prevents player going through blocks
@@ -183,6 +194,7 @@ public class Player {
 
                     yAccel = 0;
                     canJump = true;
+                    groundPound = false;
 
                 }
 
@@ -205,14 +217,7 @@ public class Player {
                 if (level.levMap.rigidBlocks.get(i).getId().equals("powerup"))   {
                     
                     if (((Powerup) level.levMap.rigidBlocks.get(i)).getPhase() == Phase.NOHIT) {
-                        try {
-                            sound.setCourseClear();
-                            soundEffect.start();
-                            soundEffect = new Thread(sound);
-            
-                        } catch (Exception a) {
-                            //TODO: handle exception
-                        }
+                        
                         level.levMap.entities.add(new RENAMEPowerUp(level.levMap.rigidBlocks.get(i).getX(), level.levMap.rigidBlocks.get(i).getY() - MapSettings.tileSize));
                     }
                     ((Powerup) level.levMap.rigidBlocks.get(i)).setHit();
@@ -254,7 +259,7 @@ public class Player {
                 yVelo = 3;
 
                 yAccel = 0;
-                setJumpHeight(2);
+                setJumpHeight(20);
                 up();
                 System.out.println("DEAD");
             } else if (getRightBounds().intersects(level.levMap.enemies.get(i).getBounds()) || getLeftBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
@@ -286,6 +291,14 @@ public class Player {
                         }
                     }
                 } else {
+                    try {
+                        sound.setPowerUp();
+                        soundEffect.start();
+                        soundEffect = new Thread(sound);
+        
+                    } catch (Exception a) {
+                        //TODO: handle exception
+                    }
                     updateState(State.NORMAL); 
                     level.levMap.entities.remove(i);
                 }
@@ -418,7 +431,7 @@ public class Player {
 
     public Rectangle getLeftBounds() {
         
-        return new Rectangle((int)xPos + HAND_TO_WALL + 1, (int) yPos, 4, state.height - 4);
+        return new Rectangle((int)xPos + HAND_TO_WALL, (int) yPos, 4, state.height - 1);
     }
 
     public Rectangle getTopBounds(){
@@ -426,7 +439,7 @@ public class Player {
     }
 
     public Rectangle getBottomBounds() {
-        return new Rectangle((int) xPos + 4 + HAND_TO_WALL, (int) yPos + state.height - 4, state.width - 8 - 2*HAND_TO_WALL, 5); //4 is arbitrary
+        return new Rectangle((int) xPos + 5 + HAND_TO_WALL, (int) yPos + state.height - 4, state.width - 10 - 2*HAND_TO_WALL, 5); //4 is arbitrary
     }
 
     public double getX() {
@@ -466,6 +479,7 @@ public class Player {
         }
         if(e.getKeyCode()==KeyEvent.VK_S) {
             movingY = -1;
+            groundPound = true;
         }
         if(e.getKeyCode()==KeyEvent.VK_A) {
             moving = true;

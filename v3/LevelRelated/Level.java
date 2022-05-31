@@ -207,7 +207,7 @@ public class Level {
 		 //background
 		// map.draw(g, this);		
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);
-		if (cam.getY() < 0) g.translate(0, (int) cam.getY());
+		// if (cam.getY() < 0) g.translate(0, (int) cam.getY());
         
         for (Entity entity : levMap.entities) {
             entity.tick(this);
@@ -223,7 +223,7 @@ public class Level {
 		levMap.draw(g, driver);
 		player.draw(g, driver);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
-		if (cam.getY() < 0) g.translate(0, (int) -cam.getY());
+		// if (cam.getY() < 0) g.translate(0, (int) -cam.getY());
 		
 	}
 

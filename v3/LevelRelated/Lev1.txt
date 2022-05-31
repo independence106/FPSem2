@@ -1,21 +1,17 @@
-DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD         
+                                                                                                                                                     
 
 
-                     
+  
 
 
-DDDDDDDDDDDD
 
-                DDDD              P                       b
-                DDDD
-B                                  S                                                 D
-D    K    DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-DDDDDDDDDD
+                                                                                  DDDDDDDDDD    DD
+                          
+                                                                                                                          G
+                  DDPDD                      GG                               P                      D                   GD
+    S                                  GG    GG           GG          GG                                                GDD           B
+                           K   GG      GG    GG           GG    K     GG                                               GDDD          DDD
+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG      GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG     GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD      DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD     DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 
-DDDDDD 
-D 
-D 
-D 
-D 
-D 
-D DDD
+

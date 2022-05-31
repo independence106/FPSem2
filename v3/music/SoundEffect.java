@@ -34,7 +34,12 @@ public class SoundEffect implements Runnable{
 	}
 
 	public void setCoin() {
-		this.path = "./music/jump.wav";
+		this.path = "./music/coin.wav";
+		load();
+	}
+
+	public void setPowerUp() {
+		this.path = "./music/powerUp.wav";
 		load();
 	}
 

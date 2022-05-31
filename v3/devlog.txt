@@ -92,6 +92,10 @@ tales of wisdom gained...
 5/28 - Jason: Sprite animation working, course clear screen, death animation, uhh sound effects, intro strucutre, credit structure, smoothing movement
      - Ariel: Made flying enemy. Designed first level.
 
+5/29 - Jason: Powerups, 
+
+5/30 - Jason: Lotta debugging, credits, cleaning, boss, road fix, and bugs
+
 https://www.youtube.com/watch?v=AaKzpBH65FE - Salaj <- in credits owo
 
 TODO:
