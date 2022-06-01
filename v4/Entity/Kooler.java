@@ -108,9 +108,12 @@ public class Kooler extends Enemy {
     public void tick(Level level) {
         // TODO Auto-generated method stub
        
-        
+        if (falling) {
+            yVelo = 6;
+        }
         rigidCollision(level);
         xPos -= xVelo;
+        yPos += yVelo;
         rigidCollision(level);    
     }
 

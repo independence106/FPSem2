@@ -11,8 +11,8 @@ public abstract class Entity {
     public double yPos;
     public int height;
     public int width;
-    public int yVelo;
-    public int xVelo;
+    public double yVelo;
+    public double xVelo;
     public boolean falling;
     public abstract void tick(Level level);
     public abstract void draw(Graphics g, DriverRunner driverRunner);
