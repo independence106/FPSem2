@@ -17,6 +17,7 @@ public class Boss extends Enemy {
 
     public Phase phase;
     public int ticks;
+    public final int TICKS_PER_PHASE = 1000;
 
     public boolean alive;
 
@@ -57,11 +58,6 @@ public class Boss extends Enemy {
                 xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize; 
                 xVelo *= -1;              
             }
-
-            
-            
-           
-
         }
     }
 

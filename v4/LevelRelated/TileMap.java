@@ -138,6 +138,7 @@ public class TileMap {
                     case "F":
                         enemy = new Flyer(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         enemies.add(enemy);
+                        break;
 
                     default:
                         break;

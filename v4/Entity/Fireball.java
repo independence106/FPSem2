@@ -21,11 +21,10 @@ public class Fireball extends Entity {
     }
 
     public void setUpMath(double x, double y, double targetX, double targetY) {
-        yVelo = (int) ((targetY - y) / ((targetX) - x));
-        if (targetX < x) {
-            xVelo *= -1;
-        }
-        
+        double hypotneuse = Math.sqrt(Math.pow((targetX - xPos), 2) + Math.pow((targetY - yPos), 2));
+        xVelo = (int) ((targetX - xPos) / hypotneuse);
+        yVelo = (int) ((targetY - yPos) / hypotneuse);
+
     }
 
     @Override
