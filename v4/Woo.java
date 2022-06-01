@@ -1,11 +1,10 @@
 import javax.swing.*;
-
 import Handlers.DriverRunner;
 
 public class Woo extends JFrame{
 
 	DriverRunner panel;
-	
+
 	Woo(){
 		panel = new DriverRunner();
 		this.add(panel);
