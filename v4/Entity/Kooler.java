@@ -49,7 +49,7 @@ public class Kooler extends Enemy {
         for (int i = 0; i < level.levMap.rigidBlocks.size(); i++) {
 
             if (getBottomBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                yVelo = 0;
+                yVelo *= -1;
             }
             if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 xPos = level.levMap.rigidBlocks.get(i).getX() - width;       
@@ -91,6 +91,10 @@ public class Kooler extends Enemy {
 
     public Rectangle getBottomBounds() {
         return new Rectangle((int) xPos + 1, (int) yPos + height - 4, width - 1, 5); //4 is arbitrary
+    }
+
+    public Rectangle getTopBounds() {
+        return new Rectangle((int) xPos, (int) yPos - height + 4, width + 1, 5); //4 is arbitrary
     }
 
     public double getX() {
