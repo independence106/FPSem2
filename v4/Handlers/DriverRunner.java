@@ -6,7 +6,6 @@ import java.util.*;
 import javax.swing.*;
 
 import LevelRelated.BackGroundDrawer;
-import LevelRelated.Levels.FileLocations;
 import Settings.MapSettings;
 
 
@@ -62,9 +61,9 @@ public class DriverRunner extends JPanel implements Runnable{
 	public void startup() {
 		// gameStack.push(levelHandler);
 		// gameStack.push(overworldHandler);
-		// gameStack.push(logoIntroHandler);
+		gameStack.push(logoIntroHandler);
 		// gameStack.push(creditsHandler);
-		gameStack.push(outroHandler);
+		// gameStack.push(outroHandler);
 	}
 	
 	public void paint(Graphics g) {
