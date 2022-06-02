@@ -22,8 +22,8 @@ public class Fireball extends Entity {
 
     public void setUpMath(double x, double y, double targetX, double targetY) {
         double hypotneuse = Math.sqrt(Math.pow((targetX - xPos), 2) + Math.pow((targetY - yPos), 2));
-        xVelo = ((targetX - xPos) / hypotneuse);
-        yVelo = ((targetY - yPos) / hypotneuse);
+        xVelo = 2 * ((targetX - xPos) / hypotneuse);
+        yVelo = 2 * ((targetY - yPos) / hypotneuse);
 
     }
 
@@ -35,7 +35,7 @@ public class Fireball extends Entity {
             
         } else {
             xPos += xVelo;
-            yPos -= yVelo;
+            yPos += yVelo;
         } 
     }
 

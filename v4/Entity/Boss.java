@@ -18,6 +18,9 @@ public class Boss extends Enemy {
     public Phase phase;
     public int ticks;
     public final int TICKS_PER_PHASE = 1000;
+    
+    public int ticksPhaseTwo;
+    public boolean doFireballs;
 
     public boolean alive;
 
@@ -51,12 +54,18 @@ public class Boss extends Enemy {
             }
             if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 xPos = level.levMap.rigidBlocks.get(i).getX() - width;       
-                xVelo *= -1;        
+                xVelo *= -1;  
+                if (phase == Phase.TWO) {
+                    doFireballs = true;
+                }      
             }
 
             if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize; 
-                xVelo *= -1;              
+                xVelo *= -1;   
+                if (phase == Phase.TWO) {
+                    doFireballs = true;
+                }            
             }
         }
     }
@@ -72,25 +81,28 @@ public class Boss extends Enemy {
         xPos -= xVelo;
         yPos += yVelo;
         rigidCollision(level);    
-        ticks++;
-        if (ticks % 200 == 0) {
-            ticks = 0;
-            System.out.println("fireBAL");
-            level.levMap.entities.add(new Fireball(xPos, yPos, level.player.getX(), level.player.getY()));
-        }
     }
 
     public void tickPhaseTwo(Level level) {
-        if (Math.random() < 0.03) {
-            // spawn random enemies
-        }
+        
         if (falling) {
             yVelo = 4;
         }
-        rigidCollision(level);
-        xPos -= xVelo;
-        yPos += yVelo;
-        rigidCollision(level);    
+        
+        if (doFireballs && tickPhaseTwo < 1000) {
+            tickPhaseTwo++;
+            if (tickPhaseTwo % 100 == 0) {
+                level.levMap.entities.add(new Fireball(xPos, yPos, level.player.getX(), level.player.getY()));
+            }
+        }  
+        if (tickPhaseTwo > 1000) {
+            doFireballs = false;
+            tickPhaseTwo = 0;
+            rigidCollision(level);
+            xPos -= xVelo;
+            yPos += yVelo;
+            rigidCollision(level);    
+        }
     }
 
     public void tickPhaseThree(Level level) {
@@ -133,5 +145,9 @@ public class Boss extends Enemy {
 
     public Rectangle getBottomBounds() {
         return new Rectangle((int) xPos + 1, (int) yPos + height - 4, width - 1, 5); //4 is arbitrary
+    }
+
+    public String getId() {
+        return "boss";
     }
 }
