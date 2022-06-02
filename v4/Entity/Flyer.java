@@ -108,7 +108,8 @@ public class Flyer extends Enemy {
         // TODO Auto-generated method stub
 
         rigidCollision(level);
-        xPos -= xVelo;
+        
+        yPos -= yVelo;
 
         rigidCollision(level);    
     }
