@@ -12,11 +12,11 @@ import Settings.MapSettings;
 public class DriverRunner extends JPanel implements Runnable{
 
 	static final Dimension SCREEN_SIZE = new Dimension(MapSettings.GAME_WIDTH, MapSettings.GAME_HEIGHT);
-	
+
     public BackGroundDrawer map = new BackGroundDrawer();
 	public Stack<Handler> gameStack;
 	public Thread gameThread;
-	
+
 	public Graphics graphics;
 
 	public LevelHandler levelHandler;
@@ -31,7 +31,7 @@ public class DriverRunner extends JPanel implements Runnable{
 
 	public int imag2x;
 	public int imag2y;
-	
+
 	public DriverRunner() {
 		this.setFocusable(true);
 		this.addKeyListener(new AL());
@@ -40,7 +40,7 @@ public class DriverRunner extends JPanel implements Runnable{
 		overworldHandler = new OverworldHandler(this);
 		levelHandler = new LevelHandler(this);
 		logoIntroHandler = new IntroMenuHandler();
-		
+
 		deathScreenHandler = new DeathScreenHandler();
 		introHandler = new IntroHandler();
 		creditsHandler = new CreditsHandler();
@@ -59,23 +59,23 @@ public class DriverRunner extends JPanel implements Runnable{
     }
 
 	public void startup() {
-		// gameStack.push(levelHandler);
-		// gameStack.push(overworldHandler);
-		gameStack.push(logoIntroHandler);
+		gameStack.push(levelHandler);
+		gameStack.push(overworldHandler);
+		// gameStack.push(logoIntroHandler);
 		// gameStack.push(creditsHandler);
 		// gameStack.push(outroHandler);
 	}
-	
+
 	public void paint(Graphics g) {
-		Toolkit.getDefaultToolkit().sync(); 
+		Toolkit.getDefaultToolkit().sync();
 		draw(g);
 	}
-	
+
 	public void draw(Graphics g) {
 		gameStack.peek().draw(g, this);
 
 	}
-	
+
 	public void run() {
 		//game loop
 		long lastTime = System.nanoTime();
@@ -83,7 +83,7 @@ public class DriverRunner extends JPanel implements Runnable{
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		while(true) {
-			
+
 			long now = System.nanoTime();
 			delta += (now -lastTime)/ns;
 			lastTime = now;
@@ -92,7 +92,7 @@ public class DriverRunner extends JPanel implements Runnable{
 				repaint();
 				delta--;
 			}
-			
+
 		}
 	}
 	public class AL extends KeyAdapter{
@@ -105,4 +105,3 @@ public class DriverRunner extends JPanel implements Runnable{
 		}
 	}
 }
-
