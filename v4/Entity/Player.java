@@ -250,15 +250,20 @@ public class Player {
         }
         for (int i = 0; i < level.levMap.enemies.size(); i++) {
             if (getBottomBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
-                level.levMap.enemies.remove(i);
-                falling = true;
-                canJump = false; 
-                yVelo = 3;
-
-                yAccel = 0;
-                setJumpHeight(20);
-                up();
-                System.out.println("DEAD");
+                if (level.levMap.enemies.get(i).getId().equals("boss")) {
+                    ((Boss) level.levMap.enemies.get(i)).nextPhase();
+                } else {
+                    level.levMap.enemies.remove(i);
+                    falling = true;
+                    canJump = false; 
+                    yVelo = 3;
+    
+                    yAccel = 0;
+                    setJumpHeight(20);
+                    up();
+                    System.out.println("DEAD");
+                }
+               
             } else if (getRightBounds().intersects(level.levMap.enemies.get(i).getBounds()) || getLeftBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
                 if (canTakeDamge) {
                     if (state != State.BABY) {

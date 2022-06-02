@@ -89,19 +89,33 @@ public class Boss extends Enemy {
             yVelo = 4;
         }
         
-        if (doFireballs && tickPhaseTwo < 1000) {
-            tickPhaseTwo++;
-            if (tickPhaseTwo % 100 == 0) {
+        if (doFireballs && ticksPhaseTwo < 1000) {
+            ticksPhaseTwo++;
+            if (ticksPhaseTwo % 100 == 0) {
                 level.levMap.entities.add(new Fireball(xPos, yPos, level.player.getX(), level.player.getY()));
             }
         }  
-        if (tickPhaseTwo > 1000) {
+        if (ticksPhaseTwo > 1000) {
             doFireballs = false;
-            tickPhaseTwo = 0;
+            ticksPhaseTwo = 0;
             rigidCollision(level);
             xPos -= xVelo;
             yPos += yVelo;
             rigidCollision(level);    
+        }
+    }
+
+    public void nextPhase() {
+        switch(phase) {
+            case ONE: 
+                phase = Phase.TWO;
+                break;
+            case TWO:
+                phase = Phase.THREE;
+                break;
+            case THREE:
+                alive = false;
+                break;
         }
     }
 
