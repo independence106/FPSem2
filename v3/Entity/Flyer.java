@@ -99,5 +99,4 @@ public class Flyer extends Enemy {
         g.fillRect((int) xPos, (int) yPos, width, height);
     }
 
-
 }
