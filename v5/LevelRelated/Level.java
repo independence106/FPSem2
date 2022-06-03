@@ -216,7 +216,7 @@ public class Level {
                 levMap.enemies.remove(entity);
             }
         }
-        for (int i = 0; i < levMap.enemies.size(); i++) {
+        for (int i = levMap.enemies.size() - 1; i >= 0; i--) {
             levMap.enemies.get(i).tick(this);
             levMap.enemies.get(i).draw(g, driver);
 
