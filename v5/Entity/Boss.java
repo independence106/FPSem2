@@ -21,6 +21,7 @@ public class Boss extends Enemy {
     
     public int ticksPhaseTwo;
     public boolean doFireballs;
+    public int ticksAnimationDeath;
 
     public boolean alive;
 
@@ -44,15 +45,16 @@ public class Boss extends Enemy {
         falling = true;
         phase = Phase.ONE;
         ticks = 0;
+        ticksAnimationDeath = 0;
     }
 
     public void rigidCollision(Level level) {
         for (int i = 0; i < level.levMap.rigidBlocks.size(); i++) {
 
-            if (getBottomBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+            if (getBottomBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) && alive) {
                 yVelo = 0;
             }
-            if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+            if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) && alive) {
                 xPos = level.levMap.rigidBlocks.get(i).getX() - width;       
                 xVelo *= -1;  
                 if (phase == Phase.TWO || phase == Phase.THREE) {
@@ -60,7 +62,7 @@ public class Boss extends Enemy {
                 }      
             }
 
-            if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+            if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) && alive) {
                 xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize; 
                 xVelo *= -1;   
                 if (phase == Phase.TWO) {
@@ -147,14 +149,29 @@ public class Boss extends Enemy {
         }
     }
 
+    public void tickDeathAnimation(Level level) {
+        ticksAnimationDeath++;
+        xVelo = 15;
+        if (xPos > 1000) {
+            xPos *= -1;
+        } 
+        if (xPos < -100) {
+            xPos *= -1;
+        }
+        xPos -= xVelo;
+        yPos += yVelo;
+    }
+
     public void tick(Level level) {
         // TODO Auto-generated method stub
        if (phase == Phase.ONE) {
            tickPhaseOne(level);
        } else if (phase == Phase.TWO) {
            tickPhaseTwo(level);
-       } else {
+       } else if (phase == Phase.THREE && alive) {
            tickPhaseThree(level);
+       } else if (!alive) {
+           tickDeathAnimation(level);
        }
         
     }
