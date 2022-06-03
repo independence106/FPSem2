@@ -53,13 +53,15 @@ public class Kooler extends Enemy {
                 yVelo = 0;
             }
             if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+                flipDir();    
+
                 xPos = level.levMap.rigidBlocks.get(i).getX() - width;     
-                xVelo *= -1;        
             }
 
             if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+                flipDir();
+
                 xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize; 
-                xVelo *= -1;              
             }
 
             
@@ -79,23 +81,26 @@ public class Kooler extends Enemy {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle((int) xPos, (int) yPos, width, height);
+        
+        return new Rectangle((int) xPos , (int) yPos, width - 2 , height);
     }
 
     public Rectangle getRightBounds() {
-        return new Rectangle((int) xPos + width - 4, (int) yPos, 4, height - 4);
+        
+        return new Rectangle((int)xPos + width - 4 , (int) yPos, 4, height);
     }
 
     public Rectangle getLeftBounds() {
-        return new Rectangle((int) xPos + 1, (int) yPos, 4, height - 4);
+        
+        return new Rectangle((int)xPos , (int) yPos, 4, height - 1);
+    }
+
+    public Rectangle getTopBounds(){
+        return new Rectangle((int) xPos + 1 , (int) yPos, height - 1 - 2 , 5);
     }
 
     public Rectangle getBottomBounds() {
-        return new Rectangle((int) xPos + 1, (int) yPos + height - 4, width - 1, 5); //4 is arbitrary
-    }
-
-    public Rectangle getTopBounds() {
-        return new Rectangle((int) xPos, (int) yPos - height + 4, width + 1, 5); //4 is arbitrary
+        return new Rectangle((int) xPos + 5 , (int) yPos + height - 4, height - 10, 5); //4 is arbitrary
     }
 
     public double getX() {

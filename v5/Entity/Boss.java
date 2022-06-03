@@ -55,7 +55,7 @@ public class Boss extends Enemy {
             if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 xPos = level.levMap.rigidBlocks.get(i).getX() - width;       
                 xVelo *= -1;  
-                if (phase == Phase.TWO) {
+                if (phase == Phase.TWO || phase == Phase.THREE) {
                     doFireballs = true;
                 }      
             }
@@ -127,7 +127,9 @@ public class Boss extends Enemy {
             yVelo = 4;
         }
         if (Math.random() < 0.01) {
-            level.levMap.enemies.add(new Kooler((int) (Math.random() * 800), 0));
+            if (level.levMap.enemies.size() < 6) {
+                level.levMap.enemies.add(new Kooler((int) (Math.random() * 800), 0));
+            }
         }
         if (doFireballs && ticksPhaseTwo < 1000) {
             ticksPhaseTwo++;

@@ -252,6 +252,13 @@ public class Player {
             if (getBottomBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
                 if (level.levMap.enemies.get(i).getId().equals("boss")) {
                     ((Boss) level.levMap.enemies.get(i)).nextPhase();
+                    falling = true;
+                    canJump = false; 
+                    yVelo = 3;
+    
+                    yAccel = 0;
+                    setJumpHeight(20);
+                    up();
                 } else {
                     level.levMap.enemies.remove(i);
                     falling = true;

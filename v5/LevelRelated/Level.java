@@ -221,10 +221,7 @@ public class Level {
             levMap.enemies.get(i).draw(g, driver);
 
         }
-        for (Enemy enemy : levMap.enemies) {
-            enemy.tick(this);
-            enemy.draw(g, driver);
-        }
+
 		levMap.draw(g, driver);
 		player.draw(g, driver);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
