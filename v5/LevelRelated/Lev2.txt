@@ -1,15 +1,15 @@
-                                                                              W
-
-
-
-
-
-              CC
-                                      W
-    S                                 W
-                                      W
-  GGGGGGGGG         GGGGGGGGGGGGGGGGGGG
-                     D
-D                    D
-D                    D
-DDDDDDDDDDDDDDDDDDDDDD        WWWWWWW
+              CC                             W                                                                                                                                  W
+                                             W           W
+                                             W           W
+      S                CC                    W       WWWWW
+  GGGGGGGGG         GGGGGGGGGGGGGGGGGGG      W           W
+  DDDDDDDDD         DDDDDDDDDDDDDDDDDDD      W           W
+                                             W           W
+                                             WWWWW       W
+                              WW   WW                    W
+                              W     W                    W
+                              W     W                    W
+                              W     WWWWWWWWWWWWWWWWWWWWWW
+                              W
+                              W
+                              WWWWWWWWWWWWWWWW
