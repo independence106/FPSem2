@@ -1,7 +1,13 @@
 # FPSem2
-
 ## TEAM Purple Pineapple Vistas: Jason Zhou, Russell Goychayev, Ariel Fuchs
 
-### Description: 2D platformer centered around saving a pineapple. 
+## Description
+* 2D platformer centered around saving a pineapple. 
 
-### How to launch: go to v4, and do javac Woo.java, then java Woo
+## Instructions
+* Download this repository and type the following commands in the command line.
+``` 
+    cd v5/
+    javac Woo.java
+    java Woo
+```
