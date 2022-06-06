@@ -22,6 +22,7 @@ public class Boss extends Enemy {
     public int ticksPhaseTwo;
     public boolean doFireballs;
     public int ticksAnimationDeath;
+    public float fade;
 
     public boolean alive;
 
@@ -46,6 +47,7 @@ public class Boss extends Enemy {
         phase = Phase.ONE;
         ticks = 0;
         ticksAnimationDeath = 0;
+        fade = 1f;
     }
 
     public void rigidCollision(Level level) {
@@ -85,6 +87,10 @@ public class Boss extends Enemy {
         rigidCollision(level);    
     }
 
+    public void flipDir() {
+        xVelo = xVelo;
+    }
+
     public void tickPhaseTwo(Level level) {
         
         if (falling) {
@@ -119,6 +125,7 @@ public class Boss extends Enemy {
                 phase = Phase.THREE;
                 break;
             case THREE:
+                xVelo = 20;
                 alive = false;
                 break;
         }
@@ -151,15 +158,31 @@ public class Boss extends Enemy {
 
     public void tickDeathAnimation(Level level) {
         ticksAnimationDeath++;
-        xVelo = 15;
         if (xPos > 1000) {
-            xPos *= -1;
-        } 
+            xPos = 990;
+            xVelo = -20;
+        } else 
         if (xPos < -100) {
-            xPos *= -1;
+            xPos = -90;
+
+            xVelo = 20;
         }
-        xPos -= xVelo;
-        yPos += yVelo;
+        xPos += xVelo;
+        // yPos += yVelo;
+        if (ticksAnimationDeath > 700) {
+            fadeOut();
+        }
+        if (fade <= 0) {
+            level.setDone();
+        }
+    }
+
+    public void fadeOut() {
+        if (fade > 0.005f) {
+            fade -= 0.005f;
+        } else {
+            fade = 0f;
+        }  
     }
 
     public void tick(Level level) {
@@ -179,8 +202,10 @@ public class Boss extends Enemy {
     @Override
     public void draw(Graphics g, DriverRunner driverRunner) {
         // TODO Auto-generated method stub
-        g.setColor(Color.RED);
-        g.fillRect((int) xPos, (int) yPos, width, height);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, fade));
+        g2d.setColor(Color.RED);
+        g2d.fillRect((int) xPos, (int) yPos, width, height);
     }
 
     public Rectangle getBounds() {

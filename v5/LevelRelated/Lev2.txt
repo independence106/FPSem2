@@ -1,8 +1,8 @@
               CC                             W                                                                                                                                  W
-                                             W           W
+                                             W  CC       W
             C     C                          WWWWW       W                        B
       S    C       C                         W           W                       GGG
-GGGGGGGGGGG         GGGGGGGGGGGGGGGGGGG      W           W                      GDDDGG
+GGGGGGGGGGG         GGGGGGGGGGGGGGGGGGG      W        CC W                      GDDDGG
 DDDDDDDDDDD         DDDDDDDDDDWWWWWWWWW      W       WWWWW         GGGG                      GG
 WWWWWWWWWWW         WWWWWWWWWWW              W           W       GGDDDDGG                    DDGG
                               W              W           WD          DD          GGGG       GDDDDG  C
@@ -11,5 +11,5 @@ WWWWWWWWWWW         WWWWWWWWWWW              W           W       GGDDDDGG       
                               W     W        K     K     WDDD        CC
                               W     WWWWWWWWWWWWWWWWWWWWWW        GGDDDDDGG
                               W                                  GDDDDDDDDDG
-                              W                                  DDDDDDDDDDD
+                              W  CCCCC                           DDDDDDDDDDD
                               WWWWWWWWW   WWW   WWW   WWWWWWWWWWWWWWWWWWWWWW
