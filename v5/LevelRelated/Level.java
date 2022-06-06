@@ -40,6 +40,8 @@ public class Level {
 
     public boolean startedMusic;
     public boolean resumeMusic;
+
+    public boolean debugTool;
     
 
     
@@ -48,7 +50,7 @@ public class Level {
     }
 
     public void startup(int level) {
-        
+        debugTool = false;
         startedMusic = true;
         isDone = false;
         isQuit = false;
@@ -64,17 +66,30 @@ public class Level {
                 loadImg("./images/pineapple.png");
                 try {
                     music = new MusicThing("./music/salaj.mid");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                    }
                 } catch (Exception e) {
                     System.out.println(e + "catch error");
+                    debugTool = true;
                 }  
                 break;
             case 2:
                 loadLev("./LevelRelated/Lev2.txt");
                 loadImg("./images/pineapple.png");
                 try {
-                    music = new MusicThing("./music/salaj.mid");
+                    music = new MusicThing("./music/overworld.mid");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                    }
                 } catch (Exception e) {
                     System.out.println(e + "catch error");
+                    debugTool = true;
+
                 }  
                 break;
             case 3: 
@@ -82,15 +97,24 @@ public class Level {
                 loadImg("./images/pineapple.png");
                 try {
                     music = new MusicThing("./music/salaj.mid");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                    }
                 } catch (Exception e) {
                     System.out.println(e + "catch error");
+                    debugTool = true;
+
                 }  
                 break;
             default:
                 
                 break;
         }
-        music.pause();
+        if (!debugTool) {
+            music.pause(); // potential bug
+        }
         player = new Player(levMap.startX, levMap.startY);
         cam = new Camera(player.getX(), player.getY());
         snapCamera(player);
@@ -181,7 +205,11 @@ public class Level {
     }
 
     public boolean isDead() {
-
+        try {
+            music.stop();
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
         return isDead;
     }
 
