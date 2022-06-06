@@ -1,5 +1,5 @@
 # FPSem2
-## TEAM Purple Pineapple Vistas: Jason Zhou, Russell Goychayev, Ariel Fuchs
+* TEAM Purple Pineapple Vistas: Jason Zhou, Russell Goychayev, Ariel Fuchs
 
 ## Description
 * 2D platformer centered around saving a pineapple. 
