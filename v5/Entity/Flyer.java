@@ -48,21 +48,26 @@ public class Flyer extends Enemy {
         for (int i = 0; i < level.levMap.rigidBlocks.size(); i++) {
 
             if (getBottomBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                yPos = level.levMap.rigidBlocks.get(i).getY() + MapSettings.tileSize;
+                yPos = level.levMap.rigidBlocks.get(i).getY() + height;  
+                //yVelo = 0;
+                //System.out.println("hit a block");
+                //yPos = level.levMap.rigidBlocks.get(i).getY() + MapSettings.tileSize;
                 yVelo *= -1;
             }
-            if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                xPos = level.levMap.rigidBlocks.get(i).getX() - width;       
-                xVelo *= -1;        
-            }
-
-            if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize; 
-                xVelo *= -1;              
-            }
-
-            if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                yVelo *= -1;
+            // if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+                // xPos = level.levMap.rigidBlocks.get(i).getX() - width;       
+                // xVelo *= -1;        
+            // }
+// 
+            // if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+                // xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize; 
+                // xVelo *= -1;              
+            // }
+// 
+             else if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+                yPos = level.levMap.rigidBlocks.get(i).getY() - height;
+                System.out.println("hit a block");
+                yVelo *= 0;
             }
         }
     } 
