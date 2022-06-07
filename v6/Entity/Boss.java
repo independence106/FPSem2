@@ -169,7 +169,7 @@ public class Boss extends Enemy {
 
             xVelo = 20;
         }
-        xPos += xVelo;
+        xPos -= xVelo;
         // yPos += yVelo;
         if (ticksAnimationDeath > 700) {
             fadeOut();
