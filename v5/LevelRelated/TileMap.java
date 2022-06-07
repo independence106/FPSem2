@@ -1,27 +1,14 @@
 package LevelRelated;
 
+import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Blocks.Block;
-import Blocks.Brick;
-import Blocks.Coin;
-import Blocks.Dirt;
-import Blocks.Grass;
-import Blocks.Lava;
-import Blocks.Powerup;
-import Blocks.Wood;
-import Entity.Boss;
-import Entity.Enemy;
-import Entity.Entity;
-import Entity.Kooler;
-import Handlers.DriverRunner;
+import Blocks.*;
 import Entity.*;
-import Blocks.ButtonFlag;
+import Handlers.DriverRunner;
 import Settings.MapSettings;
-
-import java.awt.*;
 
 public class TileMap {
     public String[][] rawMap;
@@ -75,12 +62,10 @@ public class TileMap {
                 Block temp = null;
                 Enemy enemy = null;
                 switch (rawMap[row][col]) {
-
                     case "G":
                         temp = new Grass(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         map[row][col] = temp;
                         rigidBlocks.add(temp);
-
                         break;
                     case "D":
                         temp = new Dirt(col * MapSettings.tileSize, row * MapSettings.tileSize);
@@ -97,7 +82,6 @@ public class TileMap {
                         map[row][col] = temp;
                         rigidBlocks.add(temp);
                         break;
-
                     case "C":
                         temp = new Coin(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         temp.setCol(col);
@@ -128,24 +112,24 @@ public class TileMap {
                         enemy = new Kooler(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         enemies.add(enemy);
                         break;
-
                     case "S":
                         startX = col * MapSettings.tileSize;
                         startY = row * MapSettings.tileSize;
                         break;
-                    
-                    
                     case "F":
                         enemy = new Flyer(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         enemies.add(enemy);
                         break;
-
+                    case "s":
+                      temp = new Spike(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                      map[row][col] = temp;
+                      rigidBlocks.add(temp);
+                      break;
                     default:
                         break;
 
                 }
             }
-
         }
         return true;
     }
@@ -165,7 +149,7 @@ public class TileMap {
                     continue;
                 }
                 map[row][col].draw(g, driver);
-            
+
             }
 
         }

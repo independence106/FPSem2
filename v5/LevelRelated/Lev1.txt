@@ -1,4 +1,4 @@
-                                              
+                                                            C
 
 
      WWWWW
@@ -7,7 +7,5 @@
       F
 
   S            b   B
-D                  D
-DDDDDDDDDDDDDDDDDDD      
-
-
+D      s           D
+DDDDDDDDDDDDDDDDDDD

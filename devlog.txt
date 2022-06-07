@@ -87,16 +87,24 @@ tales of wisdom gained...
 
 5/26 - Jason: music transition between worlds, intro menu handler cleaning
 
-5/27 - Jason: jump working, sprites for player aquired
+5/27 - Jason: jump working, sprites for player acquired
 
-5/28 - Jason: Sprite animation working, course clear screen, death animation, uhh sound effects, intro strucutre, credit structure, smoothing movement
+5/28 - Jason: Sprite animation working, course clear screen, death animation, uhh sound effects, intro structure, credit structure, smoothing movement
      - Ariel: Made flying enemy. Designed first level.
 
-5/29 - Jason: Powerups, 
+5/29 - Jason: Powerups,
 
 5/30 - Jason: Lotta debugging, credits, cleaning, boss, road fix, and bugs
 
 5/31 - Jason: Outro, Intro Animations, added more Blocks and pictures for enemies!
+
+06/01 - The era of darkness begins... (devlog not updated)
+06/02 -
+06/03 -
+06/04 -
+06/05 -
+
+06/06 -
 
 https://www.youtube.com/watch?v=AaKzpBH65FE - Salaj <- in credits owo
 

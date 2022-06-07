@@ -32,7 +32,7 @@ MID-DEVELOPMENT DESIGN CHANGES
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* 
+*
 *
 *
 ||||||||||||||||||||||||||||||||||||||||||
@@ -56,7 +56,6 @@ LESSONS LEARNED
 
 5/19 - Jason: Smoothed bound detection and collisions, smoothed top scrolling, side scrolling
               Started implementing block render
-       Russell: Started Research on jumping and the physics behind it
 
 5/20 - Jason: Block rendering system works, level design can now begin
        Ariel: Started working on enemies and enemy interaction
@@ -84,10 +83,27 @@ LESSONS LEARNED
 
 5/30 - Jason: Lotta debugging, credits, cleaning, boss, road fix, and bugs
 
+06/01 - The era of darkness begins... (no recorded activity)
+06/02 -
+06/03 -
+06/04 -
+06/05 -
+
+06/06 - Russell: made incomplete spike
+
 https://www.youtube.com/watch?v=AaKzpBH65FE - Salaj <- in credits owo
 
-TODO:
+TODO
+==============================================================
+Jason:
 - Change the System Millis To Timer in LogoHandler
 - Add a level progression - moving on btw levels
-- Add intro, menu ect
+- Add intro, menu etc
+
+Russell:
+- make it so when you touch a spike -> death
+- create Blocks/Sign.java
+
+El corto:
+- Dormir ocho cientos horas.
 ==============================================================
