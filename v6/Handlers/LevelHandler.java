@@ -43,9 +43,9 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 
 	public void resetLev() {
 		levels = new ArrayList<Level>();
-		levels.add(new Level(1, true)); 
-		levels.add(new Level(2, true));
-		levels.add(new Level(3, true));
+		levels.add(new Level(1, false)); 
+		levels.add(new Level(2, false));
+		levels.add(new Level(3, false));
 	}
 
 	public void tick(DriverRunner driver) {
