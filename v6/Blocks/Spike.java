@@ -36,6 +36,6 @@ public class Spike extends Block {
     }
 
     public String getId() {
-        return "dirt";
+        return "hostile";
     }
 }
