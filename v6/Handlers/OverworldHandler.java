@@ -19,8 +19,6 @@ import java.awt.*;
 // will handle overworld and level selection
 
 public class OverworldHandler extends Handler {
-
-
     
     public class Lock {
 
@@ -98,8 +96,12 @@ public class OverworldHandler extends Handler {
         } catch (Exception e) {
             //TODO: handle exception
         }
-        driver.levelHandler.levels.set(driver.levelHandler.currLev, new Level(driver.levelHandler.currLev + 1, false));
-        
+        driver.levelHandler.resetLev();
+        try {
+            Thread.sleep(100);
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
     }
 
     public void loadImg() {

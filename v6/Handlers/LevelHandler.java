@@ -41,6 +41,13 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 
 	}
 
+	public void resetLev() {
+		levels = new ArrayList<Level>();
+		levels.add(new Level(1, true)); 
+		levels.add(new Level(2, true));
+		levels.add(new Level(3, true));
+	}
+
 	public void tick(DriverRunner driver) {
 		driver.overworldHandler.start = false;
 		if (levels.get(currLev).isDone()) {
@@ -69,7 +76,6 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 			} catch (Exception e) {
 				//TODO: handle exception
 			}
-			driver.gameStack.pop();
 			if (Player.getLives() <= 0) {
 				try {
 					Thread.sleep(100);
@@ -78,6 +84,8 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 				}
 				driver.gameStack.push(driver.deathScreenHandler);
 			}
+			driver.gameStack.pop();
+
 			
 			
 			

@@ -90,7 +90,7 @@ public class TileMap {
                         nonRigidBlocks.add(temp);
                         break;
                     case "L":
-                        temp =  new Lava(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        temp = new Lava(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         map[row][col] = temp;
                         rigidBlocks.add(temp);
                         break;
