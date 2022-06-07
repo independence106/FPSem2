@@ -30,9 +30,9 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
     }
 
 	public void loadLev() {
-		levels.add(new Level(1)); 
-		levels.add(new Level(2));
-		levels.add(new Level(3));
+		levels.add(new Level(1, true)); 
+		levels.add(new Level(2, true));
+		levels.add(new Level(3, true));
 		// levels.add(new Level(4));
 		// levels.add(new Level(5));
 		// levels.add(new Level(6));
@@ -63,7 +63,12 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 		if (levels.get(currLev).isDead()) {
 			// levels.set(currLev, new Level(currLev + 1));
 			driver.overworldHandler.player.setLives(driver.overworldHandler.player.getLives() - 1);
+			try {
+				levels.get(currLev).musicthing.stop();
 
+			} catch (Exception e) {
+				//TODO: handle exception
+			}
 			driver.gameStack.pop();
 			if (Player.getLives() <= 0) {
 				try {

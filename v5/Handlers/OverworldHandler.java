@@ -92,7 +92,14 @@ public class OverworldHandler extends Handler {
 	}
 
     public void startUp(DriverRunner driver) {
-        driver.levelHandler.levels.set(driver.levelHandler.currLev, new Level(driver.levelHandler.currLev + 1));
+        music.pause();
+        try {
+            Thread.sleep(100);
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        driver.levelHandler.levels.set(driver.levelHandler.currLev, new Level(driver.levelHandler.currLev + 1, false));
+        
     }
 
     public void loadImg() {

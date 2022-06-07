@@ -24,6 +24,8 @@ public class Boss extends Enemy {
     public int ticksAnimationDeath;
     public float fade;
 
+    public final static int HAND_TO_WALL = 9;
+
     public boolean alive;
 
     public Boss(){
@@ -204,24 +206,41 @@ public class Boss extends Enemy {
         // TODO Auto-generated method stub
         Graphics2D g2d = (Graphics2D) g;
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, fade));
-        g2d.setColor(Color.RED);
-        g2d.fillRect((int) xPos, (int) yPos, width, height);
+        // g2d.setColor(Color.RED);
+        // g2d.fillRect((int) xPos, (int) yPos, width, height);
+        g2d.drawImage(getImageUsed(), (int) xPos, (int) yPos, driverRunner);
+    }
+
+    public Image getImageUsed() {
+        if (xVelo > 0) {
+            return Animation.getBossLeft();
+        } else if (xVelo < 0) {
+            return Animation.getBossRight();
+        }
+        return Animation.getBossLeft();
     }
 
     public Rectangle getBounds() {
-        return new Rectangle((int) xPos, (int) yPos, width, height);
+        
+        return new Rectangle((int) xPos + HAND_TO_WALL, (int) yPos, 2 * HAND_TO_WALL, height);
     }
 
     public Rectangle getRightBounds() {
-        return new Rectangle((int) xPos + width - 4, (int) yPos, 4, height - 4);
+        
+        return new Rectangle((int)xPos - 4 - HAND_TO_WALL, (int) yPos, 4, height);
     }
 
     public Rectangle getLeftBounds() {
-        return new Rectangle((int) xPos + 1, (int) yPos, 4, height - 4);
+        
+        return new Rectangle((int)xPos + HAND_TO_WALL, (int) yPos, 4, height - 1);
+    }
+
+    public Rectangle getTopBounds(){
+        return new Rectangle((int) xPos + 1 + HAND_TO_WALL, (int) yPos,width - 1 - 2 * HAND_TO_WALL, 5);
     }
 
     public Rectangle getBottomBounds() {
-        return new Rectangle((int) xPos + 1, (int) yPos + height - 4, width - 1, 5); //4 is arbitrary
+        return new Rectangle((int) xPos + 5 + HAND_TO_WALL, (int) yPos + height - 4, width - 10 - 2*HAND_TO_WALL, 5); //4 is arbitrary
     }
 
     public String getId() {

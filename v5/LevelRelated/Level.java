@@ -28,10 +28,11 @@ public class Level {
     public static ArrayList<Integer> scores; //add quicksort to sort levels
 
     public Image background;
+    public Image levelBackground;
     public Image coins;
     public Image lives;
 
-    public MusicThing music;
+    public MusicThing musicthing;
 
     public boolean isDone;
     public boolean isDead;
@@ -45,11 +46,11 @@ public class Level {
     
 
     
-    public Level(int level) {
-        startup(level);
+    public Level(int level, boolean first) {
+        startup(level, first);
     }
 
-    public void startup(int level) {
+    public void startup(int level, boolean first) {
         debugTool = false;
         startedMusic = true;
         isDone = false;
@@ -63,11 +64,12 @@ public class Level {
         switch (level) {
             case 1:
                 loadLev("./LevelRelated/Lev1.txt");
-                loadImg("./images/pineapple.png");
+                loadImg("./images/level1Overworld.png");
+                loadLevBackground("./images/levelBackground1.png");
                 try {
-                    music = new MusicThing("./music/salaj.mid");
+                    musicthing = new MusicThing("./music/salaj.mid");
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(50);
                     } catch (Exception e) {
                         //TODO: handle exception
                     }
@@ -79,10 +81,12 @@ public class Level {
             case 2:
                 loadLev("./LevelRelated/Lev2.txt");
                 loadImg("./images/pineapple.png");
+                loadLevBackground("./images/levelBackground1.png");
+
                 try {
-                    music = new MusicThing("./music/overworld.mid");
+                    musicthing = new MusicThing("./music/overworld.mid");
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(50);
                     } catch (Exception e) {
                         //TODO: handle exception
                     }
@@ -95,10 +99,12 @@ public class Level {
             case 3: 
                 loadLev("./LevelRelated/Lev3.txt");
                 loadImg("./images/pineapple.png");
+                loadLevBackground("./images/levelBackground1.png");
+
                 try {
-                    music = new MusicThing("./music/salaj.mid");
+                    musicthing = new MusicThing("./music/salaj.mid");
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(50);
                     } catch (Exception e) {
                         //TODO: handle exception
                     }
@@ -112,8 +118,8 @@ public class Level {
                 
                 break;
         }
-        if (!debugTool) {
-            music.pause(); // potential bug
+        if (first) {
+            musicthing.pause();
         }
         player = new Player(levMap.startX, levMap.startY);
         cam = new Camera(player.getX(), player.getY());
@@ -142,6 +148,17 @@ public class Level {
         background = background.getScaledInstance(100, 100, background.SCALE_DEFAULT);
 
     }
+    public void loadLevBackground(String string) {
+        try {
+            levelBackground = ImageIO.read(new File(string));
+
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        levelBackground = levelBackground.getScaledInstance(800, 600, levelBackground.SCALE_DEFAULT);
+
+    }
+    
 
     public Image getImage() {
         return this.background;
@@ -163,17 +180,14 @@ public class Level {
         player.setStateBug(Player.state);
          if (goMenu) {
             goMenu = false;
-            music.pause();
+            musicthing.pause();
             
             driver.gameStack.push(driver.menuHandler);
         }
-        if (startedMusic) {
-            music.play();
-            startedMusic = false;
-        }
+       
         try {
             if (resumeMusic) {
-                music.play();
+                musicthing.play();
                 resumeMusic = false;
             }
         } catch (Exception e) {
@@ -189,7 +203,7 @@ public class Level {
     public void setDone() {
         isDone = true;
 
-        music.pause();
+        musicthing.pause();
 
     }
 
@@ -200,13 +214,13 @@ public class Level {
 
     public void setDead() {
         isDead = true;
-        music.pause();
+        musicthing.pause();
 
     }
 
     public boolean isDead() {
         try {
-            music.stop();
+            musicthing.pause();
         } catch (Exception e) {
             //TODO: handle exception
         }
@@ -216,7 +230,7 @@ public class Level {
     public void setQuit() {
         isQuit = true;
         
-        music.pause();
+        musicthing.pause();
 
     }
 
@@ -232,6 +246,7 @@ public class Level {
         
 		cam.tick(player);
 		Toolkit.getDefaultToolkit().sync(); 
+        g.drawImage(levelBackground, 0, 0, driver);
 		 //background
 		// map.draw(g, this);		
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);

@@ -42,7 +42,7 @@ public class MusicThing
           
         clip.loop(Clip.LOOP_CONTINUOUSLY);
        
-        
+        System.out.println("started");
     }
       
     public void gotoChoice(int c)

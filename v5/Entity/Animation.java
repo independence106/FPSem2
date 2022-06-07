@@ -17,6 +17,10 @@ public class Animation {
     public static Image normalPineappleRight2;
     public static Image normalPineappleNoMove;
 
+    public static Image bossLeft;
+    public static Image bossRight;
+    public static Image bossDead;
+
     public Animation() {
         loadImg();
     }
@@ -82,6 +86,24 @@ public class Animation {
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
+        try {
+			bossLeft = ImageIO.read(new File("./images/bossLeft.png"));
+
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+        try {
+			bossRight = ImageIO.read(new File("./images/bossRight.png"));
+
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+        try {
+			bossDead = ImageIO.read(new File("./images/bossDead.png"));
+
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
 		
 		
     }
@@ -123,5 +145,17 @@ public class Animation {
 
     public static Image getNormalAdult() {
         return normalPineappleNoMove;
+    }
+
+    public static Image getBossLeft() {
+        return bossLeft;
+    }
+
+    public static Image getBossRight() {
+        return bossRight;
+    }
+
+    public static Image getBossDead() {
+        return bossDead;
     }
 }
