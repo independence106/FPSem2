@@ -17,8 +17,8 @@ there were a lot of silent bugs too
 
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Music not restarting when death or level done 
-Bounds a little buggy 
+Music not restarting when death or level done
+Bounds a little buggy
 Sound starts a little loud
 
 COOL STUFF LEARNED
@@ -31,7 +31,7 @@ We changed our music system, we scrapped a lot of ideas, but overall the same
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-CLEAN CODE OR ELSE YOU WILL BE DEBUGGING FOR HOURS AND HOURS AND HOURS AND HOURS 
+CLEAN CODE OR ELSE YOU WILL BE DEBUGGING FOR HOURS AND HOURS AND HOURS AND HOURS
 AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
  AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
   AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
@@ -135,7 +135,7 @@ Jason:: Outro, Intro Animations, added more Blocks and pictures for enemies!
 --------------------------------------------------------------
 Jason:: Era of darkness begins, devlog not updated
         Boss started, flyer bugs, bugs
-Ariel:: Flyer debugging, cleaning
+Ariel:: Flyer debugging, cleaning of overall code
 Russell:: Designing levels
 ==============================================================
 
@@ -161,14 +161,14 @@ Breaktime
 2022-06-06
 --------------------------------------------------------------
 Jason:: broken music code, no idea what to do
-Ariel:: flyer is broken
+
 Russell:: Designing levels, repo struture, updated devlog and readme, spike class
 ==============================================================
 
 2022-06-07
 --------------------------------------------------------------
-Jason:: rebuilt entire music for levels, added pictures and cleaning code, 
-Ariel:: fixed flyer
+Jason:: rebuilt entire music for levels, added pictures and cleaning code,
+Ariel:: 
 Russell:: hostile blocks
 ERA OF DARKNESS LIFTED, went through commits :D
 ==============================================================
