@@ -39,8 +39,9 @@ AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
  AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
  AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
 
-
-
+TODO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Add more stuff we learned over sem
  ______   ______   __   __   __       ______   _______
 /_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\
 \:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__
