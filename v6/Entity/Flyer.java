@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
-
+import java.math.*;
 import javax.imageio.ImageIO;
 
 import Blocks.Block;
@@ -18,6 +18,8 @@ public class Flyer extends Enemy {
 
     public Image image;
     
+    double distancetravelled;
+
     public Flyer(){
         startup();
     }
@@ -38,7 +40,7 @@ public class Flyer extends Enemy {
         }
         width = 40;
         height = 40;
-        yVelo = 3;
+        yVelo = 4;
         xVelo = 0;
         setDirectionRight = true;
         falling = true;
@@ -48,11 +50,12 @@ public class Flyer extends Enemy {
         for (int i = 0; i < level.levMap.rigidBlocks.size(); i++) {
 
             if (getBottomBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                yPos = level.levMap.rigidBlocks.get(i).getY() + height;  
+                yPos = level.levMap.rigidBlocks.get(i).getY() - height;  
                 //yVelo = 0;
                 //System.out.println("hit a block");
                 //yPos = level.levMap.rigidBlocks.get(i).getY() + MapSettings.tileSize;
-                yVelo *= -1;
+               // System.out.println("bottom bounds called");
+                yVelo = 4;
             }
             // if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 // xPos = level.levMap.rigidBlocks.get(i).getX() - width;       
@@ -64,10 +67,10 @@ public class Flyer extends Enemy {
                 // xVelo *= -1;              
             // }
 // 
-             else if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                yPos = level.levMap.rigidBlocks.get(i).getY() - height;
-                System.out.println("hit a block");
-                yVelo *= 0;
+             if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
+                yPos = level.levMap.rigidBlocks.get(i).getY() + height + 4;
+                //System.out.println("top bounds called");
+                yVelo *= -1;
             }
         }
     } 
@@ -95,18 +98,12 @@ public class Flyer extends Enemy {
     }
 
     public Rectangle getTopBounds(){
-        return new Rectangle((int) xPos , (int) yPos + height, width - 1, 5); // 4 is arbitrary
+        return new Rectangle((int) xPos + 1 , (int) yPos, width - 1 - 2, 5);
     }
 
     public Rectangle getBottomBounds() {
-        return new Rectangle((int) xPos + 1, (int) yPos + height - 4, width - 1, 5); //4 is arbitrary
+        return new Rectangle((int) xPos + 5 , (int) yPos + height - 4, width - 10 - 2, 5); //4 is arbitrary
     }
-
-    public double getX() {
-        return xPos;
-    }
-
-
 
 
     @Override
@@ -116,7 +113,12 @@ public class Flyer extends Enemy {
         rigidCollision(level);
         
         yPos -= yVelo;
-
+        
+        distancetravelled++;
+        
+        if(distancetravelled == 15){
+            distancetravelled = 0;
+        }
         rigidCollision(level);    
     }
 

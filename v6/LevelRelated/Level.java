@@ -51,6 +51,20 @@ public class Level {
     }
 
     public void startup(int level, boolean first) {
+        if (first) {
+            try {
+                try {
+                    Thread.sleep(50);
+                } catch (Exception e) {
+                    //TODO: handle exception
+                }
+                musicthing = new MusicThing("./music/salaj.mid");
+                
+            } catch (Exception e) {
+                System.out.println(e + "catch error");
+                debugTool = true;
+            }  
+        }
         debugTool = false;
         startedMusic = true;
         isDone = false;
@@ -66,56 +80,21 @@ public class Level {
                 loadLev("./LevelRelated/Lev1.txt");
                 loadImg("./images/level1Overworld.png");
                 loadLevBackground("./images/levelBackground1.png");
-                try {
-                    try {
-                        Thread.sleep(50);
-                    } catch (Exception e) {
-                        //TODO: handle exception
-                    }
-                    musicthing = new MusicThing("./music/salaj.mid");
-                    
-                } catch (Exception e) {
-                    System.out.println(e + "catch error");
-                    debugTool = true;
-                }  
+               
                 break;
             case 2:
                 loadLev("./LevelRelated/Lev2.txt");
                 loadImg("./images/pineapple.png");
                 loadLevBackground("./images/levelBackground1.png");
 
-                try {
-                    try {
-                        Thread.sleep(50);
-                    } catch (Exception e) {
-                        //TODO: handle exception
-                    }
-                    musicthing = new MusicThing("./music/overworld.mid");
-                    
-                } catch (Exception e) {
-                    System.out.println(e + "catch error");
-                    debugTool = true;
-
-                }  
+               
                 break;
             case 3: 
                 loadLev("./LevelRelated/Lev3.txt");
                 loadImg("./images/pineapple.png");
                 loadLevBackground("./images/levelBackground1.png");
 
-                try {
-                    try {
-                        Thread.sleep(50);
-                    } catch (Exception e) {
-                        //TODO: handle exception
-                    }
-                    musicthing = new MusicThing("./music/salaj.mid");
-                    
-                } catch (Exception e) {
-                    System.out.println(e + "catch error");
-                    debugTool = true;
-
-                }  
+                 
                 break;
             default:
                 
