@@ -75,6 +75,7 @@ public abstract class Block {
     public abstract Rectangle getTopBounds();
     public abstract Rectangle getBottomBounds();
 
+    //returns 
     public String getId() {
         return "block";
     }

@@ -41,8 +41,8 @@ public class Player {
 
     public static int lives = 5;
     public static int coins = 0;
-    public static State state = Player.getState(); 
-    
+    public static State state = Player.getState();
+
     public double xPos;
     public double yPos;
     public int height;
@@ -71,17 +71,17 @@ public class Player {
 
     public ArrayList<Direction> direction;
     public boolean moving;
-    
+
     public Thread soundEffect;
     public SoundEffect sound;
 
 
 
     public Player() {
-        
+
         this.xPos = 400;
         this.yPos = 80;
-        startUp();        
+        startUp();
     }
 
     public Player(int x, int y) {
@@ -113,7 +113,7 @@ public class Player {
         jumpHeight = 50;
     }
 
-    
+
     public void tick(Level level) {
         rigidCollision(level);
         if (falling && !jumping) {
@@ -125,9 +125,9 @@ public class Player {
                 yAccel += 0.15;
             }
             }
-            
-            
-            
+
+
+
         }
         if (jumping && jumpHeight == 50) {
             yVelo = -5.5 + yAccel;
@@ -144,7 +144,7 @@ public class Player {
             falling = true;
             yAccel = 0;
         }
-        
+
         xPos += xVelo;
         yPos += yVelo;
         rigidCollision(level);
@@ -165,7 +165,7 @@ public class Player {
     }
 
 
-    
+
 
     public void tickOverworld() {
         xPos += xVelo;
@@ -173,66 +173,87 @@ public class Player {
             animationTick++;
         }
     }
-    
+
     public void setJumpHeight(int ticks) {
         jumpHeight = ticks;
     }
 
-    //prevents player going through blocks
+    //prevents player going through blocks (specifically "rigid blocks" such as dirt or brick)
     public void rigidCollision(Level level) {
+      //iter over the map, checking if player intersects a block
         for (int i = 0; i < level.levMap.rigidBlocks.size(); i++) {
-
+          //check below the player
             if (getBottomBounds().intersects(level.levMap.rigidBlocks.get(i).getTopBounds())) {
-                
+              //button
                 if (level.levMap.rigidBlocks.get(i).getId().equals("button")) {
                     ((ButtonFlag) level.levMap.rigidBlocks.get(i)).setPressed();
                         level.setDone();
-                        
-                } else {
-                    yPos = level.levMap.rigidBlocks.get(i).getY() - height;  
+
+                }
+                //hostile
+                else if (level.levMap.rigidBlocks.get(i).getId().equals("hostile")) {
+                    level.setDead();
+                }
+                //other blocks
+                else {
+                    yPos = level.levMap.rigidBlocks.get(i).getY() - height;
                     yVelo = 0;
                     yAccel = 0;
                     canJump = true;
                     groundPound = false;
 
                 }
-            } 
+            }
+            //check to the right of the player
             if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getLeftBounds())) {
-                xPos = level.levMap.rigidBlocks.get(i).getX() - width + HAND_TO_WALL;               
+              //check if hostile
+              if (level.levMap.rigidBlocks.get(i).getId().equals("hostile")) {
+                  level.setDead();
+              }
+                xPos = level.levMap.rigidBlocks.get(i).getX() - width + HAND_TO_WALL;
             }
-
+            //check to the left of the player
             if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getRightBounds())) {
-           
-                xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize - HAND_TO_WALL;               
+              //check if hostile
+              if (level.levMap.rigidBlocks.get(i).getId().equals("hostile")) {
+                  level.setDead();
+              }
+                xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize - HAND_TO_WALL;
             }
-            
+            //check above the player
             if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
-                yPos = level.levMap.rigidBlocks.get(i).getY() + MapSettings.tileSize;   
+              //check if hostile
+              if (level.levMap.rigidBlocks.get(i).getId().equals("hostile")) {
+                  level.setDead();
+              }
+                yPos = level.levMap.rigidBlocks.get(i).getY() + MapSettings.tileSize;
                 jumping = false;
                 jumpTick = 50;
-                falling = true;    
+                falling = true;
                 if (level.levMap.rigidBlocks.get(i).getId().equals("powerup"))   {
-                    
+
                     if (((Powerup) level.levMap.rigidBlocks.get(i)).getPhase() == Phase.NOHIT) {
-                        
+
                         level.levMap.entities.add(new RENAMEPowerUp(level.levMap.rigidBlocks.get(i).getX(), level.levMap.rigidBlocks.get(i).getY() - MapSettings.tileSize));
                     }
                     ((Powerup) level.levMap.rigidBlocks.get(i)).setHit();
-                    
-                }     
+
+                }
             }
             //adding a mehtod to detect if hit
-            //if(getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) || 
-            
-            
-           
+            //if(getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) ||
+
+
+
 
         }
     }
-    //
-    public void nonRigidCollision(Level level) { 
+
+    //deals with player intersecting a "nonrigid" block (coin, powerup)
+    public void nonRigidCollision(Level level) {
+      //iter over the map, checking if player intersects a block
         for (int i = 0; i < level.levMap.nonRigidBlocks.size(); i++) {
-            
+
            if (getBounds().intersects(level.levMap.nonRigidBlocks.get(i).getBounds())) {
                coins++;
                level.levMap.setBlock(level.levMap.nonRigidBlocks.get(i).getRow(), level.levMap.nonRigidBlocks.get(i).getCol(), null);
@@ -246,31 +267,31 @@ public class Player {
                 //TODO: handle exception
             }
            }
-           
+
         }
         for (int i = 0; i < level.levMap.enemies.size(); i++) {
             if (getBottomBounds().intersects(level.levMap.enemies.get(i).getTopBounds())) {
                 if (level.levMap.enemies.get(i).getId().equals("boss")) {
                     ((Boss) level.levMap.enemies.get(i)).nextPhase();
                     falling = true;
-                    canJump = false; 
+                    canJump = false;
                     yVelo = 3;
-    
+
                     yAccel = 0;
                     setJumpHeight(20);
                     up();
                 } else {
                     level.levMap.enemies.remove(i);
                     falling = true;
-                    canJump = false; 
+                    canJump = false;
                     yVelo = 3;
-    
+
                     yAccel = 0;
                     setJumpHeight(20);
                     up();
                     System.out.println("DEAD");
                 }
-               
+
             } else if (getRightBounds().intersects(level.levMap.enemies.get(i).getBounds()) || getLeftBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
                 if (canTakeDamge) {
                     if (state != State.BABY) {
@@ -278,13 +299,18 @@ public class Player {
                         level.levMap.enemies.get(i).flipDir();
                         canTakeDamge = false;
                     } else {
+<<<<<<< HEAD
                         level.setDead();
     
+=======
+                        // level.setDead();
+
+>>>>>>> 13b577bbfaccde1d55b554f6cb2a997996e090db
                     }
                 }
-                
 
-            }  
+
+            }
         }
         for (int i = 0; i < level.levMap.entities.size(); i++) {
             if (getBounds().intersects(level.levMap.entities.get(i).getBounds())) {
@@ -296,7 +322,7 @@ public class Player {
                             canTakeDamge = false;
                         } else {
                             // level.setDead();
-        
+
                         }
                     }
                 } else {
@@ -304,20 +330,20 @@ public class Player {
                         sound.setPowerUp();
                         soundEffect.start();
                         soundEffect = new Thread(sound);
-        
+
                     } catch (Exception a) {
                         //TODO: handle exception
                     }
-                    updateState(State.NORMAL); 
+                    updateState(State.NORMAL);
                     level.levMap.entities.remove(i);
                 }
-               
-            }  
+
+            }
         }
     }
 
     public void updateState(State newState) {
-        
+
         state = newState;
         this.width = state.width;
         this.height = state.height;
@@ -327,7 +353,7 @@ public class Player {
             this.yPos -= 40;
 
         }
-        
+
     }
 
     public void setStateBug(State newState) {
@@ -350,33 +376,33 @@ public class Player {
         drawWithAnimation(g, driver);
         o.setColor(Color.RED);
         o.drawRect((int) xPos + HAND_TO_WALL, (int) yPos, width - 2 * HAND_TO_WALL, height);
-        
+
         // o.setColor(Color.BLACK);
         // o.drawRect((int)xPos + width - 4 - HAND_TO_WALL, (int) yPos, 4, height);
         // o.drawRect((int)xPos + HAND_TO_WALL + 1, (int) yPos, 4, height - 4);
     }
-    
+
     public Image getPlayerImageUsed() {
         if (state == State.BABY) {
             if (direction.size() > 0) {
                 if (direction.get(0) == Direction.LEFT) {
                     if (animationTick < 5) {
                         return Animation.getLeftWalk1();
-                    } 
-                    
+                    }
+
                     if (animationTick > 10) {
                         animationTick = 0;
-                        
+
                     }
                     return Animation.getLeftWalk2();
                 } else {
                     if (animationTick < 5) {
                         return Animation.getRightWalk1();
-                    } 
-                    
+                    }
+
                     if (animationTick > 10) {
                         animationTick = 0;
-                        
+
                     }
                     return Animation.getRightWalk2();
                 }
@@ -387,28 +413,28 @@ public class Player {
                 if (direction.get(0) == Direction.LEFT) {
                     if (animationTick < 5) {
                         return Animation.getLeftWalkAdult1();
-                    } 
-                    
+                    }
+
                     if (animationTick > 10) {
                         animationTick = 0;
-                        
+
                     }
                     return Animation.getLeftWalkAdult2();
                 } else {
                     if (animationTick < 5) {
                         return Animation.getRightWalkAdult1();
-                    } 
-                    
+                    }
+
                     if (animationTick > 10) {
                         animationTick = 0;
-                        
+
                     }
                     return Animation.getRightWalkAdult2();
                 }
             }
             return Animation.getNormalAdult();
         }
-        
+
     }
 
     public void right() {
@@ -432,17 +458,17 @@ public class Player {
     }
 
     public Rectangle getBounds() {
-        
+
         return new Rectangle((int) xPos + HAND_TO_WALL, (int) yPos, state.width - 2 * HAND_TO_WALL, state.height);
     }
 
     public Rectangle getRightBounds() {
-        
+
         return new Rectangle((int)xPos + state.width - 4 - HAND_TO_WALL, (int) yPos, 4, state.height);
     }
 
     public Rectangle getLeftBounds() {
-        
+
         return new Rectangle((int)xPos + HAND_TO_WALL, (int) yPos, 4, state.height - 1);
     }
 
@@ -485,7 +511,7 @@ public class Player {
             }
 
             falling = true;
-            canJump = false; 
+            canJump = false;
             setJumpHeight(50);
             up();
         }
@@ -498,7 +524,7 @@ public class Player {
             if (!direction.contains(Direction.LEFT)) {
                 direction.add(Direction.LEFT);
             }
-            
+
             left();
         }
         if(e.getKeyCode()==KeyEvent.VK_D) {
@@ -529,5 +555,5 @@ public class Player {
         }
     }
 
-    
+
 }

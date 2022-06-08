@@ -8,7 +8,7 @@ import Settings.*;
 
 
 public class Lava extends Block{
-    
+
     public Lava(int X, int Y) {
         super(X, Y, "./images/lava.png");
     }
@@ -19,7 +19,7 @@ public class Lava extends Block{
     public Rectangle getBounds() {
         return new Rectangle(Xpos, Ypos, MapSettings.tileSize, MapSettings.tileSize);
     }
-   
+
 
     public Rectangle getLeftBounds() {
         return new Rectangle(Xpos, Ypos, 4, MapSettings.tileSize);
@@ -35,5 +35,9 @@ public class Lava extends Block{
 
     public Rectangle getBottomBounds() {
         return new Rectangle(Xpos, Ypos + MapSettings.tileSize - 4, MapSettings.tileSize, 4);
+    }
+
+    public String getId() {
+        return "hostile";
     }
 }
