@@ -79,7 +79,7 @@ public class MusicThing
     {
         
         FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        float vol = (float) ((float) (volume.getMaximum() - volume.getMinimum()) * 0.80) + (float) volume.getMinimum();
+        float vol = (float) ((float) (volume.getMaximum() - volume.getMinimum()) * 1) + (float) volume.getMinimum();
         volume.setValue(vol);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
 

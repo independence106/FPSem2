@@ -24,16 +24,26 @@ public class OverworldHandler extends Handler {
 
         public int xPos;
         public int yPos;
+        public Image image;
 
         public Lock(int x, int y) {
             this.xPos = x;
             this.yPos = y;
+            loadImg();
+        }
+
+        public void loadImg() {
+            try {
+                image = ImageIO.read(new File("./images/lock.png"));
+    
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
         }
 
         // REPLACE W/ A CARTOON LOCK PNG
-        public void draw(Graphics g) {
-            g.setColor(Color.RED);
-            g.fillRect(xPos, yPos, 40, 40);
+        public void draw(Graphics g, DriverRunner driver) {
+            g.drawImage(image,xPos, yPos, driver );
         }
     }
 
@@ -50,6 +60,8 @@ public class OverworldHandler extends Handler {
     public boolean start;
     public boolean doneWalking;
     public boolean smoothing;
+
+    public Image background;
 
     public int latestLev;
     public static final int finalLev = 3;
@@ -112,6 +124,12 @@ public class OverworldHandler extends Handler {
             //TODO: handle exception
         }
         lives = lives.getScaledInstance(30, 30, lives.SCALE_DEFAULT);
+        try {
+            background = ImageIO.read(new File("./images/overworldBackground.png"));
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        background = background.getScaledInstance(800, 600, background.SCALE_DEFAULT);
     }
 
     @Override
@@ -137,7 +155,7 @@ public class OverworldHandler extends Handler {
 		Toolkit.getDefaultToolkit().sync(); 
         g.setColor(Color.WHITE);
         g.clearRect(0, 0, 800, 600);
-		g.fillRect(0, 0, 800, 600); //background
+        g.drawImage(background, 0, 0, driver);
 		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);
         for (int i = 0; i < driver.levelHandler.levels.size(); i++) {
             g.setColor(Color.ORANGE);
@@ -146,10 +164,10 @@ public class OverworldHandler extends Handler {
                 g.fillRect(127 + (i)* DISTANCE_BETWEEN_LEVELS, 300, DISTANCE_BETWEEN_LEVELS, 20);
             }
             
-            g.drawImage(driver.levelHandler.levels.get(i).getImage(), 100 + i * DISTANCE_BETWEEN_LEVELS, 100, driver);
+            g.drawImage(driver.levelHandler.levels.get(i).getImage(), 100 + i * DISTANCE_BETWEEN_LEVELS, 150, driver);
             if (latestLev < (i)) {
-                Lock lock = new Lock(100+ i *DISTANCE_BETWEEN_LEVELS, 100);
-                lock.draw(g);
+                Lock lock = new Lock(100+ i *DISTANCE_BETWEEN_LEVELS, 140);
+                lock.draw(g, driver);
             }
             if (latestLev < i) {
                 g.setColor(Color.BLUE);
@@ -157,7 +175,7 @@ public class OverworldHandler extends Handler {
                 g.setColor(Color.RED);
             }
             
-            g.fillRoundRect(125 + i * DISTANCE_BETWEEN_LEVELS, 300, 50, 25, 50, 25);
+            g.fillRoundRect(125 + i * DISTANCE_BETWEEN_LEVELS, 290, 50, 40, 50, 35);
         }
 		player.draw(g, driver);
 		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
@@ -165,9 +183,15 @@ public class OverworldHandler extends Handler {
         g.setFont(new Font("Serif", Font.PLAIN, 25));
         g.drawString("LEVEL " + Integer.toString(selectedLevel + 1), 350, 40);
         g.drawImage(lives, 15, 20, driver);
-        g.setColor(Color.WHITE);
-        g.drawString("x",  50, 40);
-        g.drawString(Integer.toString(Player.getLives()),  60, 40);
+		g.setFont(new Font("Serif", Font.BOLD, 25));
+        g.setColor(Color.BLACK); 
+        g.drawString("x ",  50, 40);
+        g.drawString(Integer.toString(Player.getLives()),  65, 40);
+		g.setColor(Color.YELLOW);
+		g.fillOval(20, 55, 20, 20);
+        g.setColor(Color.BLACK);
+        g.drawString("x ",  50, 70);
+        g.drawString(Integer.toString(Player.getCoins()),  65, 70);
     }
 
     @Override

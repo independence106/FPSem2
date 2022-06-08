@@ -51,7 +51,6 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 	public void tick(DriverRunner driver) {
 		driver.overworldHandler.start = false;
 		if (levels.get(currLev).isDone()) {
-			
 			if (currLev == driver.overworldHandler.latestLev) driver.overworldHandler.latestLev++;
 			
 			driver.gameStack.pop();
@@ -59,6 +58,8 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 				driver.gameStack.push(driver.outroHandler);
 
 			}
+			driver.resetMusic();
+
 			try {
 				Thread.sleep(100);
 			} catch (Exception e) {
@@ -68,14 +69,11 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 			driver.gameStack.push(driver.courseClearHandler);
 		}
 		if (levels.get(currLev).isDead()) {
+
 			// levels.set(currLev, new Level(currLev + 1));
 			driver.overworldHandler.player.setLives(driver.overworldHandler.player.getLives() - 1);
-			try {
-				levels.get(currLev).musicthing.stop();
+			driver.resetMusic();
 
-			} catch (Exception e) {
-				//TODO: handle exception
-			}
 			if (Player.getLives() <= 0) {
 				try {
 					Thread.sleep(100);
@@ -83,9 +81,11 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 					//TODO: handle exception
 				}
 				driver.gameStack.push(driver.deathScreenHandler);
-			}
-			driver.gameStack.pop();
+			} else {
+				driver.gameStack.pop();
 
+			}
+			System.out.println(driver.gameStack.peek());
 			
 			
 			
@@ -99,17 +99,19 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 		g.fillRect(0, 0, 800, 600);
 
 		
-		tick(driver);
         levels.get(currLev).draw(g, driver);
 		g.drawImage(levels.get(currLev).lives, 15, 20, driver);
 		g.setFont(new Font("Serif", Font.BOLD, 25));
-        g.setColor(Color.YELLOW); 
-        g.drawString("x",  50, 40);
-        g.drawString(Integer.toString(levels.get(currLev).player.getLives()),  60, 40);
-		g.drawImage(levels.get(currLev).lives, 15, 60, driver);
-        g.setColor(Color.YELLOW);
-        g.drawString("x",  50, 60);
-        g.drawString(Integer.toString(Player.getCoins()),  60, 60);
+        g.setColor(Color.BLACK); 
+        g.drawString("x ",  50, 40);
+        g.drawString(Integer.toString(levels.get(currLev).player.getLives()),  65, 40);
+		g.setColor(Color.YELLOW);
+		g.fillOval(20, 55, 20, 20);
+        g.setColor(Color.BLACK);
+        g.drawString("x ",  50, 70);
+        g.drawString(Integer.toString(Player.getCoins()),  65, 70);
+		tick(driver);
+
 	}
 
 	@Override

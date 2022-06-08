@@ -19,6 +19,8 @@ public abstract class Entity {
 
     public abstract Rectangle getBounds();
 
+    public abstract Rectangle getTopBounds();
+
     public String getId() {
         return "entity";
     }

@@ -92,19 +92,23 @@ public class Animation {
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
+        bossLeft = bossLeft.getScaledInstance(80, 80, bossLeft.SCALE_DEFAULT);
         try {
 			bossRight = ImageIO.read(new File("./images/bossRight.png"));
 
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
+        bossRight = bossRight.getScaledInstance(80, 80, bossRight.SCALE_DEFAULT);
+
         try {
 			bossDead = ImageIO.read(new File("./images/bossDead.png"));
 
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
-		
+        bossDead = bossDead.getScaledInstance(80, 80, bossDead.SCALE_DEFAULT);
+
 		
     }
 

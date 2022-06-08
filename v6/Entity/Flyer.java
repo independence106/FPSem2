@@ -18,16 +18,23 @@ public class Flyer extends Enemy {
 
     public Image image;
     
-    double distancetravelled;
+    public final double originalXPos;
+    public final double originalYPos;
+
+    // public final double distanceToTravel;
 
     public Flyer(){
         startup();
+        originalXPos = 0;
+        originalYPos = 0;
     }
 
     public Flyer(int x, int y){
         startup();
         xPos = x;
         yPos = y;
+        originalXPos = x;
+        originalYPos = y;
     }
 
     public void startup() {
@@ -70,7 +77,7 @@ public class Flyer extends Enemy {
              if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 yPos = level.levMap.rigidBlocks.get(i).getY() + height + 4;
                 //System.out.println("top bounds called");
-                yVelo *= -1;
+                yVelo = -4;
             }
         }
     } 
@@ -114,10 +121,8 @@ public class Flyer extends Enemy {
         
         yPos -= yVelo;
         
-        distancetravelled++;
-        
-        if(distancetravelled == 15){
-            distancetravelled = 0;
+        if (Math.abs(yPos - originalYPos) > 50) {
+            yVelo *= -1;
         }
         rigidCollision(level);    
     }

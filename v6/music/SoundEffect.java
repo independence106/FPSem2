@@ -11,6 +11,7 @@ public class SoundEffect implements Runnable{
 	AudioInputStream stream;
 	Clip clip;
 	String path;
+	public boolean isSong;
 
 	public enum Types {
 		JUMP,
@@ -20,6 +21,7 @@ public class SoundEffect implements Runnable{
 	public SoundEffect() {
 		this.path = "./music/jump.wav";
 		load();
+		isSong = false;
 	}
 
 	public void load() {
@@ -48,6 +50,12 @@ public class SoundEffect implements Runnable{
 		load();
 	}
 
+	public void playMusic(String path) {
+		this.path = path;
+		isSong = true;
+		load();
+	}
+
 	public void setCourseClear() {
 		this.path = "./music/courseclear.mid";
 		load();
@@ -64,12 +72,20 @@ public class SoundEffect implements Runnable{
 	public void run() {
 		// TODO Auto-generated method stub
 		clip.start();
-		
-            try {
+		if (isSong) {
+			while (!Thread.currentThread().isInterrupted()) {
+				// clip.start();
+				clip.start();
+				System.out.println("playing");
+			}
+		} else {
+			try {
                 Thread.sleep(1000);
             } catch (Exception e) {
                 //TODO: handle exception
-        }	
+        	}	
+		}
+        
 		clip.setFramePosition(0);	
 	}
 }

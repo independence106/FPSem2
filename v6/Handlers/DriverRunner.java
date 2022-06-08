@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import LevelRelated.BackGroundDrawer;
 import Settings.MapSettings;
+import music.MusicThing;
 
 
 public class DriverRunner extends JPanel implements Runnable{
@@ -16,6 +17,10 @@ public class DriverRunner extends JPanel implements Runnable{
     public BackGroundDrawer map = new BackGroundDrawer();
 	public Stack<Handler> gameStack;
 	public Thread gameThread;
+
+	public MusicThing lev1Music;
+	public MusicThing lev2Music; 
+	public MusicThing lev3Music; 
 
 	public Graphics graphics;
 
@@ -52,11 +57,55 @@ public class DriverRunner extends JPanel implements Runnable{
 		// map.loadImg("map.png");
         imag2x = map.imag2x;
         imag2y = map.imag2y;
+		startMusic();
 		gameThread = new Thread(this);
 		gameThread.start();
 
 		startup();
+
     }
+
+	public void startMusic() {
+		try {
+            lev1Music = new MusicThing("./music/salaj.mid");
+        } catch (Exception e) {
+            System.out.println(e + "catch error");
+        }  
+		lev1Music.pause();
+		try {
+            lev2Music = new MusicThing("./music/lev2.mid");
+        } catch (Exception e) {
+            System.out.println(e + "catch error");
+        } 
+		lev2Music.pause();
+		try {
+            lev3Music = new MusicThing("./music/lev3.mid");
+        } catch (Exception e) {
+            System.out.println(e + "catch error");
+        } 
+		lev3Music.pause();
+		try {
+			Thread.sleep(50);
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+	}
+
+	public void resetMusic() {
+		try {
+			lev1Music.resetAudioStream();
+			lev1Music.restart();
+			lev1Music.pause();
+			lev2Music.resetAudioStream();
+			lev2Music.restart();
+			lev2Music.pause();
+			lev3Music.resetAudioStream();
+			lev3Music.restart();
+			lev3Music.pause();
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+	}
 
 	public void startup() {
 		// gameStack.push(levelHandler);
@@ -66,6 +115,8 @@ public class DriverRunner extends JPanel implements Runnable{
 		// gameStack.push(outroHandler);
 	}
 
+	
+
 	public void paint(Graphics g) {
 		Toolkit.getDefaultToolkit().sync();
 		draw(g);
@@ -73,6 +124,21 @@ public class DriverRunner extends JPanel implements Runnable{
 
 	public void draw(Graphics g) {
 		gameStack.peek().draw(g, this);
+		if (gameStack.peek() == levelHandler && levelHandler.currLev == 0) {
+			lev1Music.play();
+		} else {
+			lev1Music.pause();
+		} 
+		if (gameStack.peek() == levelHandler && levelHandler.currLev == 1) {
+			lev2Music.play();
+		} else {
+			lev2Music.pause();
+		}
+		if (gameStack.peek() == levelHandler && levelHandler.currLev == 2) {
+			lev3Music.play();
+		} else {
+			lev3Music.pause();
+		}
 
 	}
 

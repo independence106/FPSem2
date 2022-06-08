@@ -1,15 +1,15 @@
-                                                                                                                                                                                                  C
-
-
-
-
-
-
-                                                                                  WWWWWWWW    WW
-
-            b   F                                                                                                           w
-                  WWPWW                      GG                               P      CC                W                   ww
-    S                                  GG    DD           GG          GG            C  C                                  www           B
-            CCCC          K   GG      DD    DD           DD    K     DD            C    C              CCCC              wwww          www
-GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGDDGGGGGGGGGGGGGGG      GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG     GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD      DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD     DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+              CC                             W                                                                                                                                  W
+                                             W  CC       W
+      S     C     C                          WWWWW       W                        B
+           C       C                         W           W                       GGG
+GGGGGGGGGGG         GGGGGGGGGGGGGGGGGGG      W        CC W                      GDDDGG
+DDDDDDDDDDD         DDDDDDDDDDWWWWWWWWW      W       WWWWW         GGGG                      GG
+WWWWWWWWWWW         WWWWWWWWWWW              W           W       GGDDDDGG                    DDGG
+                              W              W           WD          DD          GGGG       GDDDDG  C
+                              W     W        WWWWW       WDDD                  GGDDDDGG       DDDDGGGG
+                              W     W                    WDDDD                   DD
+                              W     W        K     K     WDDD        CC
+                              W     WWWWWWWWWWWWWWWWWWWWWW        GGDDDDDGG
+                              W                                  GDDDDDDDDDG
+                              W  CCCCC                           DDDDDDDDDDD
+                              WWWWWWWWW   WWW   WWW   WWWWWWWWWWWWWWWWWWWWWW

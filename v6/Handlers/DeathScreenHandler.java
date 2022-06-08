@@ -6,6 +6,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import Entity.Player;
 import music.MusicThing;
 import music.SoundEffect;
 
@@ -93,6 +94,7 @@ public class DeathScreenHandler extends Handler {
             } catch (Exception e) {
                 //TODO: handle exception
             }
+            Player.setLives(5);
             driver.gameStack.pop();
         }
     }

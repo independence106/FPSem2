@@ -12,6 +12,7 @@ import Entity.Player;
 import Entity.Player.State;
 import Handlers.DriverRunner;
 import music.MusicThing;
+import music.SoundEffect;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -31,9 +32,6 @@ public class Level {
     public Image levelBackground;
     public Image coins;
     public Image lives;
-
-    public static MusicThing musicthing;
-
     public boolean isDone;
     public boolean isDead;
     public boolean isQuit;
@@ -44,6 +42,7 @@ public class Level {
 
     public boolean debugTool;
     
+   
 
     
     public Level(int level, boolean first) {
@@ -51,20 +50,7 @@ public class Level {
     }
 
     public void startup(int level, boolean first) {
-        if (first) {
-            try {
-                try {
-                    Thread.sleep(50);
-                } catch (Exception e) {
-                    //TODO: handle exception
-                }
-                musicthing = new MusicThing("./music/salaj.mid");
-                
-            } catch (Exception e) {
-                System.out.println(e + "catch error");
-                debugTool = true;
-            }  
-        }
+       
         debugTool = false;
         startedMusic = true;
         isDone = false;
@@ -80,31 +66,27 @@ public class Level {
                 loadLev("./LevelRelated/Lev1.txt");
                 loadImg("./images/level1Overworld.png");
                 loadLevBackground("./images/levelBackground1.png");
-               
+
                 break;
             case 2:
                 loadLev("./LevelRelated/Lev2.txt");
-                loadImg("./images/pineapple.png");
-                loadLevBackground("./images/levelBackground1.png");
-
-               
+                loadImg("./images/level2Overworld.png");
+                loadLevBackground("./images/levelBackground2.png");
+                
                 break;
             case 3: 
-                loadLev("./LevelRelated/Lev3.txt");
-                loadImg("./images/pineapple.png");
-                loadLevBackground("./images/levelBackground1.png");
+                
 
-                 
+                loadLev("./LevelRelated/Lev3.txt");
+                loadImg("./images/level3Overworld.png");
+                loadLevBackground("./images/levelBackground2.png");
+
                 break;
             default:
                 
                 break;
         }
-        try {
-            musicthing.pause();
-        } catch (Exception e) {
-            //TODO: handle exception
-        }
+        
         player = new Player(levMap.startX, levMap.startY);
         cam = new Camera(player.getX(), player.getY());
         snapCamera(player);
@@ -164,19 +146,12 @@ public class Level {
         player.setStateBug(Player.state);
          if (goMenu) {
             goMenu = false;
-            musicthing.pause();
             
             driver.gameStack.push(driver.menuHandler);
         }
        
-        try {
-            if (resumeMusic) {
-                musicthing.play();
-                resumeMusic = false;
-            }
-        } catch (Exception e) {
-            //TODO: handle exception
-        }
+          //TODO: handle exception
+        
         player.tick(this);
     }
 
@@ -187,8 +162,6 @@ public class Level {
     public void setDone() {
         isDone = true;
 
-        musicthing.pause();
-
     }
 
     public boolean isDone() {
@@ -198,8 +171,7 @@ public class Level {
 
     public void setDead() {
         isDead = true;
-        musicthing.pause();
-
+        
     }
 
     public boolean isDead() {
@@ -212,9 +184,7 @@ public class Level {
     }
 
     public void setQuit() {
-        isQuit = true;
-        
-        musicthing.pause();
+       isQuit = true;
 
     }
 
@@ -223,8 +193,10 @@ public class Level {
     }
 
     public void draw(Graphics g, DriverRunner driver) {
-        
-        System.out.println(musicthing.status);
+        // if (startedMusic) {
+        //     soundEffect.start();
+        //     startedMusic = false;
+        // }
         tick(driver);
         
         

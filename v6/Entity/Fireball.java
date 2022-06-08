@@ -62,6 +62,12 @@ public class Fireball extends Entity {
         return new Rectangle((int) xPos + 1, (int) yPos + height - 4, width - 1, 5); //4 is arbitrary
     }
 
+    
+    public Rectangle getTopBounds(){
+        return new Rectangle((int) xPos + 1 , (int) yPos, height - 1 - 2 , 5);
+    }
+
+   
     public String getId() {
         return "fireball";
     }

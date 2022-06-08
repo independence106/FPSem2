@@ -249,7 +249,7 @@ public class Player {
            
         }
         for (int i = 0; i < level.levMap.enemies.size(); i++) {
-            if (getBottomBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
+            if (getBottomBounds().intersects(level.levMap.enemies.get(i).getTopBounds())) {
                 if (level.levMap.enemies.get(i).getId().equals("boss")) {
                     ((Boss) level.levMap.enemies.get(i)).nextPhase();
                     falling = true;
@@ -278,7 +278,7 @@ public class Player {
                         level.levMap.enemies.get(i).flipDir();
                         canTakeDamge = false;
                     } else {
-                        // level.setDead();
+                        level.setDead();
     
                     }
                 }
@@ -412,11 +412,14 @@ public class Player {
     }
 
     public void right() {
+        
         xVelo = 4;
     }
 
     public void left() {
-        xVelo = -4;
+        if (xPos > 4) {
+            xVelo = -4;
+        }
     }
 
     public void up() {
@@ -459,7 +462,7 @@ public class Player {
         return yPos;
     }
 
-    public void setLives(int addlives) {
+    public static void setLives(int addlives) {
         lives = addlives;
     }
 

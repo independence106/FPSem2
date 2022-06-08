@@ -76,6 +76,12 @@ public class RENAMEPowerUp extends Entity {
         return new Rectangle((int) xPos + 1, (int) yPos + height - 4, width - 1, 5); //4 is arbitrary
     }
 
+    public Rectangle getTopBounds(){
+        return new Rectangle((int) xPos + 1 , (int) yPos, height - 1 - 2 , 5);
+    }
+
+    
+
     public double getX() {
         return xPos;
     }
@@ -86,5 +92,6 @@ public class RENAMEPowerUp extends Entity {
         g.setColor(Color.BLUE);
         g.fillRect((int) xPos, (int) yPos, width, height);
     }
+
     
 }
