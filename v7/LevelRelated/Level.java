@@ -11,6 +11,8 @@ import Entity.Entity;
 import Entity.Player;
 import Entity.Player.State;
 import Handlers.DriverRunner;
+import Handlers.LevelHandler;
+import Handlers.Stats;
 import music.MusicThing;
 import music.SoundEffect;
 
@@ -42,7 +44,8 @@ public class Level {
 
     public boolean debugTool;
     
-   
+    public int score;
+    public int deaths;
 
     
     public Level(int level, boolean first) {
@@ -59,7 +62,8 @@ public class Level {
         goMenu = false;
         resumeMusic = true;
         levMap = new TileMap();
-
+        score = 0;
+        deaths = 0;
         
         switch (level) {
             case 1:

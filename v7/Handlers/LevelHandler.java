@@ -69,7 +69,7 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 			driver.gameStack.push(driver.courseClearHandler);
 		}
 		if (levels.get(currLev).isDead()) {
-
+			Stats.addDeath(currLev);
 			// levels.set(currLev, new Level(currLev + 1));
 			driver.overworldHandler.player.setLives(driver.overworldHandler.player.getLives() - 1);
 			driver.resetMusic();

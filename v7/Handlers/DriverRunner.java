@@ -33,6 +33,7 @@ public class DriverRunner extends JPanel implements Runnable{
 	public CourseClearHandler courseClearHandler;
 	public MenuHandler menuHandler;
 	public OutroHandler outroHandler;
+	public Stats stats;
 
 	public int imag2x;
 	public int imag2y;
@@ -52,6 +53,8 @@ public class DriverRunner extends JPanel implements Runnable{
 		courseClearHandler = new CourseClearHandler();
 		menuHandler = new MenuHandler();
 		outroHandler = new OutroHandler();
+
+		stats = new Stats();
 
 		gameStack = new Stack<Handler>();
 		// map.loadImg("map.png");
