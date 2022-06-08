@@ -120,6 +120,9 @@ public class TileMap {
                         enemy = new Flyer(col * MapSettings.tileSize, row * MapSettings.tileSize);
                         enemies.add(enemy);
                         break;
+                    case "z":
+                        PlayerFireball fireball = new PlayerFireball(col * MapSettings.tileSize, row * MapSettings.tileSize);
+                        entities.add(fireball);
                     case "s":
                       temp = new Spike(col * MapSettings.tileSize, row * MapSettings.tileSize);
                       map[row][col] = temp;
