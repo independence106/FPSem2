@@ -61,6 +61,8 @@ public class OverworldHandler extends Handler {
     public boolean doneWalking;
     public boolean smoothing;
 
+    public boolean goToStats;
+
     public Image background;
 
     public int latestLev;
@@ -94,6 +96,7 @@ public class OverworldHandler extends Handler {
         loadImg();
         doneWalking = true;
         smoothing = false;
+        goToStats = false;
     }
 
     public void snapCamera(Player player) {
@@ -250,6 +253,15 @@ public class OverworldHandler extends Handler {
             }
             driver.gameStack.push(driver.levelHandler);
         }
+        if (goToStats) {
+            music.pause();
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+            driver.gameStack.push(driver.stats);
+        }
     }
 
     @Override
@@ -271,6 +283,9 @@ public class OverworldHandler extends Handler {
             smoothing = false;
             start = true;
             
+        }
+        if (e.getKeyCode() == KeyEvent.VK_T) {
+            goToStats = true;
         }
     }
 
