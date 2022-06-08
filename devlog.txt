@@ -7,47 +7,37 @@ pd 7
 The Purple Pineapple
 - 2D platformer with some kewl stuff
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-USAGE:
-* Replace all fields, angle brackets included, with specified info.
-  eg, pd <pd#> --> pd 3
-* Delete this instruction block once all teammates understand usage.
-
-devlog--
-Use keyboard shortcut to jump to end,
- replicate entry template,
- modify appropriately.
-
-zone of reflection--
-Flesh out each category whenever necessary, appropriate.
- Need not be fully filled in until end of project,
- but best done as you go along.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 /////////// Zone of Reflection \\\\\\\\\\\
 ------------------------------------------
 OBSTACLES OVERCOME
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-wow we so BOSS bc...
+Figured out how to display stuff on gui and organize code and well as incorporate stack structure into our code
+there were a lot of silent bugs too
 
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-blah blah pesky bug...
-maybe some of these will move into the Obs.Ovrcm section...
+Music not restarting when death or level done 
+Bounds a little buggy 
+Sound starts a little loud
 
 COOL STUFF LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-wow! oo!...
+stack struture made it easy to test stuff and easy to organize items
 
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-we changed ___ to ___ bc...
+We changed our music system, we scrapped a lot of ideas, but overall the same
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tales of wisdom gained...
-||||||||||||||||||||||||||||||||||||||||||
+CLEAN CODE OR ELSE YOU WILL BE DEBUGGING FOR HOURS AND HOURS AND HOURS AND HOURS 
+AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
+ AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
+  AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
+ AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
+ AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
+ AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS AND HOURS
 
 
 
@@ -60,53 +50,128 @@ tales of wisdom gained...
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 
-5/17 - Jason: Basic GUI interface, graphics, designing
-     - group: finalized idea + groupmates
+2022-05-17
+--------------------------------------------------------------
+Jason:: Basic GUI interface, graphics, designing
+Ariel + Russell:: finalized idea + groupmates
+==============================================================
 
-5/18 - Jason: Blocks, started designing block display algo
-              Bound detection and gravity - ish; still bugs so must fix
+2022-05-18
+--------------------------------------------------------------
+Jason:: Blocks, started designing block display algo
+        Bound detection and gravity - ish; still bugs so must fix
+==============================================================
 
-5/19 - Jason: Smoothed bound detection and collisions, smoothed top scrolling, side scrolling
-              Started implementing block render
-       Russell: Started Research on jumping and the physics behind it
+2022-05-19
+--------------------------------------------------------------
+Jason:: Smoothed bound detection and collisions, smoothed top scrolling, side scrolling
+        Started implementing block render
+Russell:: Started Research on jumping and the physics behind it
+==============================================================
 
-5/20 - Jason: Block rendering system works, level design can now begin
-       Ariel: Started working on enemies and enemy interaction
+2022-05-20
+--------------------------------------------------------------
+Jason:: Block rendering system works, level design can now begin
+Ariel: Started working on enemies and enemy interaction
+==============================================================
 
-5/21 - Jason: Logo Design and implementation, game state, cleaning up code and reorganized
+2022-05-21
+--------------------------------------------------------------
+Jason:: Logo Design and implementation, game state, cleaning up code and reorganized
+==============================================================
 
-5/22 - Jason: Intro menu finished, coins added
+2022-05-22
+--------------------------------------------------------------
+Jason:: Intro menu finished, coins added
+==============================================================
 
-5/24 - Jason: Level class and reorganization
-     - Ariel: Finished first enemy class
+2022-05-24
+--------------------------------------------------------------
+Jason:: Level class and reorganization
+Ariel:: Finished first enemy class
+==============================================================
 
-5/25 - Jason: Overworld develop and transition between levels and overworld <- 1rst prototype is done
+2022-05-25
+--------------------------------------------------------------
+Jason:: Jason: Overworld develop and transition between levels and overworld <- 1rst prototype is done
        -> Next prototype: working jump, transitions, animations, more blocks and more levels
        -> fix bugs: overworld too far left and put music in driverrunner
-       Ariel: Fixed collisions on blocks.
+Ariel:: Fixed collisions on blocks.
+==============================================================
 
-5/26 - Jason: music transition between worlds, intro menu handler cleaning
+2022-05-26
+--------------------------------------------------------------
+Jason:: music transition between worlds, intro menu handler cleaning
+==============================================================
 
-5/27 - Jason: jump working, sprites for player acquired
+2022-05-27
+--------------------------------------------------------------
+Jason:: jump working, sprites for player acquired
+==============================================================
 
-5/28 - Jason: Sprite animation working, course clear screen, death animation, uhh sound effects, intro structure, credit structure, smoothing movement
-     - Ariel: Made flying enemy. Designed first level.
+2022-05-28
+--------------------------------------------------------------
+Jason::  Jason: Sprite animation working, course clear screen, death animation, uhh sound effects, intro structure, credit structure, smoothing movement
+Ariel:: Made flying enemy. Designed first level.
+==============================================================
 
-5/29 - Jason: Powerups,
+2022-05-29
+--------------------------------------------------------------
+Jason:: Powerups
+==============================================================
 
-5/30 - Jason: Lotta debugging, credits, cleaning, boss, road fix, and bugs
+2022-05-30
+--------------------------------------------------------------
+Jason:: Lotta debugging, credits, cleaning, boss, road fix, and bugs
+==============================================================
 
-5/31 - Jason: Outro, Intro Animations, added more Blocks and pictures for enemies!
+2022-05-31
+--------------------------------------------------------------
+Jason:: Outro, Intro Animations, added more Blocks and pictures for enemies!
+==============================================================
 
-06/01 - The era of darkness begins... (devlog not updated)
-06/02 -
-06/03 -
-06/04 -
-06/05 -
+2022-06-01
+--------------------------------------------------------------
+Jason:: Era of darkness begins, devlog not updated
+        Boss started, flyer bugs, bugs
+Ariel:: Flyer debugging, cleaning
+Russell:: Designing levels
+==============================================================
 
-06/06 -
+2022-06-02
+--------------------------------------------------------------
+Jason:: BUGS with music and boss
+Ariel:: FLYER BUGS
+Russell:: Designing levels
+==============================================================
 
-https://www.youtube.com/watch?v=AaKzpBH65FE - Salaj <- in credits owo
+2022-06-03
+--------------------------------------------------------------
+Jason:: MORE BUGS WITH BOSS AND MUSIC, boss now finalized
+Ariel:: flyer go too fast
+==============================================================
+
+2022-06-04 - 06-05
+--------------------------------------------------------------
+Breaktime
+==============================================================
+
+
+2022-06-06
+--------------------------------------------------------------
+Jason:: broken music code, no idea what to do
+Ariel:: flyer is broken
+Russell:: Designing levels, repo struture, updated devlog and readme, spike class
+==============================================================
+
+2022-06-07
+--------------------------------------------------------------
+Jason:: rebuilt entire music for levels, added pictures and cleaning code, 
+Ariel:: fixed flyer
+Russell:: hostile blocks
+ERA OF DARKNESS LIFTED, went through commits :D
+==============================================================
+
 
 TODO:
 - Change the System Millis To Timer in LogoHandler

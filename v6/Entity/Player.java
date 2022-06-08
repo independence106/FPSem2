@@ -299,13 +299,8 @@ public class Player {
                         level.levMap.enemies.get(i).flipDir();
                         canTakeDamge = false;
                     } else {
-<<<<<<< HEAD
                         level.setDead();
     
-=======
-                        // level.setDead();
-
->>>>>>> 13b577bbfaccde1d55b554f6cb2a997996e090db
                     }
                 }
 
