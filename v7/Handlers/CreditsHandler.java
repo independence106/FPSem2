@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import Entity.Animation;
 import music.MusicThing;
 import music.SoundEffect;
 import java.io.File;
@@ -23,10 +24,14 @@ public class CreditsHandler extends Handler {
     public Image credits;
     public int times;
     public int currentTicks;
+    public int animationTicks;
+
+    public boolean goStats;
 
     
     public CreditsHandler() {
-       
+        animationTicks = 0;
+        goStats = false;
         try {
             Thread.sleep(500);
         } catch (Exception e) {
@@ -59,6 +64,7 @@ public class CreditsHandler extends Handler {
         tick(driver);
         music.play();
         g.clearRect(0, 0, 800, 600);
+
         g.drawImage(credits, 200, -(currentTicks / 2) + 820, driver);
         
     }
@@ -71,13 +77,30 @@ public class CreditsHandler extends Handler {
         if (currentTicks > 5000) {
             currentTicks = 0;
         }
+        if (goStats) {
+            goStats = false;
+            driver.gameStack.push(driver.stats);
+        }
         
+    }
+
+    public Image getImageUsed() {
+        if (animationTicks > 40) {
+            return Animation.getDabLeft();
+        } else {
+            return Animation.getDabRight();
+        }
+        if (animationTicks > 80) {
+            animationTicks = 0;
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
-        
+        if (e.getKeyCode() == KeyEvent.VK_T) {
+            goStats = true;
+        }
     }
 
     @Override

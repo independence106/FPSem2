@@ -8,7 +8,7 @@ public class Woo extends JFrame{
 	Woo(){
 		panel = new DriverRunner();
 		this.add(panel);
-		this.setTitle("The Quest For The Purple Pineapple");
+		this.setTitle("The Purple Pineapple");
 		this.setResizable(true);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

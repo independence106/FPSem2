@@ -21,6 +21,9 @@ public class Animation {
     public static Image bossRight;
     public static Image bossDead;
 
+    public static Image dabLeft;
+    public static Image dabRight;
+
     public Animation() {
         loadImg();
     }
@@ -102,12 +105,20 @@ public class Animation {
         bossRight = bossRight.getScaledInstance(80, 80, bossRight.SCALE_DEFAULT);
 
         try {
-			bossDead = ImageIO.read(new File("./images/bossDead.png"));
+			dabRight = ImageIO.read(new File("./images/dabRight.png"));
 
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
-        bossDead = bossDead.getScaledInstance(80, 80, bossDead.SCALE_DEFAULT);
+        dabRight = dabRight.getScaledInstance(400, 400, dabRight.SCALE_DEFAULT);
+
+        try {
+			dabLeft = ImageIO.read(new File("./images/dabLeft.png"));
+
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+        dabLeft = dabLeft.getScaledInstance(400, 400, dabLeft.SCALE_DEFAULT);
 
 		
     }
@@ -161,5 +172,13 @@ public class Animation {
 
     public static Image getBossDead() {
         return bossDead;
+    }
+
+    public static Image getDabRight() {
+        return dabRight;
+    }
+
+    public static Image getDabLeft() {
+        return dabLeft;
     }
 }

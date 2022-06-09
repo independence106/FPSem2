@@ -3,6 +3,8 @@ package Handlers;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.imageio.ImageIO;
 
@@ -34,8 +36,8 @@ public class Stats extends Handler {
     public void loadImg() {
     }
 
-    public static void setScore(int level, int score) {
-        doublyLinkedList.get(level).setScore(score);
+    public static void addScore(int level, int score) {
+        doublyLinkedList.get(level).addScore(score);
     }
 
     public static void setDeaths(int level, int deaths) {
@@ -49,8 +51,26 @@ public class Stats extends Handler {
 
     @Override
     public void draw(Graphics g, DriverRunner driver) {
+        LinkedList<String> scores = new LinkedList<String>();
+
+        for (int i = 0; i < doublyLinkedList.get(currSelection).scores.size(); i++) {
+            if (doublyLinkedList.get(currSelection).scores.size() < i) {
+                break;
+            }
+            scores.add(Integer.toString(doublyLinkedList.get(currSelection).scores.get(i)));
+        }
+        System.out.println(doublyLinkedList.size());
         // TODO Auto-generated method stub
-        g.drawString("Deaths: " + doublyLinkedList.get(selec), arg1, arg2);
+        g.clearRect(0, 0, 800, 600);
+        g.setColor(Color.LIGHT_GRAY);
+        g.setFont(new Font("Sans Serif", Font.PLAIN, 30));
+        g.drawString("LEVEL " + Integer.toString(currSelection + 1), 50, 50);
+        g.drawString("Deaths Total: " + doublyLinkedList.get(currSelection).deaths, 50, 100);
+        g.drawString("Scores:\n", 50, 150);
+        for (int i = 0; i < scores.size(); i++) {
+            g.drawString(scores.get(i), 70, 200 + i * 50);
+            
+        }
         tick(driver);
     }
 
@@ -66,8 +86,11 @@ public class Stats extends Handler {
     @Override
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
-        if (e.getKeyCode() == KeyEvent.VK_D) {
-
+        if (e.getKeyCode() == KeyEvent.VK_D && currSelection < doublyLinkedList.size()) {
+            currSelection++;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_A && currSelection > 0) {
+            currSelection--;
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             setQuit = true;

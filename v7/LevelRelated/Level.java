@@ -159,8 +159,8 @@ public class Level {
         player.tick(this);
     }
 
-    public void addScore(int score) {
-        scores.add(score);
+    public void updateScore(int score) {
+        this.score += score;
     }
 
     public void setDone() {
@@ -194,6 +194,10 @@ public class Level {
 
     public boolean isQuit() {
         return isQuit;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public void draw(Graphics g, DriverRunner driver) {

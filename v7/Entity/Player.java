@@ -65,7 +65,7 @@ public class Player {
     public double yAccel = 0;
     public double xVelo = 0;
 
-    public final int INVINCIBILITY_TICKS = 10;
+    public final int INVINCIBILITY_TICKS = 70;
     public int currInvincTicks;
     public boolean canTakeDamge;
 
@@ -188,6 +188,8 @@ public class Player {
                 if (level.levMap.rigidBlocks.get(i).getId().equals("button")) {
                     ((ButtonFlag) level.levMap.rigidBlocks.get(i)).setPressed();
                         level.setDone();
+                        level.updateScore(500);
+
 
                 }
                 //hostile
@@ -255,6 +257,8 @@ public class Player {
         for (int i = 0; i < level.levMap.nonRigidBlocks.size(); i++) {
 
            if (getBounds().intersects(level.levMap.nonRigidBlocks.get(i).getBounds())) {
+                level.updateScore(100);
+
                coins++;
                level.levMap.setBlock(level.levMap.nonRigidBlocks.get(i).getRow(), level.levMap.nonRigidBlocks.get(i).getCol(), null);
                level.levMap.nonRigidBlocks.remove(i);
@@ -281,6 +285,8 @@ public class Player {
                     setJumpHeight(20);
                     up();
                 } else {
+                    level.updateScore(200);
+
                     level.levMap.enemies.remove(i);
                     falling = true;
                     canJump = false;
@@ -329,6 +335,8 @@ public class Player {
                     } catch (Exception a) {
                         //TODO: handle exception
                     }
+                    level.updateScore(300);
+
                     updateState(State.NORMAL);
                     level.levMap.entities.remove(i);
                 }

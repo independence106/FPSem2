@@ -261,6 +261,7 @@ public class OverworldHandler extends Handler {
                 //TODO: handle exception
             }
             driver.gameStack.push(driver.stats);
+            goToStats = false;
         }
     }
 
