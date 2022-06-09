@@ -64,7 +64,7 @@ public class CreditsHandler extends Handler {
         tick(driver);
         music.play();
         g.clearRect(0, 0, 800, 600);
-
+        g.drawImage(getImageUsed(), 200, 100, driver);
         g.drawImage(credits, 200, -(currentTicks / 2) + 820, driver);
         
     }
@@ -85,14 +85,16 @@ public class CreditsHandler extends Handler {
     }
 
     public Image getImageUsed() {
+        if (animationTicks > 80) {
+            animationTicks = 0;
+        }
+        animationTicks++;
         if (animationTicks > 40) {
             return Animation.getDabLeft();
         } else {
             return Animation.getDabRight();
         }
-        if (animationTicks > 80) {
-            animationTicks = 0;
-        }
+        
     }
 
     @Override
