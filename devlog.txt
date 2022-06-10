@@ -161,14 +161,14 @@ Breaktime
 2022-06-06
 --------------------------------------------------------------
 Jason:: broken music code, no idea what to do
-
+Ariel:: Designed more levels
 Russell:: Designing levels, repo struture, updated devlog and readme, spike class
 ==============================================================
 
 2022-06-07
 --------------------------------------------------------------
 Jason:: rebuilt entire music for levels, added pictures and cleaning code,
-Ariel:: 
+Ariel:: Additional Powerups
 Russell:: hostile blocks
 ERA OF DARKNESS LIFTED, went through commits :D
 ==============================================================
