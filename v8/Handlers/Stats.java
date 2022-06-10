@@ -51,14 +51,15 @@ public class Stats extends Handler {
 
     @Override
     public void draw(Graphics g, DriverRunner driver) {
-        LinkedList<String> scores = new LinkedList<String>();
+        LinkedList<Integer> scores = new LinkedList<Integer>();
 
         for (int i = 0; i < doublyLinkedList.get(currSelection).scores.size(); i++) {
-            if (doublyLinkedList.get(currSelection).scores.size() < i) {
+            if (i > 5) {
                 break;
             }
-            scores.add(Integer.toString(doublyLinkedList.get(currSelection).scores.get(i)));
+            scores.add(doublyLinkedList.get(currSelection).scores.get(i));
         }
+        QuickSort.qsort(scores);
         System.out.println(doublyLinkedList.size());
         // TODO Auto-generated method stub
         g.clearRect(0, 0, 800, 600);
@@ -66,9 +67,9 @@ public class Stats extends Handler {
         g.setFont(new Font("Sans Serif", Font.PLAIN, 30));
         g.drawString("LEVEL " + Integer.toString(currSelection + 1), 50, 50);
         g.drawString("Deaths Total: " + doublyLinkedList.get(currSelection).deaths, 50, 100);
-        g.drawString("Scores:\n", 50, 150);
+        g.drawString("Highest Scores:\n", 50, 150);
         for (int i = 0; i < scores.size(); i++) {
-            g.drawString(scores.get(i), 70, 200 + i * 50);
+            g.drawString(Integer.toString(scores.get(i)), 70, 200 + i * 50);
             
         }
         tick(driver);

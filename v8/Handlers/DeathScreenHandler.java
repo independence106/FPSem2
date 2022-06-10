@@ -94,7 +94,7 @@ public class DeathScreenHandler extends Handler {
             } catch (Exception e) {
                 //TODO: handle exception
             }
-            Player.setLives(5);
+            Player.setLives(6);
             driver.gameStack.pop();
         }
     }

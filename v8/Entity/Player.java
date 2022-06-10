@@ -118,7 +118,7 @@ public class Player {
         rigidCollision(level);
         if (falling && !jumping) {
             if (groundPound) {
-                yVelo = 5;
+                yVelo = 7;
             } else {
                 yVelo = 1 + yAccel;
                 if (!(yAccel > 4)) {
@@ -161,6 +161,11 @@ public class Player {
         if (currInvincTicks > INVINCIBILITY_TICKS) {
             canTakeDamge = true;
         }
+        if (coins >= 100) {
+            coins = 0;
+            lives++;
+
+        }
 
     }
 
@@ -193,15 +198,29 @@ public class Player {
 
                 }
                 //hostile
-                else if (level.levMap.rigidBlocks.get(i).getId().equals("hostile")) {
-                    level.setDead();
+                else if (level.levMap.rigidBlocks.get(i).getId().equals("spike")) {
+                    if (canTakeDamge) {
+                        if (state != State.BABY) {
+                            updateState(State.BABY);
+                            canTakeDamge = false;
+                        } else {
+                            level.setDead();
+        
+                        }
+                    }
                 }
                 //other blocks
                 else {
                     yPos = level.levMap.rigidBlocks.get(i).getY() - height;
                     yVelo = 0;
                     yAccel = 0;
-                    canJump = true;
+                    if (getJumpBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) && !jumping) {
+                        System.out.println("here");
+                        canJump = true;
+
+                    } else {
+                        canJump = false;
+                    }
                     groundPound = false;
 
                 }
@@ -209,24 +228,48 @@ public class Player {
             //check to the right of the player
             if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getLeftBounds())) {
               //check if hostile
-              if (level.levMap.rigidBlocks.get(i).getId().equals("hostile")) {
-                  level.setDead();
+              if (level.levMap.rigidBlocks.get(i).getId().equals("spike")) {
+                if (canTakeDamge) {
+                    if (state != State.BABY) {
+                        updateState(State.BABY);
+                        canTakeDamge = false;
+                    } else {
+                        level.setDead();
+    
+                    }
+                }
               }
                 xPos = level.levMap.rigidBlocks.get(i).getX() - width + HAND_TO_WALL;
             }
             //check to the left of the player
             if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getRightBounds())) {
               //check if hostile
-              if (level.levMap.rigidBlocks.get(i).getId().equals("hostile")) {
-                  level.setDead();
+              if (level.levMap.rigidBlocks.get(i).getId().equals("spike")) {
+                if (canTakeDamge) {
+                    if (state != State.BABY) {
+                        updateState(State.BABY);
+                        canTakeDamge = false;
+                    } else {
+                        level.setDead();
+    
+                    }
+                }
               }
                 xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize - HAND_TO_WALL;
             }
             //check above the player
             if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
               //check if hostile
-              if (level.levMap.rigidBlocks.get(i).getId().equals("hostile")) {
-                  level.setDead();
+              if (level.levMap.rigidBlocks.get(i).getId().equals("spike")) {
+                if (canTakeDamge) {
+                    if (state != State.BABY) {
+                        updateState(State.BABY);
+                        canTakeDamge = false;
+                    } else {
+                        level.setDead();
+    
+                    }
+                }
               }
                 yPos = level.levMap.rigidBlocks.get(i).getY() + MapSettings.tileSize;
                 jumping = false;
@@ -275,6 +318,7 @@ public class Player {
         }
         for (int i = 0; i < level.levMap.enemies.size(); i++) {
             if (getBottomBounds().intersects(level.levMap.enemies.get(i).getTopBounds())) {
+                groundPound = false;
                 if (level.levMap.enemies.get(i).getId().equals("boss")) {
                     ((Boss) level.levMap.enemies.get(i)).nextPhase();
                     falling = true;
@@ -295,20 +339,35 @@ public class Player {
                     yAccel = 0;
                     setJumpHeight(20);
                     up();
-                    System.out.println("DEAD");
                 }
 
             } else if (getRightBounds().intersects(level.levMap.enemies.get(i).getBounds()) || getLeftBounds().intersects(level.levMap.enemies.get(i).getBounds())) {
-                if (canTakeDamge) {
-                    if (state != State.BABY) {
-                        updateState(State.BABY);
-                        level.levMap.enemies.get(i).flipDir();
-                        canTakeDamge = false;
-                    } else {
-                        level.setDead();
-    
+                if (level.levMap.enemies.get(i).getId().equals("boss")) { // too tired to think
+                    if (((Boss) level.levMap.enemies.get(i)).alive) {
+                        if (canTakeDamge) {
+                            if (state != State.BABY) {
+                                updateState(State.BABY);
+                                level.levMap.enemies.get(i).flipDir();
+                                canTakeDamge = false;
+                            } else {
+                                level.setDead();
+            
+                            }
+                        }
+                    }
+                } else {
+                    if (canTakeDamge) {
+                        if (state != State.BABY) {
+                            updateState(State.BABY);
+                            level.levMap.enemies.get(i).flipDir();
+                            canTakeDamge = false;
+                        } else {
+                            level.setDead();
+        
+                        }
                     }
                 }
+                
 
 
             }
@@ -322,7 +381,7 @@ public class Player {
                             level.levMap.entities.remove(i);
                             canTakeDamge = false;
                         } else {
-                            // level.setDead();
+                            level.setDead();
 
                         }
                     }
@@ -346,13 +405,13 @@ public class Player {
     }
 
     public void updateState(State newState) {
-
+        State temp = state;
         state = newState;
         this.width = state.width;
         this.height = state.height;
         if (newState == State.BABY) {
             this.yPos += 40;
-        } else {
+        } else if (newState == State.NORMAL && temp != State.NORMAL) {
             this.yPos -= 40;
 
         }
@@ -377,8 +436,8 @@ public class Player {
         Graphics o = g.create();
         o.setColor(Color.LIGHT_GRAY);
         drawWithAnimation(g, driver);
-        o.setColor(Color.RED);
-        o.drawRect((int) xPos + HAND_TO_WALL, (int) yPos, width - 2 * HAND_TO_WALL, height);
+       
+        
 
         // o.setColor(Color.BLACK);
         // o.drawRect((int)xPos + width - 4 - HAND_TO_WALL, (int) yPos, 4, height);
@@ -386,58 +445,63 @@ public class Player {
     }
 
     public Image getPlayerImageUsed() {
-        if (state == State.BABY) {
-            if (direction.size() > 0) {
-                if (direction.get(0) == Direction.LEFT) {
-                    if (animationTick < 5) {
-                        return Animation.getLeftWalk1();
-                    }
-
-                    if (animationTick > 10) {
-                        animationTick = 0;
-
-                    }
-                    return Animation.getLeftWalk2();
-                } else {
-                    if (animationTick < 5) {
-                        return Animation.getRightWalk1();
-                    }
-
-                    if (animationTick > 10) {
-                        animationTick = 0;
-
-                    }
-                    return Animation.getRightWalk2();
-                }
-            }
-            return Animation.getNormalBaby();
+        if (!canTakeDamge && animationTick % 2 == 0) {
+            return null;
         } else {
-            if (direction.size() > 0) {
-                if (direction.get(0) == Direction.LEFT) {
-                    if (animationTick < 5) {
-                        return Animation.getLeftWalkAdult1();
+            if (state == State.BABY) {
+                if (direction.size() > 0) {
+                    if (direction.get(0) == Direction.LEFT) {
+                        if (animationTick < 5) {
+                            return Animation.getLeftWalk1();
+                        }
+    
+                        if (animationTick > 10) {
+                            animationTick = 0;
+    
+                        }
+                        return Animation.getLeftWalk2();
+                    } else {
+                        if (animationTick < 5) {
+                            return Animation.getRightWalk1();
+                        }
+    
+                        if (animationTick > 10) {
+                            animationTick = 0;
+    
+                        }
+                        return Animation.getRightWalk2();
                     }
-
-                    if (animationTick > 10) {
-                        animationTick = 0;
-
-                    }
-                    return Animation.getLeftWalkAdult2();
-                } else {
-                    if (animationTick < 5) {
-                        return Animation.getRightWalkAdult1();
-                    }
-
-                    if (animationTick > 10) {
-                        animationTick = 0;
-
-                    }
-                    return Animation.getRightWalkAdult2();
                 }
+                return Animation.getNormalBaby();
+            } else {
+                if (direction.size() > 0) {
+                    if (direction.get(0) == Direction.LEFT) {
+                        if (animationTick < 5) {
+                            return Animation.getLeftWalkAdult1();
+                        }
+    
+                        if (animationTick > 10) {
+                            animationTick = 0;
+    
+                        }
+                        return Animation.getLeftWalkAdult2();
+                    } else {
+                        if (animationTick < 5) {
+                            return Animation.getRightWalkAdult1();
+                        }
+    
+                        if (animationTick > 10) {
+                            animationTick = 0;
+    
+                        }
+                        return Animation.getRightWalkAdult2();
+                    }
+                }
+                return Animation.getNormalAdult();
             }
-            return Animation.getNormalAdult();
+    
         }
-
+        
     }
 
     public void right() {
@@ -481,6 +545,10 @@ public class Player {
 
     public Rectangle getBottomBounds() {
         return new Rectangle((int) xPos + 5 + HAND_TO_WALL, (int) yPos + state.height - 4, state.width - 10 - 2*HAND_TO_WALL, 5); //4 is arbitrary
+    }
+
+    public Rectangle getJumpBounds() {
+        return new Rectangle((int) xPos + HAND_TO_WALL + 6, (int)yPos + state.height - 4, state.width - 16 - 2*HAND_TO_WALL, 30);
     }
 
     public double getX() {

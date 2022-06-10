@@ -43,7 +43,7 @@ public class Fireball extends Entity {
     public void draw(Graphics g, DriverRunner driverRunner) {
         // TODO Auto-generated method stub
         g.setColor(Color.ORANGE);
-        g.fillRect((int) xPos, (int ) yPos, width, height);
+        g.fillOval((int) xPos, (int ) yPos, width, height);
     }
 
     public Rectangle getBounds() {

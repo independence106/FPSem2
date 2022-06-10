@@ -21,6 +21,7 @@ public class DriverRunner extends JPanel implements Runnable{
 	public MusicThing lev1Music;
 	public MusicThing lev2Music; 
 	public MusicThing lev3Music; 
+	public MusicThing lev4Music;
 
 	public Graphics graphics;
 
@@ -88,6 +89,12 @@ public class DriverRunner extends JPanel implements Runnable{
         } 
 		lev3Music.pause();
 		try {
+            lev4Music = new MusicThing("./music/bossFight.mid");
+        } catch (Exception e) {
+            System.out.println(e + "catch error");
+        } 
+		lev4Music.pause();
+		try {
 			Thread.sleep(50);
 		} catch (Exception e) {
 			//TODO: handle exception
@@ -105,6 +112,9 @@ public class DriverRunner extends JPanel implements Runnable{
 			lev3Music.resetAudioStream();
 			lev3Music.restart();
 			lev3Music.pause();
+			lev4Music.resetAudioStream();
+			lev4Music.restart();
+			lev4Music.pause();
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
@@ -113,8 +123,8 @@ public class DriverRunner extends JPanel implements Runnable{
 	public void startup() {
 		// gameStack.push(levelHandler);
 		// gameStack.push(overworldHandler);
-		// gameStack.push(logoIntroHandler);
-		gameStack.push(creditsHandler);
+		gameStack.push(logoIntroHandler);
+		// gameStack.push(creditsHandler);
 		// gameStack.push(outroHandler);
 	}
 
@@ -141,6 +151,11 @@ public class DriverRunner extends JPanel implements Runnable{
 			lev3Music.play();
 		} else {
 			lev3Music.pause();
+		}
+		if (gameStack.peek() == levelHandler && levelHandler.currLev == 3) {
+			lev4Music.play();
+		} else {
+			lev4Music.pause();
 		}
 
 	}

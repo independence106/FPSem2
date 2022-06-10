@@ -19,6 +19,7 @@ public class Boss extends Enemy {
     public int ticks;
     public final int TICKS_PER_PHASE = 1000;
     
+    public int ticksPhaseOne;
     public int ticksPhaseTwo;
     public boolean doFireballs;
     public int ticksAnimationDeath;
@@ -43,12 +44,13 @@ public class Boss extends Enemy {
         width = 80;
         height = 80;
         yVelo = 4;
-        xVelo = -1;
+        xVelo = -2;
         setDirectionRight = true;
         falling = true;
         phase = Phase.ONE;
         ticks = 0;
         ticksAnimationDeath = 0;
+        ticksPhaseOne = 0;
         fade = 1f;
     }
 
@@ -60,7 +62,7 @@ public class Boss extends Enemy {
             }
             if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) && alive) {
                 xPos = level.levMap.rigidBlocks.get(i).getX() - width;       
-                xVelo *= -1;  
+                xVelo = 7;  
                 if (phase == Phase.TWO || phase == Phase.THREE) {
                     doFireballs = true;
                 }      
@@ -68,7 +70,7 @@ public class Boss extends Enemy {
 
             if (getLeftBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds()) && alive) {
                 xPos = level.levMap.rigidBlocks.get(i).getX() + MapSettings.tileSize; 
-                xVelo *= -1;   
+                xVelo = -7;   
                 if (phase == Phase.TWO) {
                     doFireballs = true;
                 }            
@@ -77,9 +79,16 @@ public class Boss extends Enemy {
     }
 
     public void tickPhaseOne(Level level) {
-        if ((level.player.xPos < xPos && xVelo < 0 || level.player.xPos > xPos && xVelo > 0) && Math.abs((level.player.xPos - xPos)) < 800) {
-            xVelo *= -1;
+        if (ticksPhaseOne % 10 == 0) {
+            if ((level.player.xPos < xPos && xVelo < 0 || level.player.xPos > xPos && xVelo > 0) && Math.abs((level.player.xPos - xPos)) < 800) {
+                xVelo *= -1;
+            }
         }
+        if (ticksPhaseOne > 100) {
+            ticksPhaseOne = 0;
+        }
+        ticksPhaseOne++; 
+        
         if (falling) {
             yVelo = 4;
         }
@@ -99,12 +108,11 @@ public class Boss extends Enemy {
             yVelo = 4;
         }
         
-        if (doFireballs && ticksPhaseTwo < 1000) {
+        if (doFireballs && ticksPhaseTwo < 400) {
             ticksPhaseTwo++;
             if (ticksPhaseTwo % 100 == 0) {
                 level.levMap.entities.add(new Fireball(xPos, yPos, level.player.getX(), level.player.getY()));
-                level.levMap.entities.add(new Fireball(xPos, yPos, level.player.getX(), level.player.getY() + 100));
-                level.levMap.entities.add(new Fireball(xPos, yPos, level.player.getX(), level.player.getY() - 100));
+                
 
             }
         }  
@@ -142,11 +150,11 @@ public class Boss extends Enemy {
                 level.levMap.enemies.add(new Kooler((int) (Math.random() * 800), 0));
             }
         }
-        if (doFireballs && ticksPhaseTwo < 1000) {
+        if (doFireballs && ticksPhaseTwo < 400) {
             ticksPhaseTwo++;
             if (ticksPhaseTwo % 100 == 0) {
-                level.levMap.entities.add(new Fireball(xPos, yPos, level.player.getX(), level.player.getY()));
-            }
+                level.levMap.entities.add(new Fireball(xPos, yPos, level.player.getX(), level.player.getY() + 50));
+                level.levMap.entities.add(new Fireball(xPos, yPos, level.player.getX(), level.player.getY() - 50));            }
         }  
         else {
             doFireballs = false;
@@ -160,14 +168,14 @@ public class Boss extends Enemy {
 
     public void tickDeathAnimation(Level level) {
         ticksAnimationDeath++;
-        if (xPos > 1000) {
-            xPos = 990;
-            xVelo = -20;
+        if (xPos > 700) {
+            xPos = 690;
+            xVelo = 40;
         } else 
-        if (xPos < -100) {
-            xPos = -90;
+        if (xPos < 100) {
+            xPos = 110;
 
-            xVelo = 20;
+            xVelo = -40;
         }
         xPos -= xVelo;
         // yPos += yVelo;
@@ -212,12 +220,17 @@ public class Boss extends Enemy {
     }
 
     public Image getImageUsed() {
-        if (xVelo > 0) {
+        if (alive) {
+            if (xVelo > 0) {
+                return Animation.getBossLeft();
+            } else if (xVelo < 0) {
+                return Animation.getBossRight();
+            }
             return Animation.getBossLeft();
-        } else if (xVelo < 0) {
-            return Animation.getBossRight();
+        } else {
+            return Animation.getBossDead();
         }
-        return Animation.getBossLeft();
+        
     }
 
     public Rectangle getBounds() {
@@ -227,7 +240,7 @@ public class Boss extends Enemy {
 
     public Rectangle getRightBounds() {
         
-        return new Rectangle((int)xPos - 4 - HAND_TO_WALL, (int) yPos, 4, height);
+        return new Rectangle((int)xPos - 4 - HAND_TO_WALL + width, (int) yPos, 4, height);
     }
 
     public Rectangle getLeftBounds() {

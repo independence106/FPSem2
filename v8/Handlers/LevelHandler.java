@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import Entity.Player;
+import Entity.Player.State;
 
 public class LevelHandler extends Handler { // Graphics to handle events during a level
 
@@ -33,6 +34,8 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 		levels.add(new Level(1, true)); 
 		levels.add(new Level(2, true));
 		levels.add(new Level(3, true));
+		levels.add(new Level(4, true));
+
 		// levels.add(new Level(4));
 		// levels.add(new Level(5));
 		// levels.add(new Level(6));
@@ -46,6 +49,8 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 		levels.add(new Level(1, false)); 
 		levels.add(new Level(2, false));
 		levels.add(new Level(3, false));
+		levels.add(new Level(4, false));
+
 	}
 
 	public void tick(DriverRunner driver) {
@@ -73,6 +78,7 @@ public class LevelHandler extends Handler { // Graphics to handle events during 
 			Stats.addScore(currLev, levels.get(currLev).getScore());
 
 			Stats.addDeath(currLev);
+			Player.state = State.BABY;
 			// levels.set(currLev, new Level(currLev + 1));
 			driver.overworldHandler.player.setLives(driver.overworldHandler.player.getLives() - 1);
 			driver.resetMusic();

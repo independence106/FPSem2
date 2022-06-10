@@ -89,8 +89,8 @@ public class RENAMEPowerUp extends Entity {
     @Override
     public void draw(Graphics g, DriverRunner driverRunner) {
         // TODO Auto-generated method stub
-        g.setColor(Color.BLUE);
-        g.fillRect((int) xPos, (int) yPos, width, height);
+        g.setColor(Color.PINK);
+        g.fillOval((int) xPos, (int) yPos, width, height);
     }
 
     

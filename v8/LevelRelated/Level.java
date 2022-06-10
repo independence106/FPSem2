@@ -12,6 +12,7 @@ import Entity.Player;
 import Entity.Player.State;
 import Handlers.DriverRunner;
 import Handlers.LevelHandler;
+import Handlers.OverworldHandler;
 import Handlers.Stats;
 import music.MusicThing;
 import music.SoundEffect;
@@ -74,16 +75,24 @@ public class Level {
                 break;
             case 2:
                 loadLev("./LevelRelated/Lev2.txt");
-                loadImg("./images/level2Overworld.png");
-                loadLevBackground("./images/levelBackground2.png");
+                loadImg("./images/level3Overworld.png");
+                loadLevBackground("./images/levelBackground3.png");
                 
                 break;
             case 3: 
                 
 
                 loadLev("./LevelRelated/Lev3.txt");
-                loadImg("./images/level3Overworld.png");
+                loadImg("./images/level2Overworld.png");
                 loadLevBackground("./images/levelBackground2.png");
+
+                break;
+            case 4: 
+                
+
+                loadLev("./LevelRelated/Lev4.txt");
+                loadImg("./images/level4Overworld.png");
+                loadLevBackground("./images/levelBackground4.png");
 
                 break;
             default:
@@ -212,8 +221,9 @@ public class Level {
 		Toolkit.getDefaultToolkit().sync(); 
         g.drawImage(levelBackground, 0, 0, driver);
 		 //background
-		// map.draw(g, this);		
-		if (cam.getX() < 0) g.translate((int) cam.getX(), 0);
+		// map.draw(g, this);	
+
+		if (cam.getX() < 0 && driver.levelHandler.currLev < (OverworldHandler.finalLev - 1)) g.translate((int) cam.getX(), 0);
 		// if (cam.getY() < 0) g.translate(0, (int) cam.getY());
         
         for (Entity entity : levMap.entities) {
@@ -231,8 +241,7 @@ public class Level {
 
 		levMap.draw(g, driver);
 		player.draw(g, driver);
-		if (cam.getX() < 0) g.translate((int) -cam.getX(), 0);
-		// if (cam.getY() < 0) g.translate(0, (int) -cam.getY());
+		if (cam.getX() < 0 && driver.levelHandler.currLev < (OverworldHandler.finalLev - 1)) g.translate((int) -cam.getX(), 0);
 		
 	}
 

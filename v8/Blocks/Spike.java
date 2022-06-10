@@ -7,7 +7,7 @@ import Settings.*;
 public class Spike extends Block {
 
     public Spike(int X, int Y) {
-        super(X, Y, "./images/deathBlock.png");
+        super(X, Y, "./images/spike.png");
     }
 
     public void draw(Graphics g, DriverRunner driver) {
@@ -36,6 +36,6 @@ public class Spike extends Block {
     }
 
     public String getId() {
-        return "hostile";
+        return "spike";
     }
 }

@@ -227,6 +227,10 @@ public class IntroMenuHandler extends Handler {
     public void drawSettings(Graphics g) {
         g.setColor(Color.WHITE);
         g.clearRect(0, 0, 800, 600);
+        g.setFont(new Font("Sans Serif", Font.PLAIN, 30));
+        g.setColor(Color.LIGHT_GRAY); 
+        g.drawString("WASD To Move, escape to leave this, enter to select", 50, 250);
+        g.drawString("press t to access states in overworld, uhh thats it", 50, 300);
     }
 
     public void drawMain(Graphics g, DriverRunner driver) {

@@ -66,7 +66,7 @@ public class OverworldHandler extends Handler {
     public Image background;
 
     public int latestLev;
-    public static final int finalLev = 3;
+    public static final int finalLev = 4;
     public Image lives;
 
     public final int DISTANCE_BETWEEN_LEVELS = 300;
@@ -112,6 +112,7 @@ public class OverworldHandler extends Handler {
             //TODO: handle exception
         }
         driver.levelHandler.resetLev();
+        driver.resetMusic();
         try {
             Thread.sleep(100);
         } catch (Exception e) {

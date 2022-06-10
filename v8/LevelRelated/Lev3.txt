@@ -7,9 +7,9 @@ DDDDDDDDDDD         DDDDDDDDDDWWWWWWWWW      W       WWWWW         GGGG         
 WWWWWWWWWWW         WWWWWWWWWWW              W           W       GGDDDDGG                    DDGG
                               W              WWWW        WD          DD          GGGG       GDDDDG  C
                               W     W                    WDDD                  GGDDDDGG       DDDDGGGG
-                              W    WW                    WDDDD                   DD
+                              W    WW                 WW WDDDD                   DD
                               W     W        K     K     WDDD        CC
-                              W W   WWWWWWWWWWWWWWWWWWWWWW        GGDDDDDGG
+                              WWW   WWWWWWWWWWWWWWWWWWWWWW        GGDDDDDGG
                               W                                  GDDDDDDDDDG
                               W  CCCCC                           DDDDDDDDDDD
                               WWWWWWWWW   WWW   WWW   WWWWWWWWWWWWWWWWWWWWWW
