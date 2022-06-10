@@ -1,4 +1,3 @@
-<<<<<<< HEAD
               CC                             W                                                                                                                                  W
                                              W  CC       W
       S     C     C                          WWWWW       W                        B
@@ -14,21 +13,3 @@ WWWWWWWWWWW         WWWWWWWWWWW              W           W       GGDDDDGG       
                               W                                  GDDDDDDDDDG
                               W  CCCCC                           DDDDDDDDDDD
                               WWWWWWWWW   WWW   WWW   WWWWWWWWWWWWWWWWWWWWWW
-=======
-
-
-
-    WWW                   C 
-          s             C F  W
-  S  GG        C     C                                 F
-GGGGGDD   s  W    K   W                                                             F 
-             GGGGGGGGGG             W                                  GDDDDDDDDDG             
-             DDDDDDDDDD             W  CCCCC        s       CC         DDDDDDDDDDD      s           s
-                          s     G   s            W      K       K     W                   s    B
-                         DDDDDDDDD   WWW   WWW   WWWWWWWWWWWWWWWWWWWWWW                      GGGGGG
-   CCCCC                                                                                     DDDDDD    
-           DDDDDDDDDD
-GGGGGGGGGG
-DDDDDDDDDD
-
->>>>>>> 01d33e55339d64dd955ff0c8df3f5ae624eadb46
