@@ -173,6 +173,17 @@ Russell:: hostile blocks
 ERA OF DARKNESS LIFTED, went through commits :D
 ==============================================================
 
+2022-06-08
+--------------------------------------------------------------
+Jason:: Stats class
+==============================================================
+
+2022-06-09
+--------------------------------------------------------------
+Jason:: V9, final tweaks and final bug fixes
+Ariel:: Finished level design
+==============================================================
+
 
 TODO:
 - Change the System Millis To Timer in LogoHandler
