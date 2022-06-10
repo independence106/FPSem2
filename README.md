@@ -3,6 +3,7 @@
 
 ## Description
 * 2D platformer centered around saving a pineapple. Save the purple pineapple and beat Sir Strawboozles the Third!
+* Uses stacks, DLLs, LLs, quicksort
 
 ## Instructions
 * Clone this repository and type the following commands in the command line. 
