@@ -83,7 +83,7 @@ tales of wisdom gained...
 5/25 - Jason: Overworld develop and transition between levels and overworld <- 1rst prototype is done
        -> Next prototype: working jump, transitions, animations, more blocks and more levels
        -> fix bugs: overworld too far left and put music in driverrunner
-       Ariel: Fixed collisions on blocks.
+       Ariel: Debugging blocks.
 
 5/26 - Jason: music transition between worlds, intro menu handler cleaning
 
