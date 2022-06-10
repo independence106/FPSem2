@@ -68,8 +68,8 @@ public class Stats extends Handler {
         g.drawString("LEVEL " + Integer.toString(currSelection + 1), 50, 50);
         g.drawString("Deaths Total: " + doublyLinkedList.get(currSelection).deaths, 50, 100);
         g.drawString("Highest Scores:\n", 50, 150);
-        for (int i = 0; i < scores.size(); i++) {
-            g.drawString(Integer.toString(scores.get(i)), 70, 200 + i * 50);
+        for (int i = scores.size() - 1; i >= 0; i--) {
+            g.drawString(Integer.toString(scores.get(i)), 70, 200 + ((scores.size() - 1) - i) * 50);
             
         }
         tick(driver);

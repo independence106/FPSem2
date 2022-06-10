@@ -47,7 +47,7 @@ public class Flyer extends Enemy {
         }
         width = 40;
         height = 40;
-        yVelo = 4;
+        yVelo = 2;
         xVelo = 0;
         setDirectionRight = true;
         falling = true;
@@ -62,7 +62,7 @@ public class Flyer extends Enemy {
                 //System.out.println("hit a block");
                 //yPos = level.levMap.rigidBlocks.get(i).getY() + MapSettings.tileSize;
                // System.out.println("bottom bounds called");
-                yVelo = 4;
+                yVelo = 2;
             }
             // if (getRightBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 // xPos = level.levMap.rigidBlocks.get(i).getX() - width;       
@@ -77,7 +77,7 @@ public class Flyer extends Enemy {
              if (getTopBounds().intersects(level.levMap.rigidBlocks.get(i).getBounds())) {
                 yPos = level.levMap.rigidBlocks.get(i).getY() + height + 4;
                 //System.out.println("top bounds called");
-                yVelo = -4;
+                yVelo = -2;
             }
         }
     } 

@@ -113,6 +113,7 @@ public class OverworldHandler extends Handler {
         }
         driver.levelHandler.resetLev();
         driver.resetMusic();
+        
         try {
             Thread.sleep(100);
         } catch (Exception e) {

@@ -174,19 +174,19 @@ public class IntroMenuHandler extends Handler {
             }
         }
 
-        if (System.currentTimeMillis() - localTime < 9000) {
+        if (System.currentTimeMillis() - localTime < 17000) {
             fadeIn();
-        } else if (System.currentTimeMillis() - localTime > 21000) {
+        } else if (System.currentTimeMillis() - localTime > 29000) {
             isFinishedWithPartOne = true;
         }
-        else if (System.currentTimeMillis() - localTime > 17000) {
+        else if (System.currentTimeMillis() - localTime > 25000) {
             fadeOut();
         } 
-        else if (System.currentTimeMillis() - localTime > 14000) {
+        else if (System.currentTimeMillis() - localTime > 21000) {
             part = "";
             fade = 1f;
         } 
-        else if (System.currentTimeMillis() - localTime > 9000) {
+        else if (System.currentTimeMillis() - localTime > 17000) {
             fadeOut();
         }
         

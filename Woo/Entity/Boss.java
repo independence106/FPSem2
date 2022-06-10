@@ -145,7 +145,7 @@ public class Boss extends Enemy {
         if (falling) {
             yVelo = 4;
         }
-        if (Math.random() < 0.01) {
+        if (Math.random() < 0.007) {
             if (level.levMap.enemies.size() < 6) {
                 level.levMap.enemies.add(new Kooler((int) (Math.random() * 800), 0));
             }
