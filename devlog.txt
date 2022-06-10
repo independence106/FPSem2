@@ -24,10 +24,12 @@ Sound starts a little loud
 COOL STUFF LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 stack struture made it easy to test stuff and easy to organize items
+clean code = less hours of debug :D
 
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 We changed our music system, we scrapped a lot of ideas, but overall the same
+Mainly we had to reduce what we wanted to do.
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -185,8 +187,3 @@ Ariel:: Finished level design
 ==============================================================
 
 
-TODO:
-- Change the System Millis To Timer in LogoHandler
-- Add a level progression - moving on btw levels
-- Add intro, menu ect
-==============================================================
